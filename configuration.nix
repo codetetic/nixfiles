@@ -138,6 +138,8 @@
 
   # Users
   users.users.moobert = {
+    shell = pkgs.zsh;
+    ignoreShellProgramCheck = true;
     isNormalUser = true;
     description = "moobert";
     extraGroups = [
