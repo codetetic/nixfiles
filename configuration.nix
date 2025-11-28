@@ -136,6 +136,16 @@
     plasma6.enable = true;
   };
 
+  # Fonts
+  fonts.fontconfig.enable = true;
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+    ipaexfont
+    source-han-sans
+    source-han-serif
+    noto-fonts-emoji
+  ];
+
   # Users
   users.users.moobert = {
     shell = pkgs.zsh;
