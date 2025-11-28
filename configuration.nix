@@ -92,6 +92,7 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
+  # Graphics
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -106,15 +107,18 @@
     enable32Bit = true;
   };
 
-  users.users.moobert = {
-    isNormalUser = true;
-    description = "moobert";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
+  # Sound
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
   };
 
+  # Desktop Environment
   services.xserver = {
     enable = true;
     xkb = {
@@ -132,8 +136,17 @@
     plasma6.enable = true;
   };
 
+  # Users
+  users.users.moobert = {
+    isNormalUser = true;
+    description = "moobert";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+  };
 
-  # Steam
+  # Programmes
   programs.steam = {
     enable = true;
   };
