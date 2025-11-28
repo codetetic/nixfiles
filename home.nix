@@ -24,12 +24,11 @@
     fastfetch
 
     # Utilities
-    tilix
     zoom-us
     discord
     vlc
-    gimp3
-    transmission_4-gtk
+    krita
+    ktorrent
 
     # Games
     openrct2
