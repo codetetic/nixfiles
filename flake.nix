@@ -29,6 +29,7 @@
       nixosSystem = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
+          ./system/odyssey.nix
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {

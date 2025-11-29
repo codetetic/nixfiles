@@ -23,18 +23,21 @@
     btop
     fastfetch
 
-    # General
+    # Comms
     zoom-us
     discord
-    vlc
 
     # KDE
     krita
     kdePackages.ktorrent
 
+    # Media
+    vlc
+
     # Games
     openrct2
     openttd
+    heroic
   ];
 
   programs.bash.enable = true;
