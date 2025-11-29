@@ -23,12 +23,14 @@
     btop
     fastfetch
 
-    # Utilities
+    # General
     zoom-us
     discord
     vlc
+
+    # KDE
     krita
-    ktorrent
+    kdePackages.ktorrent
 
     # Games
     openrct2
