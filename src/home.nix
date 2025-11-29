@@ -6,7 +6,7 @@
 
 {
   imports = [
-    ./src/home
+    ./home
   ];
 
   home.stateVersion = "25.05";
