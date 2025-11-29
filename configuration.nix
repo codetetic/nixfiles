@@ -1,7 +1,6 @@
 {
-  config,
-  lib,
   pkgs,
+  username,
   ...
 }:
 
@@ -69,11 +68,11 @@
   ];
 
   # Users
-  users.users.moobert = {
+  users.users.${username} = {
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
     isNormalUser = true;
-    description = "moobert";
+    description = username;
     extraGroups = [
       "networkmanager"
       "wheel"

@@ -1,5 +1,6 @@
 {
   pkgs,
+  username,
   ...
 }:
 
@@ -9,8 +10,8 @@
   ];
 
   home.stateVersion = "25.05";
-  home.username = "moobert";
-  home.homeDirectory = "/home/moobert";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   home.packages = with pkgs; [
     # Development
