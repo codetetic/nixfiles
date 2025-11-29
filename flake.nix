@@ -28,7 +28,7 @@
       system = "x86_64-linux";
       username = "moobert";
       modules = [
-        ./configuration.nix
+        ./src/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -43,7 +43,7 @@
         inherit system;
         specialArgs = { inherit inputs username; };
         modules = [
-          ./system/odyssey.nix
+          ./src/system/odyssey.nix
         ]
         ++ modules;
       };
