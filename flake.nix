@@ -33,7 +33,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.moobert = import ./home.nix;
+          home-manager.users.${username} = import ./src/home.nix;
           home-manager.extraSpecialArgs = { inherit inputs username; };
         }
       ];
