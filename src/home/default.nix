@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./bash.nix
     ./direnv.nix
     ./git.nix
     ./keychain.nix

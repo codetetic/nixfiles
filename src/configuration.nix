@@ -50,11 +50,11 @@
   };
 
   services.displayManager = {
-    sddm.enable = true;
+    cosmic-greeter.enable = true;
   };
 
   services.desktopManager = {
-    plasma6.enable = true;
+    cosmic.enable = true;
   };
 
   # Fonts
@@ -80,6 +80,10 @@
   };
 
   # Programmes
+  programs.nix-ld = {
+    enable = true;
+  };
+
   programs.steam = {
     enable = true;
   };
