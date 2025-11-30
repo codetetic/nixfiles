@@ -1,6 +1,6 @@
 {
   pkgs,
-  username,
+  user,
   ...
 }:
 
@@ -60,20 +60,23 @@
   # Fonts
   fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
+    # Icons
     nerd-fonts.fira-code
     nerd-fonts.noto
+
+    # Japanese
     ipaexfont
     source-han-sans
     source-han-serif
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   # Users
-  users.users.${username} = {
+  users.users.${user.name} = {
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
     isNormalUser = true;
-    description = username;
+    description = user.description;
     extraGroups = [
       "networkmanager"
       "wheel"

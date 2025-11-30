@@ -32,6 +32,7 @@
       shiftwidth = 4;
       expandtab = true;
       autoindent = true;
+      termguicolors = true;
     };
 
     # --- LSP and completion ---
@@ -61,7 +62,6 @@
       lualine = {
         enable = true;
       };
-
       web-devicons.enable = true;
 
       none-ls = {

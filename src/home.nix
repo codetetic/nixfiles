@@ -1,6 +1,6 @@
 {
   pkgs,
-  username,
+  user,
   ...
 }:
 
@@ -10,8 +10,8 @@
   ];
 
   home.stateVersion = "25.05";
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
+  home.username = user.name;
+  home.homeDirectory = "/home/${user.name}";
 
   home.packages = with pkgs; [
     # Utilities
@@ -44,14 +44,12 @@
     # Games
     openrct2
     openttd
-    path-of-building
   ];
 
   programs.bash.enable = true;
   programs.zsh.enable = true;
 
   programs.git.enable = true;
-  programs.ssh.enable = true;
   programs.keychain.enable = true;
   programs.direnv.enable = true;
   programs.nixvim.enable = true;

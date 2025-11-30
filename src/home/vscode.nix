@@ -11,6 +11,8 @@
     ];
 
     profiles.default.userSettings = {
+      "terminal.integrated.fontFamily" = "FiraCode Nerd Font";
+      "terminal.integrated.fontSize" = 14;
       "chat.mcp.gallery.enabled" = false;
       "editor.minimap.enabled" = false;
       "workbench.colorTheme" = "Catppuccin Mocha";
