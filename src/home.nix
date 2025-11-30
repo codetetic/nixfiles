@@ -14,31 +14,37 @@
   home.homeDirectory = "/home/${username}";
 
   home.packages = with pkgs; [
+    # Utilities
+    btop
+    ncdu
+    pwgen
+    fastfetch
+
     # Development
     git
+    silver-searcher
     devenv
     nixd
     nixfmt-rfc-style
-    pwgen
-    silver-searcher
-    btop
-    fastfetch
 
-    # Comms
+    # Chat
     zoom-us
     discord
 
-    # KDE
-    krita
-    kdePackages.ktorrent
-
     # Media
     vlc
+    gimp3
+    transmission_4-gtk
+
+    # Windows
+    bottles
+    wine
+    winetricks
 
     # Games
     openrct2
     openttd
-    heroic
+    path-of-building
   ];
 
   programs.bash.enable = true;
@@ -53,6 +59,4 @@
 
   programs.firefox.enable = true;
   programs.chromium.enable = true;
-
-  programs.lutris.enable = true;
 }
