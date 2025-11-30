@@ -1,5 +1,6 @@
-{ pkgs, inputs, ... }: {
-  imports = [ 
+{ pkgs, inputs, ... }:
+{
+  imports = [
     inputs.nixvim.homeModules.nixvim
   ];
 
@@ -57,7 +58,10 @@
         ];
       };
 
-      lualine.enable = true;
+      lualine = {
+        enable = true;
+      };
+
       web-devicons.enable = true;
 
       none-ls = {

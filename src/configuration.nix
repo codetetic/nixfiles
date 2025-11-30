@@ -61,6 +61,7 @@
   fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
+    nerd-fonts.noto
     ipaexfont
     source-han-sans
     source-han-serif
