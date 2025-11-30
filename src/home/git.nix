@@ -4,7 +4,7 @@
     settings = {
       user.name = user.description;
       user.email = user.email;
-      aliases = {
+      alias = {
         st = "status";
         ci = "commit";
         co = "checkout";
