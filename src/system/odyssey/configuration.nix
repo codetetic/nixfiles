@@ -1,4 +1,5 @@
 {
+  user,
   ...
 }:
 
@@ -11,6 +12,12 @@
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
     };
+  };
+
+  users.users.${user.name} = {
+    extraGroups = [
+      "podman"
+    ];
   };
 
   # Programmes
