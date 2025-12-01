@@ -14,18 +14,6 @@
   home.homeDirectory = "/home/${user.name}";
 
   home.packages = with pkgs; [
-    # Utilities
-    btop
-    ncdu
-    pwgen
-    fastfetch
-
-    # Development
-    silver-searcher
-    devenv
-    nixd
-    nixfmt-rfc-style
-
     # Media
     gimp3
 
