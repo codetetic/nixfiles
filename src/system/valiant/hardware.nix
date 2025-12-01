@@ -20,10 +20,12 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.initrd.systemd.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Filesystems
   boot.supportedFilesystems = [ "zfs" ];
-  boot.initrd.systemd.enable = true;
 
   fileSystems."/" = {
     device = "tank/root";
