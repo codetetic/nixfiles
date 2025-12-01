@@ -17,12 +17,13 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  boot.initrd.systemd.enable = true;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.initrd.systemd.enable = true;
 
   # Filesystems
+  boot.supportedFilesystems = [ "zfs" ];
+
   fileSystems."/" = {
     device = "tank/root";
     fsType = "zfs";
