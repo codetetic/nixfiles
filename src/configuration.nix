@@ -76,15 +76,13 @@
   # Fonts
   fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
-    # Icons
+    # Code + icons
     nerd-fonts.fira-code
-    nerd-fonts.noto
+    nerd-fonts.meslo-lg
 
-    # Japanese
-    ipaexfont
+    # High-quality Japanese fonts
     source-han-sans
-    source-han-serif
-    noto-fonts-color-emoji
+    source-han-seri
   ];
 
   # Users
