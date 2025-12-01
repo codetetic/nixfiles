@@ -32,12 +32,11 @@
         email = "github@codetetic.co.uk";
       };
       modules = [
-        ./src/configuration.nix
+        ./src/system/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${user.name} = import ./src/home.nix;
           home-manager.extraSpecialArgs = { inherit inputs user; };
         }
       ];
@@ -47,7 +46,11 @@
         inherit system;
         specialArgs = { inherit inputs user; };
         modules = [
-          ./src/system/odyssey.nix
+          ./src/system/odyssey/hardware.nix
+          ./src/system/odyssey/configuration.nix
+          {
+            home-manager.users.${user.name} = import ./src/system/odyssey/home.nix;
+          }
         ]
         ++ modules;
       };
@@ -56,7 +59,11 @@
         inherit system;
         specialArgs = { inherit inputs user; };
         modules = [
-          ./src/system/valiant.nix
+          ./src/system/valiant/hardware.nix
+          ./src/system/valiant/configuration.nix
+          {
+            home-manager.users.${user.name} = import ./src/system/valiant/home.nix;
+          }
         ]
         ++ modules;
       };

@@ -63,16 +63,6 @@
     cosmic.enable = true;
   };
 
-  # Virtualisation
-  virtualisation = {
-    containers.enable = true;
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
-
   # Fonts
   fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
@@ -103,10 +93,6 @@
 
   # Programmes
   programs.nix-ld = {
-    enable = true;
-  };
-
-  programs.steam = {
     enable = true;
   };
 }

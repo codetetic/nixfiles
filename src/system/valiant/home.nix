@@ -6,7 +6,7 @@
 
 {
   imports = [
-    ./home
+    ../../home
   ];
 
   home.stateVersion = "25.05";
@@ -27,19 +27,8 @@
     nixd
     nixfmt-rfc-style
 
-    # Chat
-    zoom-us
-    discord
-
     # Media
-    vlc
     gimp3
-    transmission_4-gtk
-
-    # Windows
-    bottles
-    wine
-    winetricks
 
     # Games
     openrct2
