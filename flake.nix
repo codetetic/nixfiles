@@ -27,7 +27,7 @@
     let
       system = "x86_64-linux";
       user = {
-        name = "moobert";
+        name = "peter";
         description = "Peter Measham";
         email = "github@codetetic.co.uk";
       };
@@ -48,6 +48,15 @@
         specialArgs = { inherit inputs user; };
         modules = [
           ./src/system/odyssey.nix
+        ]
+        ++ modules;
+      };
+
+      nixosConfigurations."valiant" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs user; };
+        modules = [
+          ./src/system/valiant.nix
         ]
         ++ modules;
       };
