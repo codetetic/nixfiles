@@ -16,38 +16,11 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-
-  boot.initrd.systemd.enable = true;
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Filesystems
-  boot.supportedFilesystems = [ "zfs" ];
-
-  fileSystems."/" = {
-    device = "tank/root";
-    fsType = "zfs";
-  };
-  fileSystems."/nix" = {
-    device = "tank/nix";
-    fsType = "zfs";
-  };
-  fileSystems."/var" = {
-    device = "tank/var";
-    fsType = "zfs";
-  };
-  fileSystems."/home" = {
-    device = "tank/home";
-    fsType = "zfs";
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/B9A2-EE13";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
   };
 
   swapDevices = [
@@ -56,16 +29,6 @@
       randomEncryption.enable = true;
     }
   ];
-
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-  };
-
-  services.zfs = {
-    autoScrub.enable = true;
-    trim.enable = true;
-  };
 
   # CPU
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
