@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -13,8 +14,9 @@
     "usbhid"
     "sd_mod"
     "rtsx_pci_sdmmc"
+    "i915"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -68,6 +70,20 @@
 
   # CPU
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  services.thermald.enable = true;
+
+  # GPU
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+
+  services.xserver = {
+    videoDrivers = [ "modesetting" ];
+  };
 
   # Networking
   networking = {
