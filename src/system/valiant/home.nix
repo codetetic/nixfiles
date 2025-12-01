@@ -21,7 +21,6 @@
     fastfetch
 
     # Development
-    git
     silver-searcher
     devenv
     nixd
@@ -35,7 +34,6 @@
     openttd
   ];
 
-  programs.bash.enable = true;
   programs.zsh.enable = true;
 
   programs.git.enable = true;
