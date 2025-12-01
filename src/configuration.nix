@@ -8,10 +8,16 @@
   # Nix
   system.stateVersion = "25.05";
   nixpkgs.config.allowUnfree = true;
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
+  nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 7d";
+  };
 
   # Locale
   time.timeZone = "Europe/London";
@@ -55,6 +61,16 @@
 
   services.desktopManager = {
     cosmic.enable = true;
+  };
+
+  # Virtualisation
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
   };
 
   # Fonts
