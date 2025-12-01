@@ -37,7 +37,6 @@
   programs.zsh.enable = true;
 
   programs.git.enable = true;
-  programs.keychain.enable = true;
   programs.direnv.enable = true;
   programs.nixvim.enable = true;
   programs.vscode.enable = true;
