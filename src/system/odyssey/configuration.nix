@@ -16,6 +16,8 @@
 
   users.users.${user.name} = {
     extraGroups = [
+      "networkmanager"
+      "wheel"
       "podman"
     ];
   };
