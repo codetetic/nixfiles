@@ -96,6 +96,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "podman"
     ];
   };
 
