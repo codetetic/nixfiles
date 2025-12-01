@@ -26,46 +26,47 @@
     inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-      user = {
-        name = "peter";
-        description = "Peter Measham";
-        email = "github@codetetic.co.uk";
-      };
-      modules = [
-        ./src/system/configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit inputs user; };
-        }
-      ];
-    in
-    {
-      nixosConfigurations."odyssey" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs user; };
-        modules = [
-          ./src/system/odyssey/hardware.nix
-          ./src/system/odyssey/configuration.nix
-          {
-            home-manager.users.${user.name} = import ./src/system/odyssey/home.nix;
-          }
-        ]
-        ++ modules;
+
+      users = {
+        home = {
+          name = "moobert";
+          description = "Peter Measham";
+          email = "github@codetetic.co.uk";
+        };
+        work = {
+          name = "peter";
+          description = "Peter Measham";
+          email = "github@codetetic.co.uk";
+        };
       };
 
-      nixosConfigurations."valiant" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs user; };
-        modules = [
-          ./src/system/valiant/hardware.nix
-          ./src/system/valiant/configuration.nix
-          {
-            home-manager.users.${user.name} = import ./src/system/valiant/home.nix;
-          }
-        ]
-        ++ modules;
+      mkNixosConfig =
+        { host, user }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs user; };
+          modules = [
+            ./src/system/${host}/hardware.nix
+            ./src/system/configuration.nix
+            ./src/system/${host}/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs user; };
+              home-manager.users.${user.name} = import ./src/system/${host}/home.nix;
+            }
+          ];
+        };
+    in
+    {
+      nixosConfigurations."odyssey" = mkNixosConfig {
+        host = "odyssey";
+        user = users.home;
+      };
+      nixosConfigurations."valiant" = mkNixosConfig {
+        host = "valiant";
+        user = users.work;
       };
     };
 }
