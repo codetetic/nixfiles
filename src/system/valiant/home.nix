@@ -29,7 +29,7 @@
   programs.nixvim.enable = true;
   programs.vscode.enable = true;
 
-  programs.firefox.enable = true;
+  programs.librewolf.enable = true;
   programs.chromium.enable = true;
 
   programs.keychain = {

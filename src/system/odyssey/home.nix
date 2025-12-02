@@ -33,14 +33,18 @@
     openttd
   ];
 
-  programs.bash.enable = true;
   programs.zsh.enable = true;
+
+  programs.librewolf.enable = true;
+  programs.chromium.enable = true;
 
   programs.git.enable = true;
   programs.direnv.enable = true;
   programs.nixvim.enable = true;
   programs.vscode.enable = true;
 
-  programs.firefox.enable = true;
-  programs.chromium.enable = true;
+  programs.keychain = {
+    enable = true;
+    keys = [ "github" ];
+  };
 }
