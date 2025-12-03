@@ -17,7 +17,7 @@
     "i915"
   ];
   boot.initrd.kernelModules = [ "i915" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "iwlwifi" ];
   boot.extraModulePackages = [ ];
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -57,4 +57,5 @@
     networkmanager.enable = true;
     useDHCP = lib.mkDefault true;
   };
+  hardware.enableAllFirmware = true;
 }
