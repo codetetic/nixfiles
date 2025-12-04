@@ -14,6 +14,9 @@
   home.homeDirectory = "/home/${user.name}";
 
   home.packages = with pkgs; [
+    # Utilities
+    keepassxc
+
     # Media
     gimp3
 
