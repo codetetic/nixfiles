@@ -1,8 +1,23 @@
 {
+  user,
   ...
 }:
 
 {
+  # User
+  users.users.${user.name} = {
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
+  };
+
+  # Virtualisation
+  virtualisation = {
+    docker.enable = true;
+  };
+
   # Firewall
   networking.firewall = {
     enable = true;

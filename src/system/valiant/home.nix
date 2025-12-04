@@ -34,6 +34,10 @@
 
   programs.keychain = {
     enable = true;
-    keys = [ "github" ];
+    keys = [
+      "home"
+      "github"
+      "azure"
+    ];
   };
 }

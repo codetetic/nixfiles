@@ -54,8 +54,6 @@
   networking = {
     hostId = "4b3c47ff";
     hostName = "valiant";
-    networkmanager.enable = true;
-    useDHCP = lib.mkDefault true;
   };
   hardware.enableAllFirmware = true;
 }

@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   user,
   ...
@@ -84,10 +85,17 @@
     ignoreShellProgramCheck = true;
     isNormalUser = true;
     description = user.description;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
+  };
+
+  # Networking
+  environment.systemPackages = with pkgs; [
+    networkmanager-openvpn
+    wireguard-tools
+  ];
+
+  networking = {
+    networkmanager.enable = true;
+    useDHCP = lib.mkDefault true;
   };
 
   # Programmes

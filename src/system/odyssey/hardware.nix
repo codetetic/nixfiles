@@ -56,7 +56,5 @@
   networking = {
     hostId = "18857cad";
     hostName = "odyssey";
-    networkmanager.enable = true;
-    useDHCP = lib.mkDefault true;
   };
 }
