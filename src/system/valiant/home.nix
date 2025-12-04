@@ -14,8 +14,14 @@
   home.homeDirectory = "/home/${user.name}";
 
   home.packages = with pkgs; [
+    # Development
+    nodejs_22
+    php82
+    tmux
+
     # Utilities
     keepassxc
+    gnumake
 
     # Media
     gimp3
