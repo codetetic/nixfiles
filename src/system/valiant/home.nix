@@ -32,6 +32,7 @@
   ];
 
   programs.zsh.enable = true;
+  programs.ssh.enable = true;
 
   programs.git.enable = true;
   programs.direnv.enable = true;
