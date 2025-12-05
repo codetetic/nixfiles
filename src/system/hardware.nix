@@ -7,7 +7,8 @@
   boot.initrd.systemd.enable = true;
   boot.loader.systemd-boot.enable = true;
 
-    # Filesystems
+  # Filesystems
+  # See: https://blog.hetherington.uk/2025/02/installing-nixos-on-a-thinkpad-t480s-with-encrypted-zfs-2/
   boot.supportedFilesystems = [ "zfs" ];
 
   fileSystems."/" = {

@@ -85,6 +85,7 @@
     ignoreShellProgramCheck = true;
     isNormalUser = true;
     description = user.description;
+    openssh.authorizedKeys.keys = user.keys;
   };
 
   # Networking
