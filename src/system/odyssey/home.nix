@@ -34,6 +34,7 @@
   ];
 
   programs.zsh.enable = true;
+  programs.ssh.enable = true;
 
   programs.librewolf.enable = true;
   programs.chromium.enable = true;

@@ -79,6 +79,32 @@
     source-han-serif
   ];
 
+  # DNS
+  services.blocky = {
+    enable = true;
+    settings = {
+      ports = {
+        dns = 53;
+        http = 4000;
+      };
+      upstreams.groups.default = [
+        "https://one.one.one.one/dns-query"
+      ];
+      blocking = {
+        denylists = {
+          ads = [
+            "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+          ];
+        };
+        clientGroupsBlock = {
+          default = [
+            "ads"
+          ];
+        };
+      };
+    };
+  };
+
   # Users
   users.users.${user.name} = {
     shell = pkgs.zsh;
@@ -97,6 +123,7 @@
   networking = {
     networkmanager.enable = true;
     useDHCP = lib.mkDefault true;
+    #nameservers = [ "127.0.0.1" ];
   };
 
   # Programmes
