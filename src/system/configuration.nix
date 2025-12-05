@@ -88,8 +88,14 @@
         http = 4000;
       };
       upstreams.groups.default = [
-        "https://one.one.one.one/dns-query"
+        "https://1.1.1.1/dns-query"
+        "https://1.0.0.1/dns-query"
       ];
+      caching = {
+        minTime = "5m";
+        maxTime = "30m";
+        prefetching = true;
+      };
       blocking = {
         denylists = {
           ads = [
@@ -123,7 +129,7 @@
   networking = {
     networkmanager.enable = true;
     useDHCP = lib.mkDefault true;
-    #nameservers = [ "127.0.0.1" ];
+    nameservers = [ "127.0.0.1" ];
   };
 
   # Programmes
