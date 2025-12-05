@@ -87,6 +87,10 @@
         dns = 53;
         http = 4000;
       };
+      bootstrapDns = {
+        upstream = "tcp+udp:1.1.1.1";
+        ips = [ "1.1.1.1" "1.0.0.1" ];
+      };
       upstreams.groups.default = [
         "https://1.1.1.1/dns-query"
         "https://1.0.0.1/dns-query"
@@ -127,8 +131,8 @@
   ];
 
   networking = {
-    networkmanager.enable = true;
     useDHCP = lib.mkDefault true;
+    networkmanager.enable = true;
     nameservers = [ "127.0.0.1" ];
   };
 
