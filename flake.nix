@@ -40,6 +40,7 @@
           name = "peter";
           description = "Peter Measham";
           email = "github@codetetic.co.uk";
+          keys = [ homeKey ];
         };
       };
 
