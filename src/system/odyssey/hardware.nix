@@ -52,6 +52,9 @@
     videoDrivers = [ "nvidia" ];
   };
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+
   # Networking
   networking = {
     hostId = "18857cad";

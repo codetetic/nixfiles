@@ -50,10 +50,12 @@
     videoDrivers = [ "modesetting" ];
   };
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+
   # Networking
   networking = {
     hostId = "4b3c47ff";
     hostName = "valiant";
   };
-  hardware.enableAllFirmware = true;
 }

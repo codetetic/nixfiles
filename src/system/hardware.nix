@@ -45,4 +45,7 @@
     autoScrub.enable = true;
     trim.enable = true;
   };
+
+  # Hardware
+  hardware.enableAllFirmware = true;
 }
