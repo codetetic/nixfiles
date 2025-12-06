@@ -134,6 +134,10 @@
     isNormalUser = true;
     description = user.description;
     openssh.authorizedKeys.keys = user.keys;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   # Networking
@@ -145,6 +149,21 @@
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;
     nameservers = [ "127.0.0.1" ];
+  };
+
+  # Firewall
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 ];
+  };
+
+  # Services
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
   };
 
   # Programmes

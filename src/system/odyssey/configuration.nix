@@ -5,15 +5,6 @@
 }:
 
 {
-  # Users
-  users.users.${user.name} = {
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "podman"
-    ];
-  };
-
   # Virtualisation
   virtualisation = {
     containers.enable = true;
@@ -23,26 +14,13 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
-
-  # Firewall
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 22 ];
-  };
-
-  # Services
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-    };
-  };
+  users.users.${user.name}.extraGroups = [ "podman" ];
 
   # Programmes
   programs.steam = {
     enable = true;
     extraCompatPackages = with pkgs; [
-      proton-ge
+      proton-ge-bin
     ];
   };
 }
