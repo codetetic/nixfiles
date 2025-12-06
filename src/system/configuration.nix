@@ -2,14 +2,26 @@
   lib,
   pkgs,
   user,
+  config,
   ...
 }:
 
 {
-  # Nix
+  # System
   system.stateVersion = "25.05";
-  nixpkgs.config.allowUnfree = true;
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/home/${user.name}/src/nixfiles#${config.networking.hostName}";
+    flags = [
+      "--update-input" "nixpkgs"
+      "--commit-lock-file"
+    ];
+    dates = "daily";
+    randomizedDelaySec = "30min";
+  };
 
+  # Nix
+  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -55,17 +67,14 @@
       variant = "";
     };
   };
-
   services.displayManager = {
     cosmic-greeter.enable = true;
   };
-
   services.desktopManager = {
     cosmic.enable = true;
   };
 
   # Fonts
-  fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
     # Emoji
     noto-fonts-color-emoji
@@ -132,7 +141,6 @@
     networkmanager-openvpn
     wireguard-tools
   ];
-
   networking = {
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;
