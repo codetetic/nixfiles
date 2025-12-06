@@ -21,7 +21,6 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/51CC-06ED";
   };
-
   swapDevices = [
     {
       device = "/dev/disk/by-partuuid/59cce7dd-3409-48ce-90db-0e7d143dfe9f";
@@ -41,7 +40,6 @@
       intel-media-driver
     ];
   };
-
   services.xserver = {
     videoDrivers = [ "modesetting" ];
   };
