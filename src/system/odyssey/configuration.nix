@@ -1,5 +1,6 @@
 {
   user,
+  pkgs,
   ...
 }:
 
@@ -40,5 +41,8 @@
   # Programmes
   programs.steam = {
     enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge
+    ];
   };
 }
