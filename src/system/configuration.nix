@@ -89,12 +89,15 @@
       };
       bootstrapDns = {
         upstream = "tcp+udp:1.1.1.1";
-        ips = [ "1.1.1.1" "1.0.0.1" ];
+        ips = [ "1.1.1.1" ];
       };
-      upstreams.groups.default = [
-        "https://1.1.1.1/dns-query"
-        "https://1.0.0.1/dns-query"
-      ];
+      upstreams = {
+        strategy = "strict";
+        groups.default = [
+          "https://1.1.1.1/dns-query"
+          "tcp+udp:1.1.1.1"
+        ];
+      };
       caching = {
         minTime = "5m";
         maxTime = "30m";
