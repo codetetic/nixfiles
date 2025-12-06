@@ -27,7 +27,7 @@
     let
       system = "x86_64-linux";
 
-      homeKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvqYOiulexoYG0eg+Co5NggVoN3rfNECQ6fEu+wGvrj peter@codetetic.co.uk";
+      homeKey = builtins.readFile ./src/home.pub;
 
       users = {
         home = {
