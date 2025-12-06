@@ -6,6 +6,7 @@
 }:
 
 {
+  # Bootloader
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
@@ -14,12 +15,7 @@
     "usbhid"
     "sd_mod"
     "rtsx_pci_sdmmc"
-    "i915"
   ];
-  boot.initrd.kernelModules = [ "i915" ];
-  boot.kernelModules = [ "kvm-intel" "iwlwifi" ];
-  boot.extraModulePackages = [ ];
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Filesystems
   fileSystems."/boot" = {

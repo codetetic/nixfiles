@@ -5,6 +5,7 @@
 }:
 
 {
+  # Bootloader
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ehci_pci"
@@ -13,10 +14,6 @@
     "usbhid"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Filesystems
   fileSystems."/boot" = {

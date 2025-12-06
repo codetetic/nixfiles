@@ -4,7 +4,11 @@
 
 {
   # Bootloader
+  boot.kernelModules = [ ];
+  boot.extraModulePackages = [ ];
+  boot.initrd.kernelModules = [ ];
   boot.initrd.systemd.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
 
   # Filesystems
