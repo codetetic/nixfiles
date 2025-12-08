@@ -10,6 +10,7 @@
         ci = "commit";
         co = "checkout";
         br = "branch";
+        vtag = "!git --no-pager tag --sort=version:refname";
       };
     };
   };
