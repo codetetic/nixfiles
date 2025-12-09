@@ -15,9 +15,12 @@
 
   home.packages = with pkgs; [
     # Development
+    yarn
     nodejs_22
     php82
     tmux
+    symfony-cli
+    azure-cli
 
     # Utilities
     keepassxc
@@ -25,10 +28,6 @@
 
     # Media
     gimp3
-
-    # Games
-    openrct2
-    openttd
   ];
 
   programs.zsh.enable = true;

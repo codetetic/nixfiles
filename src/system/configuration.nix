@@ -10,10 +10,10 @@
   # System
   system.stateVersion = "25.05";
   system.autoUpgrade = {
-    enable = true;
     flake = "/home/${user.name}/src/nixfiles#${config.networking.hostName}";
     flags = [
-      "--update-input" "nixpkgs"
+      "--update-input"
+      "nixpkgs"
       "--commit-lock-file"
     ];
     dates = "daily";
@@ -68,10 +68,18 @@
     };
   };
   services.displayManager = {
-    cosmic-greeter.enable = true;
+    autoLogin = {
+      enable = true;
+      user = user.name;
+    };
+    cosmic-greeter = {
+      enable = true;
+    };
   };
   services.desktopManager = {
-    cosmic.enable = true;
+    cosmic = {
+      enable = true;
+    };
   };
 
   # Fonts

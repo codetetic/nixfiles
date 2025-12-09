@@ -5,6 +5,11 @@
 }:
 
 {
+  # System
+  system.autoUpgrade = {
+    enable = true;
+  };
+
   # Virtualisation
   virtualisation = {
     podman = {
