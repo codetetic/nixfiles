@@ -11,6 +11,7 @@
     ];
 
     profiles.default.userSettings = {
+      "update.mode" = "none";
       "terminal.integrated.fontFamily" = "FiraCode Nerd Font";
       "terminal.integrated.fontSize" = 14;
       "chat.mcp.gallery.enabled" = false;
