@@ -32,6 +32,10 @@
     lutris
     openrct2
     openttd
+
+    # Browser
+    vivaldi
+    vivaldi-ffmpeg-codecs
   ];
 
   programs.zsh.enable = true;
