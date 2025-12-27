@@ -33,7 +33,7 @@
     openrct2
     openttd
 
-    # Browser
+    # Browsers
     vivaldi
     vivaldi-ffmpeg-codecs
   ];

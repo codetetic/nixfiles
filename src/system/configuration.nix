@@ -96,45 +96,6 @@
     source-han-serif
   ];
 
-  # DNS
-  services.blocky = {
-    enable = true;
-    settings = {
-      ports = {
-        dns = 53;
-        http = 4000;
-      };
-      bootstrapDns = {
-        upstream = "tcp+udp:1.1.1.1";
-        ips = [ "1.1.1.1" ];
-      };
-      upstreams = {
-        strategy = "strict";
-        groups.default = [
-          "https://1.1.1.1/dns-query"
-          "tcp+udp:1.1.1.1"
-        ];
-      };
-      caching = {
-        minTime = "5m";
-        maxTime = "30m";
-        prefetching = true;
-      };
-      blocking = {
-        denylists = {
-          ads = [
-            "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-          ];
-        };
-        clientGroupsBlock = {
-          default = [
-            "ads"
-          ];
-        };
-      };
-    };
-  };
-
   # Users
   users.users.${user.name} = {
     shell = pkgs.zsh;
@@ -156,7 +117,6 @@
   networking = {
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;
-    nameservers = [ "127.0.0.1" ];
   };
 
   # Firewall

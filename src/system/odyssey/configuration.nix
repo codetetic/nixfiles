@@ -26,4 +26,9 @@
       proton-ge-bin
     ];
   };
+
+  # Services
+  services.flatpak = {
+    enable = true;
+  };
 }
