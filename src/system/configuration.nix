@@ -81,6 +81,9 @@
       enable = true;
     };
   };
+  services.system76-scheduler = {
+    enable = true;
+  };
 
   # Fonts
   fonts.packages = with pkgs; [
