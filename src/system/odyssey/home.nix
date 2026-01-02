@@ -29,6 +29,7 @@
     winetricks
 
     # Games
+    vulkan-tools
     lutris
     openrct2
     openttd
