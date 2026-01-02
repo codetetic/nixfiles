@@ -1,10 +1,16 @@
 {
   user,
   pkgs,
+  inputs,
   ...
 }:
 
 {
+  imports = [
+    inputs.aagl.nixosModules.default
+  ];
+  nix.settings = inputs.aagl.nixConfig;
+
   # System
   system.autoUpgrade = {
     enable = true;
@@ -25,6 +31,9 @@
     extraCompatPackages = with pkgs; [
       proton-ge-bin
     ];
+  };
+  programs.sleepy-launcher = {
+    enable = true;
   };
 
   # Services

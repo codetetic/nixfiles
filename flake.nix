@@ -36,6 +36,11 @@
       url = "github:JannoTjarks/catppuccin-zsh";
       flake = false;
     };
+
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
