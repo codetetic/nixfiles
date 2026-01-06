@@ -21,6 +21,7 @@
     tmux
     symfony-cli
     azure-cli
+    wezterm
 
     # Utilities
     keepassxc
@@ -28,6 +29,10 @@
 
     # Media
     gimp3
+
+    # Browsers
+    vivaldi
+    vivaldi-ffmpeg-codecs
   ];
 
   programs.zsh.enable = true;
