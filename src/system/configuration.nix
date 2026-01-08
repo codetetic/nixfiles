@@ -87,17 +87,32 @@
 
   # Fonts
   fonts.packages = with pkgs; [
-    # Emoji
+    # Core, widely expected fonts
+    dejavu_fonts
+
+    # Modern, wide Unicode coverage
+    noto-fonts
+    noto-fonts-cjk-sans
     noto-fonts-color-emoji
 
     # Code + icons
     nerd-fonts.fira-code
     nerd-fonts.meslo-lg
 
-    # High-quality Japanese fonts
+    # High-quality East Asian fonts
     source-han-sans
     source-han-serif
   ];
+
+  fontconfig = {
+    enable = true;
+    defaultFonts = {
+      serif = [ "Noto Serif" "Source Han Serif" "DejaVu Serif" ];
+      sansSerif = [ "Noto Sans" "Source Han Sans" "DejaVu Sans" ];
+      monospace = [ "FiraCode Nerd Font" "DejaVu Sans Mono" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
+  };
 
   # Users
   users.users.${user.name} = {

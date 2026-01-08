@@ -34,6 +34,7 @@
     openrct2
     openttd
     openrgb-with-all-plugins
+    lm_sensors
 
     # Browsers
     vivaldi
