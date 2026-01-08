@@ -1,0 +1,61 @@
+{
+  pkgs,
+  user,
+  ...
+}:
+
+{
+  imports = [
+    ../../home
+  ];
+
+  home.stateVersion = "25.05";
+  home.username = user.name;
+  home.homeDirectory = "/home/${user.name}";
+
+  home.packages = with pkgs; [
+    # Chat
+    zoom-us
+    discord
+
+    # Media
+    vlc
+    gimp3
+    transmission_4-gtk
+
+    # Windows
+    bottles
+    wine
+    winetricks
+
+    # Games
+    vulkan-tools
+    lutris
+    openrct2
+    openttd
+    openrgb-with-all-plugins
+
+    # Browsers
+    vivaldi
+    vivaldi-ffmpeg-codecs
+  ];
+
+  programs.zsh.enable = true;
+  programs.ssh.enable = true;
+
+  programs.zen-browser.enable = true;
+  programs.chromium.enable = true;
+
+  programs.git.enable = true;
+  programs.direnv.enable = true;
+  programs.nixvim.enable = true;
+  programs.vscode.enable = true;
+
+  programs.keychain = {
+    enable = true;
+    keys = [
+      "home"
+      "github"
+    ];
+  };
+}

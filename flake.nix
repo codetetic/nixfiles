@@ -100,6 +100,10 @@
         host = "odyssey";
         user = users.home;
       };
+      nixosConfigurations."bebop" = mkNixosConfig {
+        host = "bebop";
+        user = users.home;
+      };
       nixosConfigurations."valiant" = mkNixosConfig {
         host = "valiant";
         user = users.work;

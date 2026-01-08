@@ -4,7 +4,6 @@
 
 {
   # Bootloader
-  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
   boot.initrd.kernelModules = [ ];
   boot.initrd.systemd.enable = true;
