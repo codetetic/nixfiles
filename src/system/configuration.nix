@@ -103,8 +103,7 @@
     source-han-sans
     source-han-serif
   ];
-
-  fontconfig = {
+  fonts.fontconfig = {
     enable = true;
     defaultFonts = {
       serif = [ "Noto Serif" "Source Han Serif" "DejaVu Serif" ];
