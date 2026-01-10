@@ -34,7 +34,6 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    lact
     vulkan-tools
     openrgb-with-all-plugins
     lm_sensors

@@ -130,7 +130,6 @@
   environment.systemPackages = with pkgs; [
     networkmanager-openvpn
     wireguard-tools
-    tailscale
   ];
 
   # Networking
