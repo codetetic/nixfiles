@@ -126,23 +126,38 @@
     ];
   };
 
-  # Networking
+  # Packages
   environment.systemPackages = with pkgs; [
     networkmanager-openvpn
     wireguard-tools
+    tailscale
   ];
+
+  # Networking
   networking = {
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;
   };
 
   # Firewall
+  networking.nftables = {
+    enable = true;
+  };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 ];
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ config.services.tailscale.port ];
   };
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
 
   # Services
+  services.tailscale = {
+    enable = true;
+  };
+  systemd.services.tailscaled.serviceConfig.Environment = [
+    "TS_DEBUG_FIREWALL_MODE=nftables"
+  ];
   services.openssh = {
     enable = true;
     settings = {
