@@ -39,6 +39,9 @@
     # Browsers
     vivaldi
     vivaldi-ffmpeg-codecs
+
+    # Apps
+    wezterm
   ];
 
   programs.zsh.enable = true;

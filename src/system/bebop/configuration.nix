@@ -6,10 +6,10 @@
 }:
 
 {
-  imports = [
-    inputs.aagl.nixosModules.default
-  ];
-  nix.settings = inputs.aagl.nixConfig;
+  # System
+  system.autoUpgrade = {
+    enable = true;
+  };
 
   # Programmes
   programs.steam = {
@@ -21,4 +21,8 @@
   programs.sleepy-launcher = {
     enable = true;
   };
+  imports = [
+    inputs.aagl.nixosModules.default
+  ];
+  nix.settings = inputs.aagl.nixConfig;
 }

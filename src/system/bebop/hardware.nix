@@ -43,7 +43,20 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Bluetooth
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+  systemd.services.bluetooth-reset = {
+    description = "Reset Bluetooth controller after power-on";
+    after = [ "bluetooth.service" ];
+    wantedBy = [ "bluetooth.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bluez}/bin/btmgmt power off";
+      ExecStartPost = "${pkgs.bluez}/bin/btmgmt power on";
+    };
+  };
 
   # Networking
   networking = {
