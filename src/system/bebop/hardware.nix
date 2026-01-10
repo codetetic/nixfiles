@@ -32,6 +32,14 @@
     }
   ];
 
+  # Packages
+  environment.systemPackages = with pkgs; [
+    lact
+    vulkan-tools
+    openrgb-with-all-plugins
+    lm_sensors
+  ];
+
   # CPU
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
@@ -41,6 +49,9 @@
     enable32Bit = true;
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
+  services.lact = {
+    enable = true;
+  };
 
   # Bluetooth
   hardware.bluetooth = {

@@ -29,12 +29,9 @@
     winetricks
 
     # Games
-    vulkan-tools
     lutris
     openrct2
     openttd
-    openrgb-with-all-plugins
-    lm_sensors
 
     # Browsers
     vivaldi
