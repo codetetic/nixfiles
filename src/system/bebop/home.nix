@@ -39,6 +39,7 @@
 
     # Apps
     wezterm
+    claude-code-bun
   ];
 
   programs.zsh.enable = true;

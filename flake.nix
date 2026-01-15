@@ -41,6 +41,10 @@
       url = "github:ezKEa/aagl-gtk-on-nix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+    };
   };
 
   outputs =
@@ -48,6 +52,7 @@
       nixpkgs,
       home-manager,
       cosmic-manager,
+      claude-code,
       ...
     }:
     let
@@ -82,6 +87,7 @@
             ./src/system/${host}/configuration.nix
             home-manager.nixosModules.home-manager
             {
+              nixpkgs.overlays = [ claude-code.overlays.default ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs user; };
