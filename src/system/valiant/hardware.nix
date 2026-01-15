@@ -40,9 +40,6 @@
       intel-media-driver
     ];
   };
-  services.xserver = {
-    videoDrivers = [ "modesetting" ];
-  };
 
   # Bluetooth
   hardware.bluetooth = {

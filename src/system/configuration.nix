@@ -17,7 +17,7 @@
       "--commit-lock-file"
     ];
     dates = "daily";
-    randomizedDelaySec = "30min";
+    persistent = true;
   };
 
   # Nix

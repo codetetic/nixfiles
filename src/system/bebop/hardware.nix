@@ -78,4 +78,10 @@
   hardware.i2c.enable = true;
   services.hardware.openrgb.enable = true;
   services.udev.packages = [ pkgs.openrgb ];
+
+  # Keyboard - Epomaker TH87 ISO (reports as Apple device)
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="0250", MODE="0666", TAG+="uaccess"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="05ac", ATTR{idProduct}=="0250", MODE="0666", TAG+="uaccess"
+  '';
 }
