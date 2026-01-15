@@ -169,4 +169,6 @@
   programs.nix-ld = {
     enable = true;
   };
+
+  security.polkit.enable = true;
 }

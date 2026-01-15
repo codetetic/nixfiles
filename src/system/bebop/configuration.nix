@@ -26,4 +26,6 @@
   programs.sleepy-launcher = {
     enable = true;
   };
+
+  users.users.${user.name}.extraGroups = [ "plugdev" ];
 }
