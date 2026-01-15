@@ -6,5 +6,6 @@
     ncdu
     pwgen
     fastfetch
+    usbutils
   ];
 }
