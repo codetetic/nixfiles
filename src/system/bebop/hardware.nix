@@ -20,7 +20,6 @@
     "i2c-dev"
     "i2c-piix4"
   ];
-  boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/460B-0617";
@@ -67,6 +66,7 @@
       ExecStartPost = "${pkgs.bluez}/bin/btmgmt power on";
     };
   };
+  boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
   # Networking
   networking = {
@@ -78,4 +78,9 @@
   hardware.i2c.enable = true;
   services.hardware.openrgb.enable = true;
   services.udev.packages = [ pkgs.openrgb ];
+
+  # Keyboard
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+  '';
 }
