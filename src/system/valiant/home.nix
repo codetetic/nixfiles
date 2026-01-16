@@ -22,6 +22,7 @@
     symfony-cli
     azure-cli
     wezterm
+    claude-code-bun
 
     # Utilities
     keepassxc
