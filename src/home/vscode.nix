@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   programs.vscode = {
+    package = pkgs.vscodium;
     profiles.default.extensions = with pkgs.vscode-extensions; [
       catppuccin.catppuccin-vsc
       catppuccin.catppuccin-vsc-icons
