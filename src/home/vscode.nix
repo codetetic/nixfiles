@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   programs.vscode = {
+    package = pkgs.vscodium;
     profiles.default.extensions = with pkgs.vscode-extensions; [
       catppuccin.catppuccin-vsc
       catppuccin.catppuccin-vsc-icons
@@ -24,6 +25,7 @@
       "extensions.experimental.affinity" = {
         "asvetliakov.vscode-neovim" = 1;
       };
+      "chat.disableAIFeatures" = true;
     };
   };
 }

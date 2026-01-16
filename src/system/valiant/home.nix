@@ -18,10 +18,12 @@
     yarn
     nodejs_22
     php82
+    php82Packages.composer
     tmux
     symfony-cli
     azure-cli
     wezterm
+    claude-code-bun
 
     # Utilities
     keepassxc
