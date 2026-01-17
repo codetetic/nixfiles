@@ -27,5 +27,11 @@
     enable = true;
   };
 
-  users.users.${user.name}.extraGroups = [ "plugdev" ];
+  # Virtualisation
+  virtualisation = {
+    virtualbox.host.enable = true;
+  };
+
+  # Groups
+  users.users.${user.name}.extraGroups = [ "vboxusers" ];
 }
