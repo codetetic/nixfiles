@@ -11,25 +11,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cosmic-manager = {
-      url = "github:HeitorAugustoLN/cosmic-manager";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
     };
 
     zsh-catppuccin = {
@@ -51,7 +35,6 @@
     inputs@{
       nixpkgs,
       home-manager,
-      cosmic-manager,
       claude-code,
       ...
     }:
@@ -94,7 +77,6 @@
               home-manager.users.${user.name} = {
                 imports = [
                   ./src/system/${host}/home.nix
-                  cosmic-manager.homeManagerModules.cosmic-manager
                 ];
               };
             }

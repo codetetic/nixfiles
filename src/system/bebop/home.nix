@@ -45,7 +45,6 @@
   programs.zsh.enable = true;
   programs.ssh.enable = true;
 
-  programs.zen-browser.enable = true;
   programs.chromium.enable = true;
 
   programs.git.enable = true;

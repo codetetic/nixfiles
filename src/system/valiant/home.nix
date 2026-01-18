@@ -45,7 +45,6 @@
   programs.nixvim.enable = true;
   programs.vscode.enable = true;
 
-  programs.zen-browser.enable = true;
   programs.chromium.enable = true;
 
   programs.keychain = {

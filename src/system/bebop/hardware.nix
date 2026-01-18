@@ -54,19 +54,7 @@
   # Bluetooth
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
   };
-  systemd.services.bluetooth-reset = {
-    description = "Reset Bluetooth controller after power-on";
-    after = [ "bluetooth.service" ];
-    wantedBy = [ "bluetooth.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.bluez}/bin/btmgmt power off";
-      ExecStartPost = "${pkgs.bluez}/bin/btmgmt power on";
-    };
-  };
-  boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
   # Networking
   networking = {
@@ -76,11 +64,8 @@
 
   # RAM
   hardware.i2c.enable = true;
-  services.hardware.openrgb.enable = true;
-  services.udev.packages = [ pkgs.openrgb ];
-
-  # Keyboard
-  boot.extraModprobeConfig = ''
-    options hid_apple fnmode=2
-  '';
+  services = {
+    hardware.openrgb.enable = true;
+    udev.packages = [ pkgs.openrgb ];
+  };
 }

@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./browsers.nix
     ./development.nix
     ./direnv.nix
     ./git.nix
