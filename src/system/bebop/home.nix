@@ -29,6 +29,7 @@
     winetricks
 
     # Games
+    gamescope
     lutris
     openrct2
     openttd
