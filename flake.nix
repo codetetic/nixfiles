@@ -29,6 +29,10 @@
     claude-code = {
       url = "github:sadjow/claude-code-nix";
     };
+
+    dw-proton = {
+      url = "github:Momoyaan/dwproton-flake";
+    };
   };
 
   outputs =

@@ -21,6 +21,7 @@
     enable = true;
     extraCompatPackages = with pkgs; [
       proton-ge-bin
+      inputs.dw-proton.packages.x86_64-linux.default
     ];
   };
   programs.sleepy-launcher = {
