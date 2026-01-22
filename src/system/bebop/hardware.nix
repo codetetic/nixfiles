@@ -68,4 +68,9 @@
     hardware.openrgb.enable = true;
     udev.packages = [ pkgs.openrgb ];
   };
+
+  # Keyboard
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+  '';
 }
