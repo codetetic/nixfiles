@@ -34,4 +34,9 @@
 
   # Groups
   users.users.${user.name}.extraGroups = [ "vboxusers" ];
+
+  # Flatpak
+  services = {
+    flatpak.enable = true;
+  };
 }
