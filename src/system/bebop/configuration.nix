@@ -23,6 +23,9 @@
       proton-ge-bin
       inputs.dw-proton.packages.x86_64-linux.default
     ];
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
   };
   programs.sleepy-launcher = {
     enable = true;
