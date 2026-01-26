@@ -41,6 +41,9 @@
     # Apps
     wezterm
     claude-code-bun
+    gnome-boxes
+    quickemu
+    quickgui
   ];
 
   programs.zsh.enable = true;

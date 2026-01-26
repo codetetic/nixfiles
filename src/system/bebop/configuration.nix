@@ -33,11 +33,15 @@
 
   # Virtualisation
   virtualisation = {
-    virtualbox.host.enable = true;
+    docker.enable = true;
+    podman.enable = true;
+    libvirtd.enable = true;
   };
-
-  # Groups
-  users.users.${user.name}.extraGroups = [ "vboxusers" ];
+  users.users.${user.name}.extraGroups = [
+    "docker"
+    "podman"
+    "libvirtd"
+  ];
 
   # Flatpak
   services = {
