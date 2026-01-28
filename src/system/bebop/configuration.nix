@@ -43,6 +43,12 @@
     "libvirtd"
   ];
 
+  # AI
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+  };
+
   # Flatpak
   services = {
     flatpak.enable = true;
