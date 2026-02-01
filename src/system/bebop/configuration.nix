@@ -48,6 +48,9 @@
     enable = true;
     acceleration = "rocm";
   };
+  services.open-webui = {
+    enable = true;
+  };
 
   # Flatpak
   services = {
