@@ -22,8 +22,6 @@
     tmux
     symfony-cli
     azure-cli
-    wezterm
-    claude-code-bun
 
     # Utilities
     keepassxc
@@ -35,6 +33,13 @@
     # Browsers
     vivaldi
     vivaldi-ffmpeg-codecs
+
+    # Apps
+    wezterm
+    claude-code-bun
+    gnome-boxes
+    quickemu
+    quickgui
   ];
 
   programs.zsh.enable = true;

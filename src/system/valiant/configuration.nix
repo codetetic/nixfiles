@@ -12,6 +12,12 @@
   # Virtualisation
   virtualisation = {
     docker.enable = true;
+    podman.enable = true;
+    libvirtd.enable = true;
   };
-  users.users.${user.name}.extraGroups = [ "docker" ];
+  users.users.${user.name}.extraGroups = [
+    "docker"
+    "podman"
+    "libvirtd"
+  ];
 }
