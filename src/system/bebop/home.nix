@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   user,
   ...
@@ -44,6 +45,8 @@
     gnome-boxes
     quickemu
     quickgui
+
+    inputs.bluebuild.packages.${pkgs.system}.bluebuild
   ];
 
   programs.zsh.enable = true;

@@ -33,6 +33,10 @@
     dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
     };
+
+    blue-build = {
+      url = "https://flakehub.com/f/blue-build/cli/0.9.30";
+    };
   };
 
   outputs =
