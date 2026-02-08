@@ -21,7 +21,7 @@
     enable = true;
     extraCompatPackages = with pkgs; [
       proton-ge-bin
-      inputs.dw-proton.packages.x86_64-linux.default
+      inputs.dw-proton.packages.${pkgs.system}.default
     ];
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
@@ -47,9 +47,6 @@
   services.ollama = {
     enable = true;
     acceleration = "rocm";
-  };
-  services.open-webui = {
-    enable = true;
   };
 
   # Flatpak
