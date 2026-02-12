@@ -34,6 +34,7 @@
     lutris
     openrct2
     openttd
+    inputs.elysia.packages.${pkgs.system}.default
 
     # Browsers
     vivaldi

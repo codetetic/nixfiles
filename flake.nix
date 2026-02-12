@@ -33,6 +33,11 @@
     dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
     };
+
+    elysia = {
+      url = "git+https://dawn.wine/foxtrottt/elysia-on-nix/";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
