@@ -28,6 +28,7 @@
     bottles
     wine
     winetricks
+    gnumake
 
     # Games
     gamescope
