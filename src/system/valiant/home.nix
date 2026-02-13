@@ -40,6 +40,7 @@
     gnome-boxes
     quickemu
     quickgui
+    podman-compose
   ];
 
   programs.zsh.enable = true;
