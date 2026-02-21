@@ -64,6 +64,7 @@
     keys = [
       "home"
       "github"
+      "azure"
     ];
   };
 }
