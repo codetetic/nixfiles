@@ -47,6 +47,7 @@
     gnome-boxes
     quickemu
     quickgui
+    cosign
   ];
 
   programs.zsh.enable = true;
