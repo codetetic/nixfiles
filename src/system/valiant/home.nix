@@ -27,6 +27,7 @@
     podman-compose
     gnome-boxes
     wezterm
+    piper
   ];
 
   programs.zsh.enable = true;

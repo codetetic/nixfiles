@@ -48,6 +48,7 @@
     quickemu
     quickgui
     cosign
+    piper
   ];
 
   programs.zsh.enable = true;

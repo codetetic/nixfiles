@@ -11,7 +11,7 @@
 
   # Virtualisation
   virtualisation = {
-    docker.enable = true;
+    docker.enable = false;
     podman.enable = true;
     libvirtd.enable = true;
   };
@@ -23,5 +23,6 @@
 
   services = {
     flatpak.enable = true;
+    ratbagd.enable = true;
   };
 }
