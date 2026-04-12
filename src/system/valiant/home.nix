@@ -22,25 +22,11 @@
     tmux
     symfony-cli
     azure-cli
-
-    # Utilities
-    keepassxc
-    gnumake
-
-    # Media
-    gimp3
-
-    # Browsers
-    vivaldi
-    vivaldi-ffmpeg-codecs
-
-    # Apps
-    wezterm
     claude-code-bun
-    gnome-boxes
-    quickemu
-    quickgui
+    gnumake
     podman-compose
+    gnome-boxes
+    wezterm
   ];
 
   programs.zsh.enable = true;

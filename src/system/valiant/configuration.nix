@@ -20,4 +20,8 @@
     "podman"
     "libvirtd"
   ];
+
+  services = {
+    flatpak.enable = true;
+  };
 }
