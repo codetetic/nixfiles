@@ -1,12 +1,6 @@
 { inputs, ... }:
 {
   programs.zsh = {
-    oh-my-zsh = {
-      enable = true;
-      custom = "${inputs.zsh-catppuccin}";
-      theme = "catppuccin";
-    };
-
     syntaxHighlighting.enable = true;
 
     shellAliases = {
