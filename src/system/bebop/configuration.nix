@@ -52,5 +52,6 @@
   # Flatpak
   services = {
     flatpak.enable = true;
+    ratbagd.enable = true;
   };
 }

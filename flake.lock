@@ -9,11 +9,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1772290799,
-        "narHash": "sha256-3MEVhEb3WuLDYOBhD1zjADRFcuJz13uJSt2zJFS8F8Y=",
+        "lastModified": 1774187053,
+        "narHash": "sha256-Kd+NaLPuWMTp1Ijzha+wt7brGMB6qARBB+6mPMTajd4=",
         "owner": "ezKEa",
         "repo": "aagl-gtk-on-nix",
-        "rev": "25372a35667e03ba1f733bbb24f2d8b825ee261f",
+        "rev": "a36513be5a5bb36414b1b6bf2530c13aa49de053",
         "type": "github"
       },
       "original": {
@@ -29,11 +29,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1772674260,
-        "narHash": "sha256-6Ks0v3VtZ6KKzZiCJXFTjH2oTXPaVFBpijji3xCSN/E=",
+        "lastModified": 1775966787,
+        "narHash": "sha256-wq1rMcMxMK9ZBg8TsJkXxli9K4ey+C2qKKmRYphhbek=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "4f5e65a89966a7de18b8449e60895209310f075f",
+        "rev": "e128b713477ef9732a0b5d9bed155ff37c0bb5a4",
         "type": "github"
       },
       "original": {
@@ -47,11 +47,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1771242501,
-        "narHash": "sha256-7azh4I/Qxz9e3liYmslBptv/wcCZfs2mjbLueKgz6PE=",
+        "lastModified": 1775433151,
+        "narHash": "sha256-ke7zIKI1aTZ147uCV3P8XsVcs6x0RE1Nv0NL5WNeBaw=",
         "owner": "Momoyaan",
         "repo": "dwproton-flake",
-        "rev": "4455649c5773abfc22244b36b5c542282dc76112",
+        "rev": "178c9e48c921b38a8ec51b0bbade9966ab7ab319",
         "type": "github"
       },
       "original": {
@@ -68,11 +68,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769494474,
-        "narHash": "sha256-Ku2jOZ8kUu1TUc6P7UQM+43OjlkmpAyPRx0p2eysqS0=",
+        "lastModified": 1774818968,
+        "narHash": "sha256-C4hrjX3CkMp/SAoNg1C8wFal/3XuHrAiVCAc86mPS88=",
         "ref": "refs/heads/master",
-        "rev": "75f900b2a4e1cd01efa6f6a0bb2e4e137e9de6fa",
-        "revCount": 11,
+        "rev": "e5e7c2c7ce9fbfe0710e33aed082a1ec223de843",
+        "revCount": 15,
         "type": "git",
         "url": "https://dawn.wine/foxtrottt/elysia-on-nix/"
       },
@@ -183,11 +183,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772633058,
-        "narHash": "sha256-SO7JapRy2HPhgmqiLbfnW1kMx5rakPMKZ9z3wtRLQjI=",
+        "lastModified": 1775425411,
+        "narHash": "sha256-KY6HsebJHEe5nHOWP7ur09mb0drGxYSzE3rQxy62rJo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "080657a04188aca25f8a6c70a0fb2ea7e37f1865",
+        "rev": "0d02ec1d0a05f88ef9e74b516842900c41f0f2fe",
         "type": "github"
       },
       "original": {
@@ -243,11 +243,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1772643971,
-        "narHash": "sha256-+bllfMsclzbAAPMZTm3K9G/a5lG+s6l18/AyyYLPSIE=",
+        "lastModified": 1775888245,
+        "narHash": "sha256-nwASzrRDD1JBEu/o8ekKYEXm/oJW6EMCzCRdrwcLe90=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "400de68cd101e8cfebffea121397683caf7f5a34",
+        "rev": "13043924aaa7375ce482ebe2494338e058282925",
         "type": "github"
       },
       "original": {
@@ -275,11 +275,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1772598333,
-        "narHash": "sha256-YaHht/C35INEX3DeJQNWjNaTcPjYmBwwjFJ2jdtr+5U=",
+        "lastModified": 1775811116,
+        "narHash": "sha256-t+HZK42pB6N+i5RGbuy7Xluez/VvWbembBdvzsc23Ss=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fabb8c9deee281e50b1065002c9828f2cf7b2239",
+        "rev": "54170c54449ea4d6725efd30d719c5e505f1c10e",
         "type": "github"
       },
       "original": {

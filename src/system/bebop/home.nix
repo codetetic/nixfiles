@@ -47,6 +47,8 @@
     gnome-boxes
     quickemu
     quickgui
+    cosign
+    piper
   ];
 
   programs.bash.enable = true;
