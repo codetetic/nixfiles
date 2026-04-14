@@ -1,5 +1,5 @@
 { ... }: {
   programs.direnv = {
-    enableZshIntegration = true;
+    enableBashIntegration = true;
   };
 }

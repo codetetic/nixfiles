@@ -30,7 +30,7 @@
     piper
   ];
 
-  programs.zsh.enable = true;
+  programs.bash.enable = true;
   programs.ssh.enable = true;
 
   programs.git.enable = true;

@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./bash.nix
     ./development.nix
     ./direnv.nix
     ./git.nix
@@ -10,6 +11,5 @@
     ./starship.nix
     ./utilities.nix
     ./vscode.nix
-    ./zsh.nix
   ];
 }

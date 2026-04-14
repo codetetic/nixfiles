@@ -39,7 +39,7 @@
     vivaldi-ffmpeg-codecs
   ];
 
-  programs.zsh.enable = true;
+  programs.bash.enable = true;
   programs.ssh.enable = true;
 
   programs.chromium.enable = true;

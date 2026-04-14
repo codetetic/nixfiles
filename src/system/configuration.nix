@@ -115,8 +115,6 @@
 
   # Users
   users.users.${user.name} = {
-    shell = pkgs.zsh;
-    ignoreShellProgramCheck = true;
     isNormalUser = true;
     description = user.description;
     openssh.authorizedKeys.keys = user.keys;
