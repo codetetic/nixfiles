@@ -106,14 +106,35 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [ "Noto Serif" "Source Han Serif" "DejaVu Serif" ];
-      sansSerif = [ "Noto Sans" "Source Han Sans" "DejaVu Sans" ];
-      monospace = [ "FiraCode Nerd Font" "DejaVu Sans Mono" ];
+      serif = [
+        "Noto Serif"
+        "Source Han Serif"
+        "DejaVu Serif"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "Source Han Sans"
+        "DejaVu Sans"
+      ];
+      monospace = [
+        "FiraCode Nerd Font"
+        "DejaVu Sans Mono"
+      ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
 
   # Users
+  programs.bash = {
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
+  };
+
   users.users.${user.name} = {
     isNormalUser = true;
     description = user.description;

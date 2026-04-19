@@ -26,10 +26,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    claude-code = {
-      url = "github:sadjow/claude-code-nix";
-    };
-
     dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
     };
@@ -44,7 +40,6 @@
     inputs@{
       nixpkgs,
       home-manager,
-      claude-code,
       ...
     }:
     let
@@ -79,7 +74,6 @@
             ./src/system/${host}/configuration.nix
             home-manager.nixosModules.home-manager
             {
-              nixpkgs.overlays = [ claude-code.overlays.default ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs user; };

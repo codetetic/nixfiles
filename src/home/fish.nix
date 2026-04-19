@@ -22,10 +22,10 @@
         src = pkgs.fishPlugins.autopair.src;
       }
     ];
-  };
 
-  interactiveShellInit = ''
-    set -g fish_greeting  # disable welcome message
-    set -gx EDITOR nvim
-  '';
+    interactiveShellInit = ''
+      set -g fish_greeting  # disable welcome message
+      set -gx EDITOR nvim
+    '';
+  };
 }

@@ -22,7 +22,6 @@
     tmux
     symfony-cli
     azure-cli
-    claude-code-bun
     gnumake
     podman-compose
     gnome-boxes

@@ -43,13 +43,11 @@
 
     # Apps
     wezterm
-    claude-code-bun
     gnome-boxes
     quickemu
     quickgui
     cosign
     piper
-    blesh
   ];
 
   programs.bash.enable = true;
