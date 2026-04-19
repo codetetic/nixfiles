@@ -7,5 +7,6 @@
     devenv
     nixd
     nixfmt-rfc-style
+    fzf
   ];
 }

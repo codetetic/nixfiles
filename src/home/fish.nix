@@ -9,18 +9,12 @@
     };
 
     plugins = [
-      {
-        name = "bass";
-        src = pkgs.fishPlugins.bass.src;
-      }
-      {
-        name = "fzf-fish";
-        src = pkgs.fishPlugins.fzf-fish.src;
-      }
-      {
-        name = "autopair";
-        src = pkgs.fishPlugins.autopair.src;
-      }
+      { name = "bass"; src = pkgs.fishPlugins.bass.src; }
+      { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+      { name = "autopair"; src = pkgs.fishPlugins.autopair.src; }
+      { name = "done"; src = pkgs.fishPlugins.done.src; }
+      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+      { name = "sponge"; src = pkgs.fishPlugins.sponge.src; }
     ];
 
     interactiveShellInit = ''
