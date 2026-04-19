@@ -5,6 +5,7 @@
     ./bash.nix
     ./development.nix
     ./direnv.nix
+    ./fish.nix
     ./git.nix
     ./nixvim.nix
     ./ssh.nix

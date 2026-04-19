@@ -49,13 +49,16 @@
     quickgui
     cosign
     piper
+    blesh
   ];
 
   programs.bash.enable = true;
-  programs.ssh.enable = true;
+  programs.fish.enable = true;
+  programs.starship.enable = true;
 
   programs.chromium.enable = true;
 
+  programs.ssh.enable = true;
   programs.git.enable = true;
   programs.direnv.enable = true;
   programs.nixvim.enable = true;

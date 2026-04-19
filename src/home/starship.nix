@@ -1,8 +1,7 @@
 { ... }:
 {
   programs.starship = {
-    enable = true;
-    enableBashIntegration = true;
+    enableFishIntegration = true;
     settings = {
       git_branch = {
         truncation_length = 20;

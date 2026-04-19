@@ -6,6 +6,7 @@
 }:
 
 {
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
@@ -19,6 +20,7 @@
     "kvm-amd"
     "i2c-dev"
     "i2c-piix4"
+    "ntsync"
   ];
 
   fileSystems."/boot" = {
