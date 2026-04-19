@@ -8,5 +8,6 @@
     nixd
     nixfmt-rfc-style
     fzf
+    grc
   ];
 }
