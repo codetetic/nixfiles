@@ -21,14 +21,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    /**dw-proton = {
+    dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
+    };
+
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     elysia = {
       url = "git+https://dawn.wine/foxtrottt/elysia-on-nix/";
       inputs.nixpkgs.follows = "nixpkgs";
-    };*/
+    };
   };
 
   outputs =
