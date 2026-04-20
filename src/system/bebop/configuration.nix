@@ -49,8 +49,24 @@
   };
 
   # Flatpak
+  services.flatpak = {
+    enable = true;
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+    packages = [
+      "com.vivaldi.Vivaldi"
+      "org.mozilla.firefox"
+      "org.chromium.Chromium"
+    ];
+    update.onActivation = true;
+  };
+
+  # Services
   services = {
-    flatpak.enable = true;
     ratbagd.enable = true;
   };
 }

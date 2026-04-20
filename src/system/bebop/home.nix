@@ -44,6 +44,10 @@
     quickgui
     cosign
     piper
+
+    # Browser
+    vivaldi
+    vivaldi-ffmpeg-codecs
   ];
 
   catppuccin.enable = true;
@@ -51,10 +55,6 @@
   programs.bash.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
-
-  programs.chromium.enable = true;
-  programs.vivaldi.enable = true;
-  programs.firefox.enable = true;
 
   programs.ssh.enable = true;
   programs.git.enable = true;

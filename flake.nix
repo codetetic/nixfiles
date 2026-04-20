@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,6 +45,7 @@
     inputs@{
       nixpkgs,
       home-manager,
+      nix-flatpak,
       catppuccin,
       ...
     }:
@@ -75,6 +81,7 @@
             ./src/system/${host}/configuration.nix
             catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
+            nix-flatpak.nixosModules.nix-flatpak
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
