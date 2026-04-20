@@ -16,30 +16,26 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zsh-catppuccin = {
-      url = "github:JannoTjarks/catppuccin-zsh";
-      flake = false;
-    };
-
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix/release-25.11";
+    catppuccin = {
+      url = "github:catppuccin/nix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dw-proton = {
+    /**dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
     };
 
     elysia = {
       url = "git+https://dawn.wine/foxtrottt/elysia-on-nix/";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+    };*/
   };
 
   outputs =
     inputs@{
       nixpkgs,
       home-manager,
+      catppuccin,
       ...
     }:
     let
@@ -72,6 +68,7 @@
             ./src/system/${host}/hardware.nix
             ./src/system/configuration.nix
             ./src/system/${host}/configuration.nix
+            catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -80,6 +77,7 @@
               home-manager.users.${user.name} = {
                 imports = [
                   ./src/system/${host}/home.nix
+                  catppuccin.homeModules.catppuccin
                 ];
               };
             }

@@ -2,8 +2,6 @@
   programs.vscode = {
     package = pkgs.vscodium;
     profiles.default.extensions = with pkgs.vscode-extensions; [
-      catppuccin.catppuccin-vsc
-      catppuccin.catppuccin-vsc-icons
       mkhl.direnv
       jnoortheen.nix-ide
       asvetliakov.vscode-neovim
@@ -17,8 +15,6 @@
       "terminal.integrated.fontSize" = 14;
       "chat.mcp.gallery.enabled" = false;
       "editor.minimap.enabled" = false;
-      "workbench.colorTheme" = "Catppuccin Mocha";
-      "workbench.iconTheme" = "catppuccin-mocha";
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nixd";
       "vscode-neovim.neovimClean" = true;
