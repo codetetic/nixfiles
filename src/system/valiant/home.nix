@@ -36,6 +36,8 @@
   programs.starship.enable = true;
 
   programs.chromium.enable = true;
+  programs.vivaldi.enable = true;
+  programs.firefox.enable = true;
 
   programs.ssh.enable = true;
   programs.git.enable = true;

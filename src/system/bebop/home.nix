@@ -37,10 +37,6 @@
     openttd
     inputs.elysia.packages.${pkgs.system}.default
 
-    # Browsers
-    vivaldi
-    vivaldi-ffmpeg-codecs
-
     # Apps
     wezterm
     gnome-boxes
@@ -57,6 +53,8 @@
   programs.starship.enable = true;
 
   programs.chromium.enable = true;
+  programs.vivaldi.enable = true;
+  programs.firefox.enable = true;
 
   programs.ssh.enable = true;
   programs.git.enable = true;
