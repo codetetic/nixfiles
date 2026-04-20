@@ -29,4 +29,9 @@
         --height=40% --layout=reverse --border"
     '';
   };
+
+  home.packages = with pkgs; [
+    fzf
+    grc
+  ];
 }
