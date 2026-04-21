@@ -41,7 +41,6 @@
       "org.mozilla.firefox"
       "com.google.Chrome"
       "com.getpostman.Postman"
-      "com.vivaldi.Vivaldi"
       "org.gimp.GIMP"
       "org.keepassxc.KeePassXC"
       "org.libreoffice.LibreOffice"
