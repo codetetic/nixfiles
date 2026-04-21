@@ -39,6 +39,7 @@
     packages = [
       "com.vivaldi.Vivaldi"
       "org.mozilla.firefox"
+      "com.google.Chrome"
       "com.getpostman.Postman"
       "com.vivaldi.Vivaldi"
       "org.gimp.GIMP"

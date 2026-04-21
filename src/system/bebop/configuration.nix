@@ -59,8 +59,6 @@
     ];
     packages = [
       "com.vivaldi.Vivaldi"
-      "org.mozilla.firefox"
-      "org.chromium.Chromium"
     ];
     update.onActivation = true;
   };
