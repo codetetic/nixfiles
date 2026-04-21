@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    /**dw-proton = {
+    dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
     };
 
@@ -37,7 +37,7 @@
     elysia = {
       url = "git+https://dawn.wine/foxtrottt/elysia-on-nix/";
       inputs.nixpkgs.follows = "nixpkgs";
-    };*/
+    };
   };
 
   outputs =
@@ -96,10 +96,6 @@
         };
     in
     {
-      nixosConfigurations."odyssey" = mkNixosConfig {
-        host = "odyssey";
-        user = users.home;
-      };
       nixosConfigurations."bebop" = mkNixosConfig {
         host = "bebop";
         user = users.home;
