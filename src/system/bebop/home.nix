@@ -55,7 +55,6 @@
   programs.bash.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
-  programs.vivaldi.enable = true;
   programs.ssh.enable = true;
   programs.git.enable = true;
   programs.direnv.enable = true;
