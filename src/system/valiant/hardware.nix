@@ -6,6 +6,8 @@
 }:
 
 {
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   # Bootloader
   boot.initrd.availableKernelModules = [
     "xhci_pci"

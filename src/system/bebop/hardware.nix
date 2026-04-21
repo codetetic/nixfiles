@@ -7,6 +7,7 @@
 
 {
   boot.kernelPackages = pkgs.linuxPackages_zen;
+
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"

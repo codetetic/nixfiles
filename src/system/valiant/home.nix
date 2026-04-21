@@ -14,19 +14,13 @@
   home.homeDirectory = "/home/${user.name}";
 
   home.packages = with pkgs; [
+    chromium
+
     # Development
-    yarn
-    nodejs_22
-    php82
-    php82Packages.composer
     tmux
-    symfony-cli
-    azure-cli
     gnumake
     podman-compose
     gnome-boxes
-    wezterm
-    piper
   ];
 
   catppuccin.enable = true;
@@ -34,10 +28,6 @@
   programs.bash.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
-
-  programs.chromium.enable = true;
-  programs.vivaldi.enable = true;
-  programs.firefox.enable = true;
 
   programs.ssh.enable = true;
   programs.git.enable = true;
