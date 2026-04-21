@@ -47,6 +47,11 @@
     vivaldi.enable = false;
   };
 
+  programs.nix-your-shell = {
+    enable = true;
+    nix-output-monitor.enable = true;
+  };
+
   programs.bash.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
