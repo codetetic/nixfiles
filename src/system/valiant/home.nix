@@ -14,21 +14,25 @@
   home.homeDirectory = "/home/${user.name}";
 
   home.packages = with pkgs; [
-    chromium
-
     # Development
     tmux
     gnumake
     podman-compose
     gnome-boxes
+    wezterm
   ];
 
-  catppuccin.enable = true;
+  catppuccin = {
+    enable = true;
+    firefox.enable = false;
+    chromium.enable = false;
+    vivaldi.enable = false;
+  };
 
   programs.bash.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
-
+  programs.chromium.enable = true;
   programs.ssh.enable = true;
   programs.git.enable = true;
   programs.direnv.enable = true;

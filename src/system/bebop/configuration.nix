@@ -59,6 +59,7 @@
     ];
     packages = [
       "com.vivaldi.Vivaldi"
+      "us.zoom.Zoom"
     ];
     update.onActivation = true;
   };

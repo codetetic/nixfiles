@@ -16,7 +16,6 @@
 
   home.packages = with pkgs; [
     # Chat
-    zoom-us
     discord
 
     # Media
@@ -28,13 +27,11 @@
     bottles
     wine
     winetricks
-    gnumake
 
     # Games
     gamescope
     lutris
     openrct2
-    openttd
     inputs.elysia.packages.${pkgs.system}.default
 
     # Apps
@@ -42,20 +39,17 @@
     gnome-boxes
     quickemu
     quickgui
-    cosign
-    piper
-
-    # Browser
-    vivaldi
-    vivaldi-ffmpeg-codecs
   ];
 
-  catppuccin.enable = true;
+  catppuccin = {
+    enable = true;
+    vivaldi.enable = false;
+  };
 
   programs.bash.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
-
+  programs.vivaldi.enable = true;
   programs.ssh.enable = true;
   programs.git.enable = true;
   programs.direnv.enable = true;
