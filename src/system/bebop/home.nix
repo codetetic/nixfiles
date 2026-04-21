@@ -43,6 +43,7 @@
 
   catppuccin = {
     enable = true;
+    nvim.enable = false;
     vivaldi.enable = false;
   };
 

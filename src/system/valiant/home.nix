@@ -24,6 +24,7 @@
 
   catppuccin = {
     enable = true;
+    nvim.enable = false;
     firefox.enable = false;
     chromium.enable = false;
     vivaldi.enable = false;
