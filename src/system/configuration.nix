@@ -147,8 +147,7 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    networkmanager-openvpn
-    wireguard-tools
+    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
   ];
 
   # Networking
@@ -190,4 +189,15 @@
   };
 
   security.polkit.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-cosmic
+      xdg-desktop-portal-gtk
+    ];
+    configPackages = with pkgs; [
+      cosmic-session
+    ];
+  };
 }
