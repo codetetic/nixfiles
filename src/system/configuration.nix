@@ -124,6 +124,11 @@
     ];
   };
 
+  # Packages
+  environment.systemPackages = with pkgs; [
+    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+  ];
+
   # Networking
   networking = {
     useDHCP = lib.mkDefault true;
