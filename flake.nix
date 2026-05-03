@@ -25,6 +25,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    spotatui = {
+      url = "github:LargeModGames/spotatui";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
     };

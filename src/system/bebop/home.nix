@@ -15,8 +15,8 @@
   home.homeDirectory = "/home/${user.name}";
 
   home.packages = [
-    # Games
     inputs.elysia.packages.${pkgs.system}.default
+    inputs.spotatui.packages.${pkgs.system}.default
   ];
 
   catppuccin = {

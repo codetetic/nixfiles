@@ -73,9 +73,9 @@
   };
 
   # Keyboard
-  #boot.extraModprobeConfig = ''
-  #  options hid_apple fnmode=2
-  #'';
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+  '';
   hardware.keyboard.qmk = {
     enable = true;
     keychronSupport = true;
