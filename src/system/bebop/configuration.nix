@@ -10,15 +10,11 @@
     inputs.aagl.nixosModules.default
   ];
 
-  # System
-  system.autoUpgrade = {
-    enable = true;
-  };
-
   # Programmes
   programs.steam = {
     enable = true;
     extraCompatPackages = with pkgs; [
+      gamescope
       proton-ge-bin
       inputs.dw-proton.packages.${pkgs.system}.default
     ];
@@ -32,15 +28,20 @@
 
   # Virtualisation
   virtualisation = {
-    docker.enable = true;
-    podman.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+    };
     libvirtd.enable = true;
   };
   users.users.${user.name}.extraGroups = [
-    "docker"
     "podman"
     "libvirtd"
+    "plugdev"
   ];
+  # Allow podman to use port 80
+  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
 
   # AI
   services.ollama = {
@@ -59,6 +60,9 @@
     ];
     packages = [
       "com.vivaldi.Vivaldi"
+      "com.discordapp.Discord"
+      "com.transmissionbt.Transmission"
+      "io.openrct2.OpenRCT2"
       "us.zoom.Zoom"
     ];
     update.onActivation = true;

@@ -14,31 +14,9 @@
   home.username = user.name;
   home.homeDirectory = "/home/${user.name}";
 
-  home.packages = with pkgs; [
-    # Chat
-    discord
-
-    # Media
-    vlc
-    gimp3
-    transmission_4-gtk
-
-    # Windows
-    bottles
-    wine
-    winetricks
-
+  home.packages = [
     # Games
-    gamescope
-    lutris
-    openrct2
     inputs.elysia.packages.${pkgs.system}.default
-
-    # Apps
-    wezterm
-    gnome-boxes
-    quickemu
-    quickgui
   ];
 
   catppuccin = {
@@ -60,6 +38,10 @@
   programs.direnv.enable = true;
   programs.nixvim.enable = true;
   programs.vscode.enable = true;
+
+  services.spotifyd = {
+    enable = true;
+  };
 
   programs.keychain = {
     enable = true;

@@ -9,16 +9,6 @@
 {
   # System
   system.stateVersion = "25.05";
-  system.autoUpgrade = {
-    flake = "/home/${user.name}/src/nixfiles#${config.networking.hostName}";
-    flags = [
-      "--update-input"
-      "nixpkgs"
-      "--commit-lock-file"
-    ];
-    dates = "daily";
-    persistent = true;
-  };
 
   # Nix
   nixpkgs.config.allowUnfree = true;
@@ -49,15 +39,17 @@
   };
 
   # Sound
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
+    lowLatency = {
+      enable = true;
+    };
   };
+  # make pipewire realtime-capable
+  security.rtkit.enable = true;
 
   # Desktop Environment
   services.xserver = {
@@ -67,23 +59,10 @@
       variant = "";
     };
   };
-  services.displayManager = {
-    autoLogin = {
-      enable = true;
-      user = user.name;
-    };
-    cosmic-greeter = {
-      enable = true;
-    };
-  };
-  services.desktopManager = {
-    cosmic = {
-      enable = true;
-    };
-  };
-  services.system76-scheduler = {
-    enable = true;
-  };
+
+  # GNOME
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -145,12 +124,6 @@
     ];
   };
 
-  # Packages
-  environment.systemPackages = with pkgs; [
-    networkmanager-openvpn
-    wireguard-tools
-  ];
-
   # Networking
   networking = {
     useDHCP = lib.mkDefault true;
@@ -188,6 +161,4 @@
   programs.nix-ld = {
     enable = true;
   };
-
-  security.polkit.enable = true;
 }

@@ -6,7 +6,7 @@
 }:
 
 {
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod;
 
   boot.initrd.availableKernelModules = [
     "nvme"
@@ -73,7 +73,11 @@
   };
 
   # Keyboard
-  boot.extraModprobeConfig = ''
-    options hid_apple fnmode=2
-  '';
+  #boot.extraModprobeConfig = ''
+  #  options hid_apple fnmode=2
+  #'';
+  hardware.keyboard.qmk = {
+    enable = true;
+    keychronSupport = true;
+  };
 }
