@@ -73,11 +73,7 @@
   };
 
   # Keyboard
-  boot.extraModprobeConfig = ''
-    options hid_apple fnmode=2
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", ATTRS{idVendor}=="3434", MODE="0660", TAG+="uaccess"
   '';
-  hardware.keyboard.qmk = {
-    enable = true;
-    keychronSupport = true;
-  };
 }
