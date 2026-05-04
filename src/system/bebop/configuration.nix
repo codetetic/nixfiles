@@ -49,25 +49,6 @@
     acceleration = "rocm";
   };
 
-  # Flatpak
-  services.flatpak = {
-    enable = true;
-    remotes = [
-      {
-        name = "flathub";
-        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-      }
-    ];
-    packages = [
-      "com.vivaldi.Vivaldi"
-      "com.discordapp.Discord"
-      "com.transmissionbt.Transmission"
-      "io.openrct2.OpenRCT2"
-      "us.zoom.Zoom"
-    ];
-    update.onActivation = true;
-  };
-
   # Services
   services = {
     ratbagd.enable = true;

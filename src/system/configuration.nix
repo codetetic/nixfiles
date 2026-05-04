@@ -60,6 +60,25 @@
   # GNOME
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  environment.gnome.excludePackages = with pkgs; [
+    epiphany # Web browser
+    geary # Email client
+    simple-scan # Document scanner
+    decibels # Music player
+    showtime # Video player
+    gnome-music # Music player
+    totem # Video player
+    gnome-tour # Welcome tour
+    gnome-maps # Maps
+    gnome-weather # Weather
+    gnome-contacts # Contacts
+    gnome-calendar # Calendar
+    gnome-characters # Character picker
+    gnome-color-manager # Colour calibration
+    gnome-connections # Remote desktop client
+    gnome-user-docs # Offline help docs
+    gnome-user-share # Personal file sharing
+  ];
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -123,7 +142,13 @@
 
   # Packages
   environment.systemPackages = with pkgs; [
-    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+    (aspellWithDicts (
+      dicts: with dicts; [
+        en
+        en-computers
+        en-science
+      ]
+    ))
   ];
 
   # Networking
