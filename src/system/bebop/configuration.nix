@@ -49,6 +49,16 @@
     acceleration = "rocm";
   };
 
+  services.flatpak = {
+    enable = true;
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+  };
+
   # Services
   services = {
     ratbagd.enable = true;
