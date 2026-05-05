@@ -25,11 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spotatui = {
-      url = "github:LargeModGames/spotatui";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     dw-proton = {
       url = "github:Momoyaan/dwproton-flake";
     };
@@ -57,21 +52,6 @@
       system = "x86_64-linux";
 
       homeKey = builtins.readFile ./src/home.pub;
-
-      users = {
-        home = {
-          name = "moobert";
-          description = "Peter Measham";
-          email = "github@codetetic.co.uk";
-          keys = [ homeKey ];
-        };
-        work = {
-          name = "peter";
-          description = "Peter Measham";
-          email = "github@codetetic.co.uk";
-          keys = [ homeKey ];
-        };
-      };
 
       mkNixosConfig =
         { host, user }:
@@ -103,11 +83,12 @@
     {
       nixosConfigurations."bebop" = mkNixosConfig {
         host = "bebop";
-        user = users.home;
-      };
-      nixosConfigurations."valiant" = mkNixosConfig {
-        host = "valiant";
-        user = users.work;
+        user = {
+          name = "moobert";
+          description = "Peter Measham";
+          email = "github@codetetic.co.uk";
+          keys = [ homeKey ];
+        };
       };
     };
 }

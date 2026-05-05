@@ -16,18 +16,12 @@
 
   home.packages = [
     inputs.elysia.packages.${pkgs.system}.default
-    inputs.spotatui.packages.${pkgs.system}.default
   ];
 
   catppuccin = {
     enable = true;
     nvim.enable = false;
     vivaldi.enable = false;
-  };
-
-  programs.nix-your-shell = {
-    enable = true;
-    nix-output-monitor.enable = true;
   };
 
   programs.bash.enable = true;

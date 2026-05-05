@@ -49,11 +49,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1777283500,
-        "narHash": "sha256-IiNjEHPKYdt3F29vRRaEYjHoEgHEfGjUJ/ATsQjVzMM=",
+        "lastModified": 1777886765,
+        "narHash": "sha256-9qmLB11jO4AxnnZlbtFVa8qQcvK3XyWsXZkqXS6yRM4=",
         "owner": "Momoyaan",
         "repo": "dwproton-flake",
-        "rev": "f30f02ccbdeedcaa13f43bf345c2e003039ca669",
+        "rev": "71671c6b4bbabe5fe3790144c93df73d8a74b722",
         "type": "github"
       },
       "original": {
@@ -70,11 +70,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777488548,
-        "narHash": "sha256-0+mdxs2PR66QBgwnjtRdnmpchF1bjG0hwDSkrD4CdS0=",
+        "lastModified": 1777867604,
+        "narHash": "sha256-IjRIyIg5ph+YQ2wrPx/KW5ixJ04a1RazTYRMj85JLsc=",
         "ref": "refs/heads/master",
-        "rev": "0963b64b067eba1e47a86e81270a859d3a56f243",
-        "revCount": 107,
+        "rev": "d0c15b093f98eab1adcf0a4bcab3b8a94f967bdd",
+        "revCount": 110,
         "type": "git",
         "url": "https://dawn.wine/foxtrottt/elysia-on-nix/"
       },
@@ -160,24 +160,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems_3"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -185,11 +167,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777771528,
-        "narHash": "sha256-YycygK6n7KeW1YCobdFJcORWzkmrvNcp6xT+IovA0d4=",
+        "lastModified": 1777851538,
+        "narHash": "sha256-Gp8qwTEYNoy2yvmErVGlvLOQvrtEECCAKbonW7VJef8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0585fbf645640973e3398863bbaf3bd1ddce4a51",
+        "rev": "cc09c0f9b7eaa95c2d9827338a5eb03d32505ca5",
         "type": "github"
       },
       "original": {
@@ -261,11 +243,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1752687322,
-        "narHash": "sha256-RKwfXA4OZROjBTQAl9WOZQFm7L8Bo93FQwSJpAiSRvo=",
+        "lastModified": 1777578337,
+        "narHash": "sha256-Ad49moKWeXtKBJNy2ebiTQUEgdLyvGmTeykAQ9xM+Z4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6e987485eb2c77e5dcc5af4e3c70843711ef9251",
+        "rev": "15f4ee454b1dce334612fa6843b3e05cf546efab",
         "type": "github"
       },
       "original": {
@@ -277,11 +259,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1777673416,
-        "narHash": "sha256-5c2POKPOjU40Kh0MirOdScBLG0bu9TAuPYAtPRNZMBs=",
+        "lastModified": 1778003029,
+        "narHash": "sha256-q/nkKLDtHIyLjZpKhWk3cSK5IYsFqtMd6UtXF3ddjgA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "26ef669cffa904b6f6832ab57b77892a37c1a671",
+        "rev": "0c88e1f2bdb93d5999019e99cb0e61e1fe2af4c5",
         "type": "github"
       },
       "original": {
@@ -347,8 +329,7 @@
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_3",
-        "nixvim": "nixvim",
-        "spotatui": "spotatui"
+        "nixvim": "nixvim"
       }
     },
     "rust-analyzer-src": {
@@ -386,27 +367,6 @@
         "type": "github"
       }
     },
-    "spotatui": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1777820471,
-        "narHash": "sha256-354dtmzfxLfck/MwGVx+82NDJ+pdRL2IvTBH6EG12QQ=",
-        "owner": "LargeModGames",
-        "repo": "spotatui",
-        "rev": "0409bdbc1322bc94c0f66d4e6cd855c35e62c9d1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "LargeModGames",
-        "repo": "spotatui",
-        "type": "github"
-      }
-    },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -423,21 +383,6 @@
       }
     },
     "systems_2": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
