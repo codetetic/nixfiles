@@ -69,7 +69,7 @@
     gnome-music
     totem
     gnome-tour
-    gnome-extensions
+    gnome-shell-extensions
   ];
 
   # Fonts
