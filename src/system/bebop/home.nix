@@ -16,6 +16,8 @@
 
   home.packages = [
     inputs.elysia.packages.${pkgs.system}.default
+
+    pkgs.zoom-us
   ];
 
   catppuccin = {
@@ -32,6 +34,7 @@
   programs.direnv.enable = true;
   programs.nixvim.enable = true;
   programs.vscode.enable = true;
+  programs.ghostty.enable = true;
 
   services.spotifyd = {
     enable = true;
