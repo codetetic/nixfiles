@@ -16,6 +16,7 @@
 
   home.packages = [
     inputs.elysia.packages.${pkgs.system}.default
+    inputs.helium.packages.${pkgs.system}.default
 
     pkgs.zoom-us
   ];

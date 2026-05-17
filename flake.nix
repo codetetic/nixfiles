@@ -38,6 +38,11 @@
       url = "git+https://dawn.wine/foxtrottt/elysia-on-nix/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    helium = {
+      url = "github:schembriaiden/helium-browser-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
