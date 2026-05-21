@@ -19,6 +19,7 @@
     inputs.helium.packages.${pkgs.system}.default
 
     pkgs.zoom-us
+    (pkgs.spotify-player.override { withNotify = false; })
   ];
 
   catppuccin = {
@@ -40,6 +41,10 @@
   services.spotifyd = {
     enable = true;
   };
+
+  xdg.configFile."spotify-player/app.toml".text = ''
+    enable_media_control = false
+  '';
 
   programs.keychain = {
     enable = true;
