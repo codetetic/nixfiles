@@ -6,10 +6,6 @@
 }:
 
 {
-  imports = [
-    inputs.aagl.nixosModules.default
-  ];
-
   # Programmes
   programs.steam = {
     enable = true;
@@ -21,9 +17,6 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
-  };
-  programs.sleepy-launcher = {
-    enable = true;
   };
 
   # Virtualisation

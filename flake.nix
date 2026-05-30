@@ -29,16 +29,6 @@
       url = "github:Momoyaan/dwproton-flake";
     };
 
-    aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    elysia = {
-      url = "git+https://dawn.wine/foxtrottt/elysia-on-nix/";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
