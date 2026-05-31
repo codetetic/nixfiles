@@ -147,6 +147,8 @@
         en-science
       ]
     ))
+
+    kitty
   ];
 
   # Networking

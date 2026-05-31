@@ -37,11 +37,6 @@
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
 
   # AI
-  services.ollama = {
-    enable = true;
-    acceleration = "rocm";
-  };
-
   services.flatpak = {
     enable = true;
     remotes = [

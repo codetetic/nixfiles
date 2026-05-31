@@ -75,4 +75,7 @@
   services.udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="3434", MODE="0660", TAG+="uaccess"
   '';
+
+  # Updates
+  services.fwupd.enable = true;
 }
