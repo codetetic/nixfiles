@@ -77,6 +77,7 @@
     withUWSM = true; # recommended for most users
     xwayland.enable = true; # Xwayland can be disabled.
   };
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -148,7 +149,8 @@
       ]
     ))
 
-    kitty
+    kitty waybar wofi mako hyprpaper
+    grim slurp wl-clipboard brightnessctl pavucontrol
   ];
 
   # Networking

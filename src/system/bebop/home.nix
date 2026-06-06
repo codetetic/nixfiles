@@ -49,7 +49,8 @@
     enable = true;
     keys = [
       "home"
-      "github"
+      "github-codetetic"
+      "github-moobert"
       "azure"
     ];
   };
