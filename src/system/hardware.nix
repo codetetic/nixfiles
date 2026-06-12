@@ -48,6 +48,7 @@
     autoScrub.enable = true;
     trim.enable = true;
   };
+  systemd.oomd.enable = true;
 
   # Hardware
   hardware.enableAllFirmware = true;

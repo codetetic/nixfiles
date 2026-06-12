@@ -76,6 +76,12 @@
     KERNEL=="hidraw*", ATTRS{idVendor}=="3434", MODE="0660", TAG+="uaccess"
   '';
 
+  # Yubikey
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+
   # Updates
   services.fwupd.enable = true;
 }
