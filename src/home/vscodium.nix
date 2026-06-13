@@ -1,6 +1,5 @@
 { pkgs, ... }: {
-  programs.vscode = {
-    package = pkgs.vscodium;
+  programs.vscodium = {
     profiles.default.extensions = with pkgs.vscode-extensions; [
       mkhl.direnv
       jnoortheen.nix-ide

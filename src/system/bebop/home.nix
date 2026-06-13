@@ -19,6 +19,8 @@
 
     pkgs.zoom-us
     (pkgs.spotify-player.override { withNotify = false; })
+
+    pkgs.claude-code
   ];
 
   catppuccin = {
@@ -33,7 +35,7 @@
   programs.git.enable = true;
   programs.direnv.enable = true;
   programs.nixvim.enable = true;
-  programs.vscode.enable = true;
+  programs.vscodium.enable = true;
   programs.ghostty.enable = true;
   programs.discord.enable = true;
 
