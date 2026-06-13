@@ -19,6 +19,8 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  programs.yubikey-manager.enable = true;
+
   # Virtualisation
   virtualisation = {
     podman = {
