@@ -5,6 +5,6 @@
     dig
     silver-searcher
     nixd
-    nixfmt-rfc-style
+    nixfmt
   ];
 }

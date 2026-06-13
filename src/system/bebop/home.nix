@@ -24,7 +24,6 @@
   catppuccin = {
     enable = true;
     nvim.enable = false;
-    vivaldi.enable = false;
   };
 
   programs.bash.enable = true;
@@ -36,6 +35,7 @@
   programs.nixvim.enable = true;
   programs.vscode.enable = true;
   programs.ghostty.enable = true;
+  programs.discord.enable = true;
 
   services.spotifyd = {
     enable = true;
