@@ -11,6 +11,6 @@
     ./ssh.nix
     ./starship.nix
     ./utilities.nix
-    ./vscode.nix
+    ./vscodium.nix
   ];
 }
