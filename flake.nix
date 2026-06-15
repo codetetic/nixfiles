@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixos-26.05";
+      url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-26.05-chilled/0.1";
     };
 
     home-manager = {
@@ -11,12 +11,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak/?ref=latest";
-    };
-
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     catppuccin = {

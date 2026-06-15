@@ -38,17 +38,6 @@
   # Allow podman to use port 80
   boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 80;
 
-  # AI
-  services.flatpak = {
-    enable = true;
-    remotes = [
-      {
-        name = "flathub";
-        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-      }
-    ];
-  };
-
   # Services
   services = {
     ratbagd.enable = true;
