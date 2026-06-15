@@ -35,7 +35,6 @@
     inputs@{
       nixpkgs,
       home-manager,
-      nix-flatpak,
       catppuccin,
       ...
     }:
@@ -56,7 +55,6 @@
             ./src/system/${host}/configuration.nix
             catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
-            nix-flatpak.nixosModules.nix-flatpak
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
