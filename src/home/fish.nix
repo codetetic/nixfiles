@@ -2,6 +2,7 @@
 {
   programs.fish = {
     shellAliases = {
+      nr-check = "nix flake check ~/src/nixfiles";
       nr-update = "nix flake update --flake ~/src/nixfiles";
       nr-test = "sudo nixos-rebuild test --flake ~/src/nixfiles#$(hostname)";
       nr-switch = "sudo nixos-rebuild switch --flake ~/src/nixfiles#$(hostname)";
