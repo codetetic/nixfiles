@@ -21,6 +21,7 @@
     (pkgs.spotify-player.override { withNotify = false; })
 
     pkgs.claude-code
+    pkgs.skills
   ];
 
   catppuccin = {
@@ -54,6 +55,18 @@
       "github-codetetic"
       "github-moobert"
       "azure"
+    ];
+  };
+
+  programs.lutris = {
+    enable = true;
+    protonPackages = [
+      pkgs.proton-ge-bin
+      inputs.dw-proton.packages.${pkgs.system}.default
+    ];
+    extraPackages = with pkgs; [
+      umu-launcher
+      winetricks
     ];
   };
 }
