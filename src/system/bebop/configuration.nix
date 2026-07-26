@@ -12,6 +12,7 @@
     extraCompatPackages = with pkgs; [
       gamescope
       proton-ge-bin
+      proton-ge-rtsp-bin
       inputs.dw-proton.packages.${pkgs.system}.default
     ];
     remotePlay.openFirewall = true;

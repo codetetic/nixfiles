@@ -6,6 +6,10 @@
       url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-26.05-chilled/0.1";
     };
 
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +40,7 @@
       nixpkgs,
       home-manager,
       catppuccin,
+      nixpkgs-xr,
       ...
     }:
     let
@@ -55,6 +60,7 @@
             ./src/system/${host}/configuration.nix
             catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
+            nixpkgs-xr.nixosModules.nixpkgs-xr
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
