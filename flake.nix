@@ -19,11 +19,6 @@
       url = "github:nix-community/nixvim/nixos-26.05";
     };
 
-    catppuccin = {
-      url = "github:catppuccin/nix/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     dw-proton = {
       url = "github:imaviso/dwproton-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +34,6 @@
     inputs@{
       nixpkgs,
       home-manager,
-      catppuccin,
       nixpkgs-xr,
       ...
     }:
@@ -58,7 +52,6 @@
             ./src/system/${host}/hardware.nix
             ./src/system/configuration.nix
             ./src/system/${host}/configuration.nix
-            catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
             nixpkgs-xr.nixosModules.nixpkgs-xr
             {
@@ -68,7 +61,6 @@
               home-manager.users.${user.name} = {
                 imports = [
                   ./src/system/${host}/home.nix
-                  catppuccin.homeModules.catppuccin
                 ];
               };
             }

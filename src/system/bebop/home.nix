@@ -22,12 +22,9 @@
 
     pkgs.claude-code
     pkgs.skills
-  ];
 
-  catppuccin = {
-    enable = true;
-    nvim.enable = false;
-  };
+    pkgs.cliamp
+  ];
 
   programs.bash.enable = true;
   programs.fish.enable = true;
