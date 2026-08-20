@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   user,
+  config,
   ...
 }:
 
@@ -22,8 +23,6 @@
 
     pkgs.claude-code
     pkgs.skills
-
-    pkgs.cliamp
   ];
 
   programs.bash.enable = true;
@@ -36,6 +35,8 @@
   programs.vscodium.enable = true;
   programs.ghostty.enable = true;
   programs.discord.enable = true;
+  programs.firefox.enable = true;
+  programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
 
   services.spotifyd = {
     enable = true;
