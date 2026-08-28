@@ -72,11 +72,25 @@
     gnome-shell-extensions
   ];
 
-  programs.hyprland = {
+  # Sway
+  programs.sway = {
     enable = true;
-    withUWSM = true; # recommended for most users
-    xwayland.enable = true; # Xwayland can be disabled.
+    wrapperFeatures.gtk = true; # needed for GTK apps launched from sway
+    xwayland.enable = true;
+    # Default list minus foot; ghostty is the terminal (see config.d below).
+    extraPackages = with pkgs; [
+      pulseaudio
+      swayidle
+      swaylock
+      wmenu
+    ];
   };
+  # The stock /etc/sway/config hardcodes foot and is parsed before config.d,
+  # so redefine $term here and re-bind the key it was already bound to.
+  environment.etc."sway/config.d/10-ghostty.conf".text = ''
+    set $term ghostty
+    bindsym $mod+Return exec $term
+  '';
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Fonts
@@ -149,7 +163,7 @@
       ]
     ))
 
-    kitty waybar wofi mako hyprpaper
+    kitty waybar wofi mako swaybg
     grim slurp wl-clipboard brightnessctl pavucontrol
   ];
 

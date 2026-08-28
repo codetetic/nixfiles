@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  pkgsWeekly,
   user,
   config,
   ...
@@ -21,7 +22,7 @@
     pkgs.zoom-us
     (pkgs.spotify-player.override { withNotify = false; })
 
-    pkgs.claude-code
+    pkgsWeekly.claude-code
     pkgs.skills
   ];
 

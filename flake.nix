@@ -6,6 +6,11 @@
       url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-26.05-chilled/0.1";
     };
 
+    # Fast-moving packages that we want fresher than the chilled channel.
+    nixpkgs-weekly = {
+      url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
+    };
+
     nixpkgs-xr = {
       url = "github:nix-community/nixpkgs-xr";
     };
@@ -42,11 +47,18 @@
 
       homeKey = builtins.readFile ./src/home.pub;
 
+      # A separate nixpkgs instance needs its own config; nixpkgs.config from
+      # the NixOS module system does not apply here.
+      pkgsWeekly = import inputs.nixpkgs-weekly {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
       mkNixosConfig =
         { host, user }:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs user; };
+          specialArgs = { inherit inputs user pkgsWeekly; };
           modules = [
             ./src/system/hardware.nix
             ./src/system/${host}/hardware.nix
@@ -57,7 +69,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs user; };
+              home-manager.extraSpecialArgs = { inherit inputs user pkgsWeekly; };
               home-manager.users.${user.name} = {
                 imports = [
                   ./src/system/${host}/home.nix
