@@ -59,6 +59,8 @@
 
   # GNOME
   services.displayManager.gdm.enable = true;
+  # Force sway as the login session; GDM's chooser wasn't offering it.
+  services.displayManager.defaultSession = "sway";
   services.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = with pkgs; [
     epiphany
@@ -77,20 +79,14 @@
     enable = true;
     wrapperFeatures.gtk = true; # needed for GTK apps launched from sway
     xwayland.enable = true;
-    # Default list minus foot; ghostty is the terminal (see config.d below).
+    # Trimmed default list; pactl is used by the volume keys. The terminal,
+    # launcher and other config dependencies live in src/home/sway.nix.
     extraPackages = with pkgs; [
       pulseaudio
       swayidle
       swaylock
-      wmenu
     ];
   };
-  # The stock /etc/sway/config hardcodes foot and is parsed before config.d,
-  # so redefine $term here and re-bind the key it was already bound to.
-  environment.etc."sway/config.d/10-ghostty.conf".text = ''
-    set $term ghostty
-    bindsym $mod+Return exec $term
-  '';
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Fonts
@@ -133,16 +129,6 @@
   };
 
   # Users
-  programs.bash = {
-    interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-      then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-      fi
-    '';
-  };
-
   users.users.${user.name} = {
     isNormalUser = true;
     description = user.description;
@@ -162,9 +148,6 @@
         en-science
       ]
     ))
-
-    kitty waybar wofi mako swaybg
-    grim slurp wl-clipboard brightnessctl pavucontrol
   ];
 
   # Networking

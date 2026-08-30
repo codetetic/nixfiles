@@ -35,9 +35,28 @@
   programs.nixvim.enable = true;
   programs.vscodium.enable = true;
   programs.ghostty.enable = true;
+  wayland.windowManager.sway.enable = true;
   programs.discord.enable = true;
   programs.firefox.enable = true;
   programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
+  programs.rofi.enable = true;
+
+  # Helium handles web links. claude-code-url-handler.desktop is not installed
+  # by nix (Claude Code drops it in ~/.local/share/applications), but the
+  # association has to be listed here or it is lost when nix owns this file.
+  home.sessionVariables.BROWSER = "helium";
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "helium.desktop";
+      "application/xhtml+xml" = "helium.desktop";
+      "x-scheme-handler/http" = "helium.desktop";
+      "x-scheme-handler/https" = "helium.desktop";
+      "x-scheme-handler/about" = "helium.desktop";
+      "x-scheme-handler/unknown" = "helium.desktop";
+      "x-scheme-handler/claude-cli" = "claude-code-url-handler.desktop";
+    };
+  };
 
   services.spotifyd = {
     enable = true;
