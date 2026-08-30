@@ -11,10 +11,6 @@
       url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     };
 
-    nixpkgs-xr = {
-      url = "github:nix-community/nixpkgs-xr";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +35,6 @@
     inputs@{
       nixpkgs,
       home-manager,
-      nixpkgs-xr,
       ...
     }:
     let
@@ -65,7 +60,6 @@
             ./src/system/configuration.nix
             ./src/system/${host}/configuration.nix
             home-manager.nixosModules.home-manager
-            nixpkgs-xr.nixosModules.nixpkgs-xr
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
