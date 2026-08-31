@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787752705,
+        "narHash": "sha256-9eJSxncX01i6tV/yushVG0+JadQhdll+aNfyDT3YvWg=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "30ad3b76f1b20ed045d1dfd10ac2f3d89ff1df50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "ref": "release-26.05",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "dw-proton": {
       "inputs": {
         "nixpkgs": [
@@ -167,6 +188,7 @@
     },
     "root": {
       "inputs": {
+        "catppuccin": "catppuccin",
         "dw-proton": "dw-proton",
         "helium": "helium",
         "home-manager": "home-manager",

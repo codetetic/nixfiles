@@ -7,7 +7,6 @@
     grim
     playerctl
     slurp
-    swaybg
     wl-clipboard
   ];
 
@@ -15,6 +14,8 @@
     # Sway itself is installed by the NixOS module (programs.sway); home-manager
     # only owns ~/.config/sway/config, which takes precedence over /etc/sway/config.
     package = null;
+
+    extraConfig = "default_orientation horizontal";
 
     config = {
       modifier = "Mod4";
@@ -27,10 +28,18 @@
       up = "k";
       right = "l";
 
-      output."*".bg =
-        "/run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill";
+      # wpaperd owns the background now (see wallpaper.nix); this just pins the
+      # BenQ to its native mode.
+      output."DP-2".mode = "2560x1440";
 
       input."type:keyboard".xkb_layout = "gb";
+
+      # New containers split left/right instead of sway's aspect-ratio-based
+      # "auto", and workspaces stay in the plain tiled layout.
+      workspaceLayout = "default";
+
+      # app_id, not class: vscodium runs natively on wayland via NIXOS_OZONE_WL.
+      assigns."3" = [ { app_id = "codium"; } ];
 
       # Everything sway binds by default is kept; these are the extras.
       keybindings = lib.mkOptionDefault {
@@ -56,21 +65,51 @@
         "Shift+Print" = ''exec grim -g "$(slurp)" - | wl-copy'';
       };
 
-      bars = [
-        {
-          position = "top";
-          statusCommand = "while date +'%Y-%m-%d %X'; do sleep 1; done";
-          colors = {
-            statusline = "#ffffff";
-            background = "#323232";
-            inactiveWorkspace = {
-              border = "#32323200";
-              background = "#32323200";
-              text = "#5c5c5c";
-            };
-          };
-        }
-      ];
+      # $-variables come from the catppuccin sway theme, which theme.nix
+      # includes ahead of this config. The focused window (border and
+      # titlebar) is the accent purple; everything else stays muted.
+      colors = {
+        background = "$base";
+        focused = {
+          border = "$mauve";
+          background = "$mauve";
+          text = "$base";
+          indicator = "$lavender";
+          childBorder = "$mauve";
+        };
+        focusedInactive = {
+          border = "$surface0";
+          background = "$surface0";
+          text = "$text";
+          indicator = "$surface0";
+          childBorder = "$surface0";
+        };
+        unfocused = {
+          border = "$mantle";
+          background = "$mantle";
+          text = "$subtext0";
+          indicator = "$mantle";
+          childBorder = "$mantle";
+        };
+        urgent = {
+          border = "$red";
+          background = "$red";
+          text = "$base";
+          indicator = "$red";
+          childBorder = "$red";
+        };
+        placeholder = {
+          border = "$base";
+          background = "$base";
+          text = "$text";
+          indicator = "$base";
+          childBorder = "$base";
+        };
+      };
+
+      # Replaced by waybar, see waybar.nix. An empty list stops sway from
+      # launching swaybar as well.
+      bars = [ ];
     };
   };
 }

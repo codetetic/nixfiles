@@ -40,6 +40,8 @@
   programs.firefox.enable = true;
   programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
   programs.rofi.enable = true;
+  programs.waybar.enable = true;
+  services.wpaperd.enable = true;
 
   # Helium handles web links. claude-code-url-handler.desktop is not installed
   # by nix (Claude Code drops it in ~/.local/share/applications), but the

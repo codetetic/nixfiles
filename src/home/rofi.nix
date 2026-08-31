@@ -6,6 +6,7 @@
     # Deliberately a couple of points smaller than the terminal/editor size.
     font = "${config.local.fonts.mono.name} 12";
 
+    # The theme itself comes from catppuccin.rofi, see theme.nix.
     extraConfig = {
       modes = "drun,run,window";
       show-icons = true;

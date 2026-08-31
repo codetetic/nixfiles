@@ -14,7 +14,10 @@
     ./ssh.nix
     ./starship.nix
     ./sway.nix
+    ./theme.nix
     ./utilities.nix
     ./vscodium.nix
+    ./wallpaper.nix
+    ./waybar.nix
   ];
 }

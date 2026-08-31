@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    catppuccin = {
+      url = "github:catppuccin/nix/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
     };
@@ -35,6 +40,7 @@
     inputs@{
       nixpkgs,
       home-manager,
+      catppuccin,
       ...
     }:
     let
@@ -60,12 +66,14 @@
             ./src/system/configuration.nix
             ./src/system/${host}/configuration.nix
             home-manager.nixosModules.home-manager
+            catppuccin.nixosModules.catppuccin
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs user pkgsWeekly; };
               home-manager.users.${user.name} = {
                 imports = [
+                  catppuccin.homeModules.catppuccin
                   ./src/system/${host}/home.nix
                 ];
               };

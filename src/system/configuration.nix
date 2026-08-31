@@ -89,6 +89,13 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # Set here rather than only in the shells: sway is started without sourcing
+  # ~/.profile, so anything launched from the session (vscodium and its
+  # integrated terminals included) would otherwise have no EDITOR and fall
+  # back to nano/vi.
+  environment.sessionVariables.EDITOR = "nvim";
+  environment.sessionVariables.VISUAL = "nvim";
+
   # Fonts
   fonts.packages = with pkgs; [
     # Core, widely expected fonts
