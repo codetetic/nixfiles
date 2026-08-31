@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   programs.vscodium = {
     profiles.default.extensions = with pkgs.vscode-extensions; [
       mkhl.direnv
@@ -10,8 +10,10 @@
 
     profiles.default.userSettings = {
       "update.mode" = "none";
-      "terminal.integrated.fontFamily" = "FiraCode Nerd Font";
-      "terminal.integrated.fontSize" = 14;
+      "editor.fontFamily" = config.local.fonts.mono.name;
+      "editor.fontSize" = config.local.fonts.mono.size;
+      "terminal.integrated.fontFamily" = config.local.fonts.mono.name;
+      "terminal.integrated.fontSize" = config.local.fonts.mono.size;
       "chat.mcp.gallery.enabled" = false;
       "editor.minimap.enabled" = false;
       "nix.enableLanguageServer" = true;

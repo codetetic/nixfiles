@@ -6,6 +6,7 @@
     ./development.nix
     ./direnv.nix
     ./fish.nix
+    ./fonts.nix
     ./ghostty.nix
     ./git.nix
     ./nixvim.nix

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.ghostty = {
     settings = {
@@ -6,8 +6,8 @@
       # in the system config.
       command = "${pkgs.fish}/bin/fish --login";
 
-      font-family = "FiraCode Nerd Font";
-      font-size = 14;
+      font-family = config.local.fonts.mono.name;
+      font-size = config.local.fonts.mono.size;
     };
   };
 }
