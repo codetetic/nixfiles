@@ -5,6 +5,7 @@
     ./bash.nix
     ./development.nix
     ./direnv.nix
+    ./dock.nix
     ./fish.nix
     ./fonts.nix
     ./ghostty.nix

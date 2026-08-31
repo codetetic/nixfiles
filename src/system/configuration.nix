@@ -77,6 +77,9 @@
   # Sway
   programs.sway = {
     enable = true;
+    # SwayFX is a drop-in fork of sway; it is only here for the rounded corners
+    # configured in src/home/sway.nix. Swap back to pkgs.sway to drop them.
+    package = pkgs.swayfx;
     wrapperFeatures.gtk = true; # needed for GTK apps launched from sway
     xwayland.enable = true;
     # Trimmed default list; pactl is used by the volume keys. The terminal,
