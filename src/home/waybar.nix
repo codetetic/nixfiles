@@ -58,7 +58,7 @@ in
     style = ''
       * {
         font-family: "${font.name}";
-        font-size: ${toString font.size}px;
+        font-size: ${toString font.sizePx}px;
         border: none;
         border-radius: 0;
         min-height: 0;

@@ -11,9 +11,9 @@
     profiles.default.userSettings = {
       "update.mode" = "none";
       "editor.fontFamily" = config.local.fonts.mono.name;
-      "editor.fontSize" = config.local.fonts.mono.size;
+      "editor.fontSize" = config.local.fonts.mono.sizePx;
       "terminal.integrated.fontFamily" = config.local.fonts.mono.name;
-      "terminal.integrated.fontSize" = config.local.fonts.mono.size;
+      "terminal.integrated.fontSize" = config.local.fonts.mono.sizePx;
       "chat.mcp.gallery.enabled" = false;
       "editor.minimap.enabled" = false;
       "nix.enableLanguageServer" = true;

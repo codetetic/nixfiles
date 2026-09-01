@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 {
   imports = [
     inputs.nixvim.homeModules.nixvim
@@ -17,7 +17,9 @@
     # --- UI ---
     colorschemes.catppuccin = {
       enable = true;
-      settings.flavour = "mocha";
+      # Follows theme.nix rather than repeating the flavour; there is no
+      # catppuccin module for nixvim, so it sets its own colorscheme.
+      settings.flavour = config.catppuccin.flavor;
     };
 
     colorscheme = "catppuccin";
