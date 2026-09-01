@@ -24,8 +24,17 @@
     '';
   };
 
+  # Enabled for FZF_DEFAULT_OPTS, which is where catppuccin.fzf puts its
+  # colors (see theme.nix); without this the theme evaluates but is never
+  # emitted. Fish integration stays off because the fzf-fish plugin above
+  # already owns the key bindings, ctrl-r included. This also installs fzf,
+  # so it is no longer listed below.
+  programs.fzf = {
+    enable = true;
+    enableFishIntegration = false;
+  };
+
   home.packages = with pkgs; [
-    fzf
     grc
   ];
 }

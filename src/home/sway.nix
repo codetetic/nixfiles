@@ -93,6 +93,10 @@
         # Cycle workspaces; not a sway default.
         "Mod4+Tab" = "workspace next";
         "Mod4+Shift+Tab" = "workspace prev";
+
+        # Browser, to go with mod+return for the terminal. helium comes from
+        # a flake input, see src/system/bebop/home.nix.
+        "Mod4+BackSpace" = "exec helium";
       };
 
       # $-variables come from the catppuccin sway theme, which theme.nix

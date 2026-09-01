@@ -6,6 +6,7 @@
 
     enable = false;
 
+    fzf.enable = true;
     ghostty.enable = true;
     rofi.enable = true;
     sway.enable = true;
