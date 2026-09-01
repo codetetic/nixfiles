@@ -1,8 +1,11 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     inputs.nixvim.homeModules.nixvim
   ];
+
+  # Backs the wl-copy clipboard provider configured below.
+  home.packages = [ pkgs.wl-clipboard ];
 
   programs.nixvim = {
     nixpkgs.source = inputs.nixpkgs;

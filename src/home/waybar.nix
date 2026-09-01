@@ -40,7 +40,8 @@ in
           tooltip-format = "{ifname}: {ipaddr}";
         };
 
-        # Volume keys already drive pactl; this is the same sink, clickable.
+        # Nothing binds the volume keys any more (see sway.nix), so this is
+        # the only volume control.
         pulseaudio = {
           format = "{icon} {volume}%";
           format-muted = "󰝟 muted";

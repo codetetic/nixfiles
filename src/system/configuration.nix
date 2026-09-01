@@ -82,7 +82,7 @@
     package = pkgs.swayfx;
     wrapperFeatures.gtk = true; # needed for GTK apps launched from sway
     xwayland.enable = true;
-    # Trimmed default list; pactl is used by the volume keys. The terminal,
+    # Trimmed default list; pactl backs waybar's volume module. The terminal,
     # launcher and other config dependencies live in src/home/sway.nix.
     extraPackages = with pkgs; [
       pulseaudio
