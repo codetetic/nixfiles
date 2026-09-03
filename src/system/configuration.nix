@@ -56,11 +56,22 @@
   # console.keyMap above and sway sets its own once it starts (see
   # input."type:keyboard" in src/home/sway.nix), so services.xserver went with
   # GNOME rather than being kept for the keymap.
+  #
+  # initial_session fires once, at boot, with no prompt: this machine goes
+  # straight into sway. default_session is what greetd falls back to
+  # afterwards, so exiting sway lands on tuigreet rather than silently
+  # re-entering a second passwordless session.
   services.greetd = {
     enable = true;
-    settings.default_session = {
-      command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd sway";
-      user = "greeter";
+    settings = {
+      initial_session = {
+        command = "sway";
+        user = user.name;
+      };
+      default_session = {
+        command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd sway";
+        user = "greeter";
+      };
     };
   };
 
@@ -76,7 +87,9 @@
 
   # GDM unlocked the keyring as part of signing in. greetd has to be told to,
   # or it stays locked and vscodium prompts for a password the first time it
-  # reaches for a secret.
+  # reaches for a secret. That only covers the tuigreet path: the autologin
+  # above never sees a password, so on a normal boot the keyring stays locked
+  # until something first asks for it.
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
