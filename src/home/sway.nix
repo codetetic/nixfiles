@@ -55,8 +55,11 @@
       window.titlebar = false;
       floating.titlebar = false;
 
-      # app_id, not class: vscodium runs natively on wayland via NIXOS_OZONE_WL.
-      assigns."3" = [ { app_id = "codium"; } ];
+      # app_id, not class: both run natively on wayland via NIXOS_OZONE_WL.
+      assigns = {
+        "3" = [ { app_id = "codium"; } ];
+        "9" = [ { app_id = "discord"; } ];
+      };
 
       # Sway otherwise comes up focused on an empty workspace 10. Nothing in
       # this config asks for that, so rather than chase the cause this just

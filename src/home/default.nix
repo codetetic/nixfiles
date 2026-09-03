@@ -9,6 +9,7 @@
     ./fonts.nix
     ./ghostty.nix
     ./git.nix
+    ./mako.nix
     ./nixvim.nix
     ./rofi.nix
     ./ssh.nix

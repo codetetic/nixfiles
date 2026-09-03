@@ -12,10 +12,6 @@ let
 in
 {
   programs.vscodium = {
-    # Anything installed through the marketplace instead of listed here is
-    # dropped the next time this list changes: home-manager's
-    # .extensions-immutable.json has an onChange hook that deletes
-    # extensions.json and makes VSCodium rebuild it from what Nix provides.
     profiles.default.extensions = with pkgs.vscode-extensions; [
       mkhl.direnv
       jnoortheen.nix-ide
@@ -23,6 +19,8 @@ in
       eamodio.gitlens
       nefrob.vscode-just-syntax
       shardulm94.trailing-spaces
+      catppuccin.catppuccin-vsc
+      catppuccin.catppuccin-vsc-icons
     ];
 
     profiles.default.userSettings = {
@@ -41,6 +39,8 @@ in
         "asvetliakov.vscode-neovim" = 1;
       };
       "chat.disableAIFeatures" = true;
+      "workbench.colorTheme" = "Catppuccin Mocha";
+      "workbench.iconTheme" = "catppuccin-mocha";
     };
   };
 }
