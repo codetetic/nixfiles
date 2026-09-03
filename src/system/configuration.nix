@@ -6,6 +6,16 @@
   ...
 }:
 
+let
+  # Pinned and fetched at build time rather than downloaded by the unit below.
+  # A .flatpakrepo carries both the repo URL and its signing key, so adding the
+  # remote from this file needs no network at runtime, which is what keeps the
+  # unit from having to pull in and wait on network-online.target every boot.
+  flathubRepo = pkgs.fetchurl {
+    url = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+    hash = "sha256-M3HdJQ5h2eFjNjAHP+/aFTzUQm9y9K+gwzc64uj+oDo=";
+  };
+in
 {
   # System
   system.stateVersion = "25.05";
@@ -230,6 +240,31 @@
       PermitRootLogin = "no";
       PasswordAuthentication = false;
     };
+  };
+
+  # Flatpak, for apps that are not in nixpkgs or that upstream only ships
+  # sandboxed. The module brings the daemon, the polkit rules and the flatpak
+  # user, puts both exports directories on the profile path so installed apps
+  # show up in rofi, and turns on fonts.fontDir so the sandbox can see the host
+  # fonts configured above. It asserts xdg.portal.enable, which programs.sway
+  # already satisfies with the gtk and wlr backends.
+  services.flatpak.enable = true;
+
+  # The module deliberately adds no remotes and flatpak is inert without one.
+  # Running as root, remote-add writes to the system installation under
+  # /var/lib/flatpak, which is the exports directory the module put on the
+  # profile path. --if-not-exists leaves a remote edited by hand alone, so this
+  # only ever does something on the first boot after switching.
+  systemd.services.flatpak-flathub = {
+    description = "Add the Flathub remote to the system flatpak installation";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      ${lib.getExe pkgs.flatpak} remote-add --if-not-exists flathub ${flathubRepo}
+    '';
   };
 
   # Programmes
