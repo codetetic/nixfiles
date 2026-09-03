@@ -48,31 +48,57 @@
   # make pipewire realtime-capable
   security.rtkit.enable = true;
 
-  # Desktop Environment
-  services.xserver = {
+  # Login
+  # greetd owns the login: it runs on VT1, authenticates over PAM and launches
+  # sway directly. tuigreet is only the frontend that draws the prompt on the
+  # console, so there is no X server and no GTK stack behind it, which is the
+  # whole reason it replaced GDM. The layout at the prompt comes from
+  # console.keyMap above and sway sets its own once it starts (see
+  # input."type:keyboard" in src/home/sway.nix), so services.xserver went with
+  # GNOME rather than being kept for the keymap.
+  services.greetd = {
     enable = true;
-    xkb = {
-      layout = "gb";
-      variant = "";
+    settings.default_session = {
+      command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd sway";
+      user = "greeter";
     };
   };
 
-  # GNOME
-  services.displayManager.gdm.enable = true;
-  # Force sway as the login session; GDM's chooser wasn't offering it.
-  services.displayManager.defaultSession = "sway";
-  services.desktopManager.gnome.enable = true;
-  environment.gnome.excludePackages = with pkgs; [
-    epiphany
-    geary
-    simple-scan
-    decibels
-    showtime
-    gnome-music
-    totem
-    gnome-tour
-    gnome-shell-extensions
-  ];
+  # tuigreet draws with the console's 16 colours, so this is what themes the
+  # login prompt; there is no catppuccin module for greetd itself. The palette
+  # is repeated here rather than read from src/home/theme.nix because that one
+  # is home-manager's, and these are NixOS options.
+  catppuccin = {
+    flavor = "mocha";
+    accent = "mauve";
+    tty.enable = true;
+  };
+
+  # GDM unlocked the keyring as part of signing in. greetd has to be told to,
+  # or it stays locked and vscodium prompts for a password the first time it
+  # reaches for a secret.
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
+  # programs.sway already turns on security.polkit, but that is only the
+  # daemon; the dialog that asks for the password was GNOME Shell's. soteria is
+  # that agent without a desktop environment attached. Its module starts it
+  # from graphical-session.target, which sway-session.target pulls in.
+  security.soteria.enable = true;
+
+  # File manager. Thunar is standalone by design, so unlike nautilus it does
+  # not drag a desktop environment in behind it. gvfs gives it trash and
+  # removable-media mounting, tumbler the thumbnails; xfconf, where it keeps
+  # its settings, is switched on by the module itself.
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
   # Sway
   programs.sway = {

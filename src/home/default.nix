@@ -20,5 +20,6 @@
     ./vscodium.nix
     ./wallpaper.nix
     ./waybar.nix
+    ./yazi.nix
   ];
 }
