@@ -91,5 +91,11 @@
           keys = [ homeKey ];
         };
       };
+
+      # `nix fmt`. nixfmt-tree is treefmt preconfigured with nixfmt, the RFC 166
+      # formatter, so it walks the tree itself; plain pkgs.nixfmt would have to
+      # be handed paths. Without this output `nix fmt` errors out and formatting
+      # means reaching for `nix run nixpkgs#nixfmt` by hand.
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
 }
