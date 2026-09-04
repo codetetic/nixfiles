@@ -6,6 +6,7 @@
 
     enable = false;
 
+    btop.enable = true;
     fzf.enable = true;
     fish.enable = true;
     starship.enable = true;
