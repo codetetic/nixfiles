@@ -35,6 +35,7 @@
   programs.nixvim.enable = true;
   programs.vscodium.enable = true;
   programs.ghostty.enable = true;
+  programs.imv.enable = true;
   wayland.windowManager.sway.enable = true;
   programs.discord.enable = true;
   programs.firefox.enable = true;
@@ -57,6 +58,21 @@
       "x-scheme-handler/about" = "helium.desktop";
       "x-scheme-handler/unknown" = "helium.desktop";
       "x-scheme-handler/claude-cli" = "claude-code-url-handler.desktop";
+
+      # imv-dir.desktop rather than imv.desktop: given a single file it runs
+      # `imv -n <file> <dirname>`, so opening one image from thunar loads the
+      # whole folder and the arrow keys walk it. imv.desktop would open that
+      # one file and nothing else.
+      "image/png" = "imv-dir.desktop";
+      "image/jpeg" = "imv-dir.desktop";
+      "image/gif" = "imv-dir.desktop";
+      "image/webp" = "imv-dir.desktop";
+      "image/tiff" = "imv-dir.desktop";
+      "image/bmp" = "imv-dir.desktop";
+      "image/avif" = "imv-dir.desktop";
+      "image/heif" = "imv-dir.desktop";
+      "image/jxl" = "imv-dir.desktop";
+      "image/svg+xml" = "imv-dir.desktop";
     };
   };
 

@@ -11,6 +11,7 @@
     fish.enable = true;
     starship.enable = true;
     ghostty.enable = true;
+    imv.enable = true;
     mako.enable = true;
     rofi.enable = true;
     sway.enable = true;
