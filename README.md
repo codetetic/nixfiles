@@ -165,25 +165,15 @@ Inside a picker: `Ctrl+n`/`Ctrl+p` move, `Ctrl+u`/`Ctrl+d` scroll the preview,
 
 Backed by `ripgrep` and `fd`, with the native fzf sorter compiled in.
 
-### Git — hunks (gitsigns)
+### Git
 
-Inline blame is on by default: author, relative time and commit summary at the end of the
-cursor line.
+Display only. Gitsigns puts added/changed/deleted marks in the gutter and shows inline
+blame — author, relative time, commit summary — at the end of the cursor line. There are no
+hunk keybindings: staging, resetting and committing happen in a terminal. The `:Gitsigns`
+commands still exist for a one-off, and `:Gitsigns toggle_current_line_blame` turns the
+blame text off for the session.
 
-| Key | Action |
-| --- | --- |
-| `]h` / `[h` | Next / previous hunk |
-| `<leader>hp` | Preview hunk |
-| `<leader>hs` | Stage hunk |
-| `<leader>hr` | Reset hunk |
-| `<leader>hb` | Full blame for the line |
-| `<leader>hd` | Diff this file against the index |
-| `<leader>ht` | Toggle inline blame |
-
-`]h`/`[h` rather than the usual `]c`/`[c` — `]c` is vim's builtin "next diff change", which
-matters because nvim is the merge tool here.
-
-### Git — history (telescope)
+History is through telescope:
 
 | Key | Action |
 | --- | --- |

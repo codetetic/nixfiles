@@ -157,60 +157,6 @@
         action = "<cmd>Neotree focus<cr>";
         options.desc = "Focus file explorer";
       }
-
-      # Hunk navigation and actions, under <leader>h as gitsigns' own README
-      # has them. ]h/[h rather than the more usual ]c/[c: ]c is vim's builtin
-      # "next diff change", and nvim is the merge tool here, so clobbering it
-      # would cost more in a three-way merge than it gains in a normal buffer.
-      # nav_hunk rather than next_hunk/prev_hunk, which gitsigns deprecated.
-      {
-        mode = "n";
-        key = "]h";
-        action = "<cmd>Gitsigns nav_hunk next<cr>";
-        options.desc = "Next git hunk";
-      }
-      {
-        mode = "n";
-        key = "[h";
-        action = "<cmd>Gitsigns nav_hunk prev<cr>";
-        options.desc = "Previous git hunk";
-      }
-      {
-        mode = "n";
-        key = "<leader>hp";
-        action = "<cmd>Gitsigns preview_hunk<cr>";
-        options.desc = "Preview git hunk";
-      }
-      {
-        mode = "n";
-        key = "<leader>hs";
-        action = "<cmd>Gitsigns stage_hunk<cr>";
-        options.desc = "Stage git hunk";
-      }
-      {
-        mode = "n";
-        key = "<leader>hr";
-        action = "<cmd>Gitsigns reset_hunk<cr>";
-        options.desc = "Reset git hunk";
-      }
-      {
-        mode = "n";
-        key = "<leader>hb";
-        action = "<cmd>Gitsigns blame_line<cr>";
-        options.desc = "Blame line (full)";
-      }
-      {
-        mode = "n";
-        key = "<leader>hd";
-        action = "<cmd>Gitsigns diffthis<cr>";
-        options.desc = "Diff this file against the index";
-      }
-      {
-        mode = "n";
-        key = "<leader>ht";
-        action = "<cmd>Gitsigns toggle_current_line_blame<cr>";
-        options.desc = "Toggle inline blame";
-      }
     ];
 
     # --- Syntax ---
@@ -278,9 +224,12 @@
     lsp.servers.ts_ls.enable = true;
 
     # --- Git ---
-    # The nearest thing to GitLens: gutter signs for added/changed/deleted
-    # lines, inline blame on the cursor line, and stage/reset/preview per hunk.
-    # catppuccin themes it by default.
+    # Display only: gutter signs for added/changed/deleted lines and inline
+    # blame on the cursor line. Gitsigns' hunk actions (stage, reset, preview)
+    # and its navigation are deliberately unbound — staging and committing
+    # happen in a terminal, and the only in-editor git wanted here is being
+    # able to see what changed and read the history. The :Gitsigns commands
+    # are all still there for a one-off. catppuccin themes it by default.
     plugins.gitsigns = {
       enable = true;
 
@@ -296,6 +245,8 @@
           delay = 300;
         };
         current_line_blame_formatter = "  <author>, <author_time:%R> · <summary>";
+        # Nothing toggles this any more, so it is on for every buffer; set
+        # current_line_blame above to false to be rid of it.
       };
     };
 
