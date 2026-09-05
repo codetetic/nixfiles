@@ -32,5 +32,12 @@
     # makes both this and cursors above actually reach a GTK app, are in
     # src/home/gtk.nix.
     gtk.icon.enable = true;
+
+    # The Qt counterpart, and the better half of the two: the Kvantum theme is
+    # catppuccin's own, so Qt apps get mocha widgets rather than the
+    # third-party port GTK has to make do with. It is inert without
+    # qt.enable and asserts qt.style.name = "kvantum"; both are in
+    # src/home/qt.nix.
+    kvantum.enable = true;
   };
 }

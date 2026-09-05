@@ -15,6 +15,7 @@
     ./mako.nix
     ./nixd.nix
     ./nixvim.nix
+    ./qt.nix
     ./rofi.nix
     ./ssh.nix
     ./starship.nix
