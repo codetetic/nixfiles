@@ -32,7 +32,10 @@
   programs.git.enable = true;
   programs.direnv.enable = true;
   programs.nixvim.enable = true;
-  programs.vscodium.enable = true;
+  # Off for now, while nvim is the editor. src/home/vscodium.nix keeps its
+  # settings, and the sway assign for app_id "codium" still points at
+  # workspace 3, so flipping this back is the only step to undo it.
+  programs.vscodium.enable = false;
   programs.ghostty.enable = true;
   programs.imv.enable = true;
   wayland.windowManager.sway.enable = true;

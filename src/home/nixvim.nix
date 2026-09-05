@@ -213,10 +213,48 @@
       }
     ];
 
-    # --- Nix language support ---
+    # --- Syntax ---
+    # A real parse tree per buffer instead of vim's regex syntax files, which is
+    # what makes JSX/TSX and PHP interleaved with HTML come out right — both are
+    # languages nested inside another one, and a line-at-a-time regex cannot see
+    # where one ends. indent as well as highlight: the regex indenter has no
+    # idea what to do inside a template literal or a chained arrow function.
+    # Only the grammars listed below are affected; anything else keeps the old
+    # syntax highlighting.
+    plugins.treesitter = {
+      enable = true;
+      highlight.enable = true;
+      indent.enable = true;
+
+      # An explicit list, because the default is *every* grammar nvim-treesitter
+      # knows about — a few hundred megabytes of parsers for languages that will
+      # never be opened here. Only the ones this config has a use for: the two
+      # languages below, the markup they are embedded in, and nix, which is what
+      # this repo is written in.
+      #
+      # php covers PHP interleaved with HTML (php_only is the variant for files
+      # that are pure PHP); the jsdoc and phpdoc grammars are what highlight the
+      # docblocks both languages lean on for types.
+      grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
+        php
+        phpdoc
+        javascript
+        jsdoc
+        typescript
+        tsx
+        html
+        css
+        json
+        nix
+      ];
+    };
+
+    # --- Language servers ---
     # nvim-lspconfig is installed for its default configs only (cmd, filetypes,
     # root markers); the servers themselves are enabled through `lsp.servers`,
-    # which is nixvim's newer module over neovim's built-in vim.lsp.
+    # which is nixvim's newer module over neovim's built-in vim.lsp. Each one
+    # named here brings its own package in with it, so nothing needs adding to
+    # extraPackages.
     plugins.lspconfig.enable = true;
 
     lsp.servers.nixd = {
@@ -226,6 +264,18 @@
       # key, which nixd namespaces by server name.
       config.settings.nixd = config.local.nixd.settings;
     };
+
+    # PHP. phpactor rather than intelephense, which is the stronger of the two
+    # on completion and stubs but is proprietary and has no package mapping in
+    # nixvim — it would have to be pointed at pkgs.intelephense by hand and
+    # allowed through as unfree. Swap the name here if that trade is worth it.
+    lsp.servers.phpactor.enable = true;
+
+    # JavaScript and TypeScript, one server for both plus JSX/TSX. ts_ls is
+    # typescript-language-server, which carries its own tsserver, so a project
+    # without typescript in its node_modules still gets completion and
+    # diagnostics.
+    lsp.servers.ts_ls.enable = true;
 
     # --- Git ---
     # The nearest thing to GitLens: gutter signs for added/changed/deleted
