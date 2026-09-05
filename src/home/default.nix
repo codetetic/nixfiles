@@ -18,6 +18,7 @@
     ./nixvim.nix
     ./qt.nix
     ./rofi.nix
+    ./screenshot.nix
     ./ssh.nix
     ./starship.nix
     ./sway.nix

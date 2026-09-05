@@ -65,6 +65,19 @@ Sway starts focused on workspace 1.
 
 These replace sway's `Mod+minus` / `Mod+Shift+minus`, which are unbound here.
 
+### Screenshots
+
+| Key | Action |
+| --- | --- |
+| `Print` | Select a region, then annotate |
+| `Shift+Print` | Whole screen, then annotate |
+
+Both open [swappy](https://github.com/jtheoof/swappy) for annotation: draw, arrow, text,
+blur, then `Ctrl+s` to save or `Ctrl+c` to copy. Nothing is written unless you save.
+`Escape` during the region select cancels without opening anything.
+Saves land in `~/Pictures/Screenshots/`. Configured in
+[`src/home/screenshot.nix`](src/home/screenshot.nix).
+
 ### Resize mode
 
 | Key | Action |
@@ -94,6 +107,17 @@ The screen locks after 5 minutes; after 10 the outputs power off and the machine
 the `power-saver` profile. It never suspends, so it stays reachable over ssh/tailscale.
 Moving the mouse powers the outputs back on and restores `balanced`.
 Configured in [`src/home/swaylock.nix`](src/home/swaylock.nix).
+
+### Theming
+
+Catppuccin Mocha/mauve reaches each toolkit by a different route, so a palette change is
+an edit in each: [`theme.nix`](src/home/theme.nix) opts individual programs in,
+[`gtk.nix`](src/home/gtk.nix) themes GTK 3 (thunar) via a third-party port — upstream's is
+archived — [`qt.nix`](src/home/qt.nix) themes Qt via qt5ct/qt6ct and Kvantum, and
+[`flatpak.nix`](src/home/flatpak.nix) exports both into `~/.local/share` with a flatpak
+override so sandboxed apps can read them. The NixOS side
+([`configuration.nix`](src/system/configuration.nix)) separately colours the tuigreet
+prompt.
 
 ---
 

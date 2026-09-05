@@ -105,6 +105,12 @@
         # swaylock.nix); this is the manual route. Escape rather than a letter
         # because mod+shift+{h,j,k,l} are taken by the move bindings.
         "Mod4+Escape" = "exec swaylock -f";
+
+        # Screenshots. `screenshot` is the wrapper from screenshot.nix, on
+        # PATH like helium above; both routes end in swappy for annotation.
+        # Region is the unshifted one because it is the common case.
+        "Print" = "exec screenshot region";
+        "Shift+Print" = "exec screenshot screen";
       };
 
       # $-variables come from the catppuccin sway theme, which theme.nix

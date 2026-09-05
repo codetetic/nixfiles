@@ -6,21 +6,11 @@ nixpkgs; the diagnoses were checked against the running system.
 
 Done and removed from this list: GTK theming (`src/home/gtk.nix`), Qt theming
 (`src/home/qt.nix`, Kvantum), lock and idle (`src/home/swaylock.nix`), flatpak
-theming (`src/home/flatpak.nix`).
+theming (`src/home/flatpak.nix`), screenshots (`src/home/screenshot.nix`).
 
 ---
 
-## 1. No screenshot path from the keyboard
-
-No `grim`, no `slurp` anywhere in the config. The wlr portal is wired up so
-*app-initiated* capture works, but there is no key that takes a shot.
-
-`grim` + `slurp` + `swappy` on `Print` / `Shift+Print`, with region-select and
-an annotate-then-save step. swappy over satty because it is GTK 3, so
-`gtk.nix`'s theme reaches it; satty is GTK 4 and would only get dark Adwaita.
-All three are in nixpkgs.
-
-## 2. No clipboard history
+## 1. No clipboard history
 
 `wl-clipboard` is present, but only as a dependency pulled in by `nixvim.nix`
 for the neovim clipboard — nothing manages history. `cliphist` fronted by rofi
@@ -28,7 +18,7 @@ would slot in with near-zero new config, since rofi is already themed and
 configured with a `modes` list that could just take another entry.
 home-manager has a `services.cliphist` module.
 
-## 3. Volume, media and brightness keys are unbound
+## 2. Volume, media and brightness keys are unbound
 
 `sway.nix` has no `XF86*` bindings at all. `pactl` is on `PATH` (it is in
 `programs.sway.extraPackages`) and waybar shows a `pulseaudio` module, but the
@@ -45,21 +35,21 @@ waybar widget or a terminal.
 Brightness (`brightnessctl`) is likely moot on a desktop with a DP monitor,
 though `ddcutil` could drive the BenQ over DDC/CI if that ever matters.
 
-## 4. Bluetooth is on but has no interface
+## 3. Bluetooth is on but has no interface
 
 `hardware.bluetooth.enable = true` in `bebop/hardware.nix:58`, with no manager
 and no waybar module. Pairing anything currently means `bluetoothctl` by hand.
 `blueman` gives an applet that lands in the existing waybar `tray`, plus a
 `bluetooth` module for the bar itself.
 
-## 5. Removable media only auto-mounts while Thunar is open
+## 4. Removable media only auto-mounts while Thunar is open
 
 `gvfs`, `tumbler` and `thunar-volman` are all set up, which covers mounting
 *from inside Thunar*. Nothing handles a USB stick plugged in while Thunar is
 closed. `services.udiskie` (tray mode, so it also lands in waybar's tray) would
 close that. Needs `services.udisks2.enable` on the NixOS side.
 
-## 6. Waybar module gaps
+## 5. Waybar module gaps
 
 Currently: `clock`, `cpu`, `memory`, `network`, `pulseaudio`,
 `power-profiles-daemon`, `tray`. Worth considering:
@@ -70,11 +60,11 @@ Currently: `clock`, `cpu`, `memory`, `network`, `pulseaudio`,
   scratchpad is now the *only* place windows get hidden — with no indication
   anywhere that anything is in there. A count in the bar fixes that.
 - `idle_inhibitor` — pairs with swayidle, for holding the screen on during video
-- `bluetooth` — pairs with item 4
+- `bluetooth` — pairs with item 3
 - `temperature` / `disk` — the amdgpu box has `lact` and `openrgb` already, so
   the sensors are there
 
-## 7. No binding to dismiss or restore notifications
+## 6. No binding to dismiss or restore notifications
 
 `mako` is configured carefully (including `urgency=critical` notifications that
 never expire), but `makoctl` is never bound to a key. A critical notification
