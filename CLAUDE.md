@@ -93,6 +93,13 @@ change:
 nixvim sets its own colorscheme (no catppuccin module exists for it) but reads
 `config.catppuccin.flavor` so it still follows `theme.nix`.
 
+`src/home/gtk.nix` is what makes any of the home-manager side reach a GTK app. Outside a desktop
+environment there is no XSETTINGS daemon, so `~/.config/gtk-3.0/settings.ini` is the only channel,
+and home-manager writes it only under `gtk.enable`. Without that module the icon and cursor themes
+opted into in `theme.nix` are inert and thunar renders in stock light Adwaita. It also carries the
+widget theme (`magnetic-catppuccin-gtk`, a maintained third-party port), derived from
+`config.catppuccin.flavor`/`accent` the way `nixvim.nix` derives its colorscheme.
+
 **Prefer apps that theme consistently.** A visually coherent desktop is a goal of this config, not an
 afterthought — when suggesting or adding a new program, weigh how it themes alongside what it does:
 
@@ -104,9 +111,10 @@ afterthought — when suggesting or adding a new program, weigh how it themes al
 3. Prefer native Wayland/GTK apps that follow the system font and cursor settings over ones that
    bundle their own toolkit (Electron especially) and ignore them.
 
-Note that `catppuccin.gtk.enable` no longer exists — the upstream GTK port was archived, so only the
-icon theme is available and there is no widget theme to fall back on. That makes a program's own
-theming support matter more, not less.
+Note that `catppuccin.gtk.enable` no longer exists — the upstream GTK port was archived, so the
+flake offers only the icon theme and the widget theme in `gtk.nix` comes from elsewhere. GTK theming
+is therefore a step behind the rest of the palette, which makes a program's own theming support
+matter more, not less.
 
 ### Desktop session
 

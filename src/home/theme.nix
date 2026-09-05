@@ -26,7 +26,10 @@
 
     # Only the icon theme: catppuccin.gtk.enable was removed from the flake
     # after the upstream GTK port was archived, so there is no widget theme to
-    # turn on. This is what colours thunar's sidebar and folder icons.
+    # turn on here. This is what colours thunar's sidebar and folder icons; the
+    # widget theme that replaces the archived port, and the gtk.enable that
+    # makes both this and cursors above actually reach a GTK app, are in
+    # src/home/gtk.nix.
     gtk.icon.enable = true;
   };
 }

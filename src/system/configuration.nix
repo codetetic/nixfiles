@@ -123,6 +123,12 @@ in
   services.gvfs.enable = true;
   services.tumbler.enable = true;
 
+  # home-manager's gtk module mirrors the theme, icon and cursor names it
+  # writes to gtk-3.0/settings.ini into org/gnome/desktop/interface, and its
+  # activation step needs the system dconf service to be there to load them.
+  # A desktop environment would have switched this on; nothing here does.
+  programs.dconf.enable = true;
+
   # Sway
   programs.sway = {
     enable = true;

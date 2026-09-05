@@ -19,9 +19,41 @@
     # instead of having it change under us at the next stateVersion bump.
     shellWrapperName = "y";
 
-    settings.mgr = {
-      show_hidden = true;
-      sort_dir_first = true;
+    settings = {
+      mgr = {
+        show_hidden = true;
+        sort_dir_first = true;
+      };
+
+      # Enter on an image was landing in neovim. yazi's own default already
+      # routes image/* to its `open` opener, which shells out to xdg-open, and
+      # xdg-open resolves image/png to imv-dir.desktop correctly when asked
+      # directly — so the indirection is what breaks, somewhere between the two.
+      # Rather than leave that to chance, call imv directly and take xdg-open
+      # out of the path entirely. The mime associations in bebop/home.nix still
+      # cover thunar and everything else that opens images by association.
+      opener.image = [
+        {
+          # Mirrors imv-dir.desktop: one image opens with its whole folder
+          # loaded so the arrow keys walk it, which is the behaviour chosen for
+          # thunar. A multi-file selection opens as just that selection.
+          run = ''if [ "$#" -eq 1 ]; then imv -n "$1" "$(dirname "$1")"; else imv "$@"; fi'';
+          desc = "imv";
+          # imv is a GUI app: without this yazi waits on it and the terminal
+          # sits blocked until the window closes.
+          orphan = true;
+        }
+      ];
+
+      # prepend_rules rather than rules: `rules` replaces yazi's whole default
+      # table, which would strip the handling for text, video, archives and the
+      # rest. prepend puts this ahead of the defaults and leaves them intact.
+      open.prepend_rules = [
+        {
+          mime = "image/*";
+          use = [ "image" ];
+        }
+      ];
     };
 
     # Previewers. These go on yazi's own PATH rather than into home.packages,

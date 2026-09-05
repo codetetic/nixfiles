@@ -5,10 +5,12 @@
     ./bash.nix
     ./development.nix
     ./direnv.nix
+    ./fastfetch.nix
     ./fish.nix
     ./fonts.nix
     ./ghostty.nix
     ./git.nix
+    ./gtk.nix
     ./imv.nix
     ./mako.nix
     ./nixvim.nix
