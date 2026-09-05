@@ -35,6 +35,8 @@ waybar modules and the mako bindings (`src/home/waybar.nix`, `src/home/sway.nix`
         .zprofile
         .zshrc
 
+## 2 Make yubikey work with lock screen
+
 ## Decided against
 
 - **Clipboard history** (`cliphist` + rofi) — not wanted. wl-clipboard stays, as neovim's
@@ -52,11 +54,3 @@ waybar modules and the mako bindings (`src/home/waybar.nix`, `src/home/sway.nix`
 - **`kanshi`** for output profiles — only matters if a second display ever
   appears; `output."DP-2"` is hardcoded in `sway.nix` today.
 - **`wlsunset` / `gammastep`** for night-time colour temperature.
-- **`xdg.portal.xdgOpenUsePortal = true`** so `xdg-open` from sandboxed and
-  Electron apps routes through the portal and respects `xdg.mimeApps` (which is
-  already configured in `bebop/home.nix:50`) rather than guessing.
-- **The stray duplicate comment** in `sway.nix` above `keybindings` — two
-  near-identical "Sway's defaults, minus…" lines, one of which is stale.
-- **`system` rename warning** on every eval — something in the tree still uses
-  `system` instead of `stdenv.hostPlatform.system`. Harmless, but it is noise on
-  every `nixos-rebuild`.
