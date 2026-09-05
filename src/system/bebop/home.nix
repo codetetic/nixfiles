@@ -7,6 +7,12 @@
   ...
 }:
 
+let
+  # pkgs.system is a deprecated alias in nixpkgs now and warns on every
+  # evaluation; this is what it resolves to. Needed because flake inputs index
+  # their packages by system.
+  inherit (pkgs.stdenv.hostPlatform) system;
+in
 {
   imports = [
     ../../home
@@ -17,7 +23,7 @@
   home.homeDirectory = "/home/${user.name}";
 
   home.packages = [
-    inputs.helium.packages.${pkgs.system}.default
+    inputs.helium.packages.${system}.default
 
     pkgs.zoom-us
 
@@ -82,6 +88,13 @@
     enable = true;
   };
 
+  # k10temp's Tctl, on the CPU's SMBus function — the sensor waybar's
+  # temperature module reads (see src/home/waybar.nix, which leaves the module
+  # out of the bar entirely if this is unset). The PCI address is fixed for
+  # this board; the hwmonN directory under it is not, which is why this stops
+  # at `hwmon`.
+  local.waybar.cpuTemperature.hwmonPath = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+
   programs.keychain = {
     enable = true;
     keys = [
@@ -96,7 +109,7 @@
     enable = true;
     protonPackages = [
       pkgs.proton-ge-bin
-      inputs.dw-proton.packages.${pkgs.system}.default
+      inputs.dw-proton.packages.${system}.default
     ];
     extraPackages = with pkgs; [
       umu-launcher

@@ -177,6 +177,16 @@ in
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # xdg-open, for the callers that cannot see this machine's desktop files:
+  # a flatpak sees only its own /usr/share/applications, and an electron app
+  # ships its own opener that scans for a browser rather than asking. With
+  # this, both go through the portal's OpenURI instead, which resolves the
+  # handler on the host — so xdg.mimeApps in src/system/bebop/home.nix is
+  # honoured and a link opens in helium rather than whatever was found first.
+  # The gtk portal backend, which programs.sway already installs, is what
+  # implements OpenURI.
+  xdg.portal.xdgOpenUsePortal = true;
+
   # Set here rather than only in the shells: sway is started without sourcing
   # ~/.profile, so anything launched from the session (vscodium and its
   # integrated terminals included) would otherwise have no EDITOR and fall

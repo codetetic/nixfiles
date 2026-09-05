@@ -5,6 +5,11 @@
   ...
 }:
 
+let
+  # Not pkgs.system: that alias is deprecated in nixpkgs and warns on every
+  # evaluation. Same binding as in home.nix next door.
+  inherit (pkgs.stdenv.hostPlatform) system;
+in
 {
   # Programmes
   # gamescope, the SteamOS micro-compositor. A game runs in a nested wayland
@@ -31,7 +36,7 @@
     # here — it comes from programs.gamescope above.
     extraCompatPackages = with pkgs; [
       proton-ge-bin
-      inputs.dw-proton.packages.${pkgs.system}.default
+      inputs.dw-proton.packages.${system}.default
     ];
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;

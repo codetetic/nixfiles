@@ -65,6 +65,18 @@ Sway starts focused on workspace 1.
 
 These replace sway's `Mod+minus` / `Mod+Shift+minus`, which are unbound here.
 
+### Notifications
+
+| Key | Action |
+| --- | --- |
+| `Mod+n` | Dismiss the top notification |
+| `Mod+Shift+n` | Dismiss all |
+| `Mod+Ctrl+n` | Restore the last dismissed |
+
+mako keeps `critical` notifications up until they are dismissed, so `Mod+n` is the way to
+clear one without reaching for the mouse. Restore brings back notifications that expired on
+their own too. [`src/home/mako.nix`](src/home/mako.nix)
+
 ### Screenshots
 
 | Key | Action |
@@ -107,6 +119,21 @@ The screen locks after 5 minutes; after 10 the outputs power off and the machine
 the `power-saver` profile. It never suspends, so it stays reachable over ssh/tailscale.
 Moving the mouse powers the outputs back on and restores `balanced`.
 Configured in [`src/home/swaylock.nix`](src/home/swaylock.nix).
+
+### The bar
+
+waybar, left to right: workspaces, current mode, scratchpad count · focused window ·
+volume, bluetooth, idle inhibitor, power profile, CPU temperature, CPU, memory, network,
+tray, clock. [`src/home/waybar.nix`](src/home/waybar.nix)
+
+Two are clickable and worth knowing: the **idle inhibitor** (eye) holds off the 5-minute
+lock for as long as it is lit — sway only inhibits idle for *fullscreen* video on its own,
+so this is for a video in a tiled window. The **bluetooth** icon opens blueman-manager, and
+shows a count when devices are connected.
+
+The **scratchpad** indicator only appears when something is hidden in there. It is the one
+piece of feedback sway does not give on its own, and with `Mod+minus` unbound the scratchpad
+is the only place windows go.
 
 ### Tray
 

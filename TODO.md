@@ -1,44 +1,47 @@
 # Sway setup — things still to add
 
-Notes to self on gaps in the sway desktop. Ordered roughly by how much they
-bite day to day. Package names below were all checked against the pinned
-nixpkgs; the diagnoses were checked against the running system.
+Notes to self on gaps in the sway desktop. The numbered list is empty — what is
+left is either deliberately not wanted or too small to rank.
 
 Done and removed from this list: GTK theming (`src/home/gtk.nix`), Qt theming
 (`src/home/qt.nix`, Kvantum), lock and idle (`src/home/swaylock.nix`), flatpak
 theming (`src/home/flatpak.nix`), screenshots (`src/home/screenshot.nix`),
-bluetooth (`src/home/bluetooth.nix`), automount (`src/home/udiskie.nix`).
+bluetooth (`src/home/bluetooth.nix`), automount (`src/home/udiskie.nix`),
+waybar modules and the mako bindings (`src/home/waybar.nix`, `src/home/sway.nix`).
 
 ---
 
-## 1. Waybar module gaps
+## 1 When Claude edits files it seems to touch and delete the following
 
-Currently: `clock`, `cpu`, `memory`, `network`, `pulseaudio`,
-`power-profiles-daemon`, `tray`. Worth considering:
-
-- **`sway/scratchpad`** — this one is genuinely load-bearing given the config.
-  `Mod4+Shift+space` / `Mod4+space` were rebound to move-to and show-from the
-  scratchpad, and sway's own `Mod4+minus` bindings were removed, so the
-  scratchpad is now the *only* place windows get hidden — with no indication
-  anywhere that anything is in there. A count in the bar fixes that.
-- `idle_inhibitor` — pairs with swayidle, for holding the screen on during video
-- `bluetooth` — state in the bar to go with blueman's tray applet
-- `temperature` / `disk` — the amdgpu box has `lact` and `openrgb` already, so
-  the sensors are there
-
-## 2. No binding to dismiss or restore notifications
-
-`mako` is configured carefully (including `urgency=critical` notifications that
-never expire), but `makoctl` is never bound to a key. A critical notification
-currently has to be clicked. `makoctl dismiss` / `dismiss -a` / `restore` on
-something like `Mod4+n` would finish that config off.
-
----
+        .bash_profile
+        .bashrc
+        .claude/agents
+        .claude/commands
+        .claude/hooks
+        .claude/launch.json
+        .claude/loop.md
+        .claude/output-styles
+        .claude/routines
+        .claude/scheduled_tasks.json
+        .claude/settings.json
+        .claude/workflows
+        .gitconfig
+        .gitmodules
+        .idea
+        .mcp.json
+        .profile
+        .ripgreprc
+        .vscode
+        .zprofile
+        .zshrc
 
 ## Decided against
 
 - **Clipboard history** (`cliphist` + rofi) — not wanted. wl-clipboard stays, as neovim's
   clipboard provider; nothing records what passes through it.
+- **A waybar `disk` module** — statvfs on a ZFS dataset reports the pool's free space
+  rather than a filesystem's, and snapshots and reservations make that number mean
+  something different from what the bar would imply. `zpool list` is the honest answer.
 - **Volume, media and brightness keys** — the waybar pulseaudio widget is enough, so the
   `XF86*` keys are deliberately left unbound and there is no `swayosd`.
 

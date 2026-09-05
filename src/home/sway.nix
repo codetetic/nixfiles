@@ -66,9 +66,8 @@
       # claims workspace 1 once the config has finished loading. Plain exec,
       # not exec_always, so a config reload does not yank focus.
       startup = [ { command = "swaymsg workspace 1"; } ];
-      # Sway's defaults, minus the layout and scratchpad bindings, plus the
-      # four below.
-      # Sway's defaults, minus the layout bindings, plus the two below.
+      # Sway's defaults, minus the layout and scratchpad bindings, plus
+      # everything below.
       keybindings = lib.mkOptionDefault {
         # No manually floated windows, so the two space bindings drive the
         # scratchpad instead. Their defaults were "floating toggle" and
@@ -111,6 +110,16 @@
         # Region is the unshifted one because it is the common case.
         "Print" = "exec screenshot region";
         "Shift+Print" = "exec screenshot screen";
+
+        # Notifications. mako keeps critical ones on screen until they are
+        # dismissed (see mako.nix), and clicking one is otherwise the only way
+        # to clear it. makoctl ships with mako itself.
+        "Mod4+n" = "exec makoctl dismiss";
+        "Mod4+Shift+n" = "exec makoctl dismiss --all";
+        # Brings back the last one dismissed, including ones that expired on
+        # their own — the way to read a notification that went past while
+        # something else had focus.
+        "Mod4+Ctrl+n" = "exec makoctl restore";
       };
 
       # $-variables come from the catppuccin sway theme, which theme.nix
