@@ -7,6 +7,7 @@
     ./direnv.nix
     ./fastfetch.nix
     ./fish.nix
+    ./flatpak.nix
     ./fonts.nix
     ./ghostty.nix
     ./git.nix
