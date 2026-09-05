@@ -362,6 +362,21 @@
         # Tab cycles the menu and accepts, which is the VSCode reflex.
         keymap.preset = "super-tab";
 
+        # Completion is only wanted in the languages actually worked on here,
+        # so the menu stays out of the way in config files, commit messages and
+        # scratch buffers. blink takes a predicate rather than a filetype list;
+        # returning false just suppresses the menu, the plugin stays loaded.
+        enabled = {
+          __raw = ''
+            function()
+              return vim.tbl_contains(
+                { "nix", "php", "javascript", "javascriptreact" },
+                vim.bo.filetype
+              )
+            end
+          '';
+        };
+
         sources.default = [
           "lsp"
           "path"
