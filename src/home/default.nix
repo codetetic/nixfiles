@@ -13,6 +13,7 @@
     ./gtk.nix
     ./imv.nix
     ./mako.nix
+    ./nixd.nix
     ./nixvim.nix
     ./rofi.nix
     ./ssh.nix

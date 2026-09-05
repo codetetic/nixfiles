@@ -10,14 +10,14 @@ A NixOS flake holding the author's personal machine configuration. One host is d
 ## Commands
 
 The shell aliases in `src/home/fish.nix` are the canonical way to build; they are defined against
-`~/src/nixfiles` and `$(hostname)`:
+`~/Projects/nixfiles` and `$(hostname)`:
 
 ```
-nr-check    # nix flake check ~/src/nixfiles
-nr-update   # nix flake update --flake ~/src/nixfiles
-nr-test     # sudo nixos-rebuild test   --flake ~/src/nixfiles#$(hostname)
-nr-switch   # sudo nixos-rebuild switch --flake ~/src/nixfiles#$(hostname)
-nr-boot     # sudo nixos-rebuild boot   --flake ~/src/nixfiles#$(hostname)
+nr-check    # nix flake check ~/Projects/nixfiles
+nr-update   # nix flake update --flake ~/Projects/nixfiles
+nr-test     # sudo nixos-rebuild test   --flake ~/Projects/nixfiles#$(hostname)
+nr-switch   # sudo nixos-rebuild switch --flake ~/Projects/nixfiles#$(hostname)
+nr-boot     # sudo nixos-rebuild boot   --flake ~/Projects/nixfiles#$(hostname)
 ```
 
 To evaluate a change without activating it (the usual check after editing):
