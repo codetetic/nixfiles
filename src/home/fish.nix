@@ -2,11 +2,11 @@
 {
   programs.fish = {
     shellAliases = {
-      nr-check = "nix flake check ~/src/nixfiles";
-      nr-update = "nix flake update --flake ~/src/nixfiles";
-      nr-test = "sudo nixos-rebuild test --flake ~/src/nixfiles#$(hostname)";
-      nr-switch = "sudo nixos-rebuild switch --flake ~/src/nixfiles#$(hostname)";
-      nr-boot = "sudo nixos-rebuild boot --flake ~/src/nixfiles#$(hostname)";
+      nr-check = "nix flake check ~/Projects/nixfiles";
+      nr-update = "nix flake update --flake ~/Projects/nixfiles";
+      nr-test = "sudo nixos-rebuild test --flake ~/Projects/nixfiles#$(hostname)";
+      nr-switch = "sudo nixos-rebuild switch --flake ~/Projects/nixfiles#$(hostname)";
+      nr-boot = "sudo nixos-rebuild boot --flake ~/Projects/nixfiles#$(hostname)";
     };
 
     plugins = [

@@ -36,12 +36,13 @@ There are no tests beyond `nix flake check`.
 ### Assembly
 
 `flake.nix` is the only place that wires things together. `mkNixosConfig { host, user }` builds a
-system from four modules in a fixed order — shared first, host overrides second:
+system from five modules in a fixed order — shared first, host overrides second:
 
 ```
 src/system/hardware.nix        shared: bootloader, ZFS layout, zram
 src/system/<host>/hardware.nix host: kernel, disks by UUID, GPU, bluetooth, hostName/hostId
 src/system/configuration.nix   shared: locale, pipewire, greetd, sway, fonts, networking, flatpak
+src/system/claude-code.nix     shared: claude-code sandbox policy (/etc managed settings)
 src/system/<host>/configuration.nix  host: steam, podman/libvirtd, per-host services
 ```
 
