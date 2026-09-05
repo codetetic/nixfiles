@@ -89,8 +89,9 @@ in
       line_size = 5;
 
       # Nothing is written until save is pressed, so a screenshot taken by
-      # accident leaves nothing behind. Ctrl+C copies instead — cliphist will
-      # hold it once that lands, otherwise the clipboard dies with swappy.
+      # accident leaves nothing behind. Ctrl+C copies to the clipboard instead
+      # — but nothing manages clipboard history here by choice, and swappy owns
+      # the selection while it runs, so paste it before closing the window.
       auto_save = false;
       early_exit = false;
     };

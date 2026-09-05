@@ -108,6 +108,17 @@ the `power-saver` profile. It never suspends, so it stays reachable over ssh/tai
 Moving the mouse powers the outputs back on and restores `balanced`.
 Configured in [`src/home/swaylock.nix`](src/home/swaylock.nix).
 
+### Tray
+
+waybar's tray holds two user services, both started with the sway session:
+
+- **blueman-applet** — bluetooth. It registers the pairing agent, so a device asking to pair
+  gets a prompt instead of silence; its menu opens blueman-manager for the full window.
+  [`src/home/bluetooth.nix`](src/home/bluetooth.nix)
+- **udiskie** — mounts removable media on insert whether or not thunar is open, notifies
+  through mako, and its icon (visible only while something is mounted) is where to unmount
+  safely. Opens mounts in thunar. [`src/home/udiskie.nix`](src/home/udiskie.nix)
+
 ### Theming
 
 Catppuccin Mocha/mauve reaches each toolkit by a different route, so a palette change is

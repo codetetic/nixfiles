@@ -3,6 +3,7 @@
 {
   imports = [
     ./bash.nix
+    ./bluetooth.nix
     ./development.nix
     ./direnv.nix
     ./fastfetch.nix
@@ -24,6 +25,7 @@
     ./sway.nix
     ./swaylock.nix
     ./theme.nix
+    ./udiskie.nix
     ./utilities.nix
     ./vscodium.nix
     ./wallpaper.nix

@@ -60,5 +60,13 @@
   # Services
   services = {
     ratbagd.enable = true;
+
+    # The system half of blueman: the D-Bus service the applet talks to, plus
+    # the polkit rules that let a normal user power the adapter and pair a
+    # device without a password prompt. The applet itself is a user service,
+    # in src/home/bluetooth.nix; it is useless without this. Sits here rather
+    # than in the shared module because the adapter is declared next door in
+    # hardware.nix.
+    blueman.enable = true;
   };
 }
