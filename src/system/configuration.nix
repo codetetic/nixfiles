@@ -129,6 +129,30 @@ in
   # A desktop environment would have switched this on; nothing here does.
   programs.dconf.enable = true;
 
+  # Power. amd-pstate-epp is the scaling driver on this hardware, so the
+  # profiles map onto the CPU's energy-performance preference rather than only
+  # to a governor. swayidle drops the machine to power-saver once the screen
+  # goes dark and puts it back on balanced on wake (see src/home/swaylock.nix);
+  # powerprofilesctl is also how to switch by hand.
+  services.power-profiles-daemon.enable = true;
+
+  # switch-profile is allow_active in the shipped policy, which means a process
+  # belonging to a logind session. swayidle is a systemd --user service, and
+  # those live under user@.service rather than in the session, so polkit sees
+  # no session, falls through to allow_any = no, and the idle profile switch
+  # fails — or worse, pops a soteria password dialog at the lock screen. This
+  # grants that one action to the one user who owns the seat.
+  security.polkit.extraConfig = ''
+    polkit.addRule(function (action, subject) {
+      if (
+        action.id == "org.freedesktop.UPower.PowerProfiles.switch-profile" &&
+        subject.user == "${user.name}"
+      ) {
+        return polkit.Result.YES;
+      }
+    });
+  '';
+
   # Sway
   programs.sway = {
     enable = true;

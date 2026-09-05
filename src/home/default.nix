@@ -19,6 +19,7 @@
     ./ssh.nix
     ./starship.nix
     ./sway.nix
+    ./swaylock.nix
     ./theme.nix
     ./utilities.nix
     ./vscodium.nix

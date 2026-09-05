@@ -14,9 +14,20 @@ in
         position = "top";
         height = 30;
 
-        modules-left = [ "sway/workspaces" "sway/mode" ];
+        modules-left = [
+          "sway/workspaces"
+          "sway/mode"
+        ];
         modules-center = [ "sway/window" ];
-        modules-right = [ "pulseaudio" "cpu" "memory" "network" "tray" "clock" ];
+        modules-right = [
+          "pulseaudio"
+          "power-profiles-daemon"
+          "cpu"
+          "memory"
+          "network"
+          "tray"
+          "clock"
+        ];
 
         "sway/workspaces".disable-scroll = true;
         "sway/mode".format = "<span style=\"italic\">{}</span>";
@@ -27,6 +38,26 @@ in
           interval = 1;
           format = "{:%Y-%m-%d %X}";
           tooltip-format = "<tt>{calendar}</tt>";
+        };
+
+        # Reads and writes power-profiles-daemon over the system bus (enabled in
+        # src/system/configuration.nix), so it shows whichever profile swayidle
+        # left behind as well as one set by hand. Left click steps forward
+        # through the profiles, right click back; the same polkit rule that lets
+        # swayidle switch is what makes those clicks work, as waybar is a
+        # systemd --user service too.
+        #
+        # Icon only, one speedometer at three speeds: the bar is already busy
+        # and the profile rarely changes. waybar's own default tooltip already
+        # spells out the profile and the driver behind it, so it is left alone.
+        power-profiles-daemon = {
+          format = "{icon}";
+          format-icons = {
+            default = "󰾅";
+            performance = "󰓅";
+            balanced = "󰾅";
+            power-saver = "󰾆";
+          };
         };
 
         cpu.format = "󰻠 {usage}%";
@@ -45,7 +76,11 @@ in
         pulseaudio = {
           format = "{icon} {volume}%";
           format-muted = "󰝟 muted";
-          format-icons.default = [ "󰕿" "󰖀" "󰕾" ];
+          format-icons.default = [
+            "󰕿"
+            "󰖀"
+            "󰕾"
+          ];
           on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
         };
 
@@ -95,6 +130,7 @@ in
 
       #clock,
       #cpu,
+      #power-profiles-daemon,
       #memory,
       #network,
       #pulseaudio,
@@ -129,6 +165,20 @@ in
 
       #pulseaudio.muted {
         color: @overlay0;
+      }
+
+      /* Balanced is the resting state, so it stays as quiet as the window
+         title; the two ends of the range are the ones worth noticing. */
+      #power-profiles-daemon {
+        color: @subtext0;
+      }
+
+      #power-profiles-daemon.performance {
+        color: @peach;
+      }
+
+      #power-profiles-daemon.power-saver {
+        color: @green;
       }
 
       #mode {

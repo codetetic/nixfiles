@@ -15,6 +15,7 @@
     mako.enable = true;
     rofi.enable = true;
     sway.enable = true;
+    swaylock.enable = true;
     waybar.enable = true;
     yazi.enable = true;
 

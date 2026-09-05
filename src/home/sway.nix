@@ -100,6 +100,11 @@
         # Browser, to go with mod+return for the terminal. helium comes from
         # a flake input, see src/system/bebop/home.nix.
         "Mod4+BackSpace" = "exec helium";
+
+        # Lock now. swayidle already locks on idle and before sleep (see
+        # swaylock.nix); this is the manual route. Escape rather than a letter
+        # because mod+shift+{h,j,k,l} are taken by the move bindings.
+        "Mod4+Escape" = "exec swaylock -f";
       };
 
       # $-variables come from the catppuccin sway theme, which theme.nix
