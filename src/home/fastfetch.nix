@@ -40,5 +40,41 @@ in
       keys = accent;
       title = accent;
     };
+
+    # Writing a config file at all replaces fastfetch's built-in module list
+    # with whatever "modules" holds — it does not merge. Omitting the key
+    # leaves it empty, so the logo renders and no text does. This is the
+    # upstream default set (fastfetch --gen-config), repeated verbatim.
+    modules = [
+      "title"
+      "separator"
+      "os"
+      "host"
+      "kernel"
+      "uptime"
+      "packages"
+      "shell"
+      "display"
+      "de"
+      "wm"
+      "wmtheme"
+      "theme"
+      "icons"
+      "font"
+      "cursor"
+      "terminal"
+      "terminalfont"
+      "cpu"
+      "gpu"
+      "memory"
+      "swap"
+      "disk"
+      "localip"
+      "battery"
+      "poweradapter"
+      "locale"
+      "break"
+      "colors"
+    ];
   };
 }

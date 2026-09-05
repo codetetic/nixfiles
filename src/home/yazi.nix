@@ -56,6 +56,37 @@
       ];
     };
 
+    # Upstream binds <Enter> to `open`, and its default rule for folders is
+    # `{ url = "*/", use = [ "edit", "open", "reveal" ] }` — the first opener
+    # wins, so Enter on a directory ran `edit` and landed in neovim. Entering a
+    # directory is a command (`enter`, bound to l and <Right>), not an opener,
+    # so no rule can say "open files but enter folders"; it takes a plugin that
+    # picks the command from what is hovered.
+    plugins.smart-enter = pkgs.writeTextDir "main.lua" ''
+      -- cx is reachable only from a sync context, hence the ya.sync wrapper.
+      local hovered_is_dir = ya.sync(function()
+      	local h = cx.active.current.hovered
+      	return h and h.cha.is_dir
+      end)
+
+      return {
+      	entry = function()
+      		ya.emit(hovered_is_dir() and "enter" or "open", {})
+      	end,
+      }
+    '';
+
+    # prepend_keymap for the same reason as prepend_rules above: `keymap`
+    # replaces the whole default table. <S-Enter> still reaches the interactive
+    # opener picker, which is the way to edit a folder deliberately.
+    keymap.mgr.prepend_keymap = [
+      {
+        on = "<Enter>";
+        run = "plugin smart-enter";
+        desc = "Enter the directory, or open the file";
+      }
+    ];
+
     # Previewers. These go on yazi's own PATH rather than into home.packages,
     # so nothing here shadows or clutters the interactive shell: ffprobe for
     # video, 7zz for archives, pdftoppm for PDFs, file for the type detection
