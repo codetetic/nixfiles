@@ -4,8 +4,8 @@ let
 in
 {
   # The notification daemon. Nothing was implementing
-  # org.freedesktop.Notifications before this, so notifications from discord,
-  # spotify-player and friends were being dropped on the floor. mako is
+  # org.freedesktop.Notifications before this, so notifications from discord
+  # and friends were being dropped on the floor. mako is
   # started on demand: home-manager installs its D-Bus service file, and
   # sway's systemd integration has already handed WAYLAND_DISPLAY to the
   # activation environment by the time anything sends one.

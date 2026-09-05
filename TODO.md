@@ -137,8 +137,8 @@ keyboard cannot actually change the volume — it has to be done through the
 waybar widget or a terminal.
 
 - Volume/mute: `XF86AudioRaiseVolume` / `LowerVolume` / `Mute` → `wpctl` or `pactl`
-- Media: `playerctl` for `XF86AudioPlay/Next/Prev` — useful with
-  `spotify-player` already installed
+- Media: `playerctl` for `XF86AudioPlay/Next/Prev` — spotifyd exposes MPRIS,
+  so this works against whatever is playing through it
 - `swayosd` if an on-screen bar is wanted rather than silent changes
 
 Brightness (`brightnessctl`) is likely moot on a desktop with a DP monitor,
