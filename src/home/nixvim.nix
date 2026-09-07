@@ -90,6 +90,14 @@
       # setting it here means conform wins even in buffers with a server
       # attached — which is what the lsp_format fallback below is for.
       formatexpr = "v:lua.require'conform'.formatexpr()";
+
+      # What :mksession writes, and so what auto-session below restores. Two
+      # changes from nvim's default: `globals`, which barbar needs to bring back
+      # tab order and pins, and `localoptions`, without which a restored buffer
+      # comes up with the filetype unset and no LSP or treesitter attached.
+      # `terminal` is deliberately *not* here — a saved toggleterm restores as a
+      # dead buffer with the old scrollback and no shell behind it.
+      sessionoptions = "blank,buffers,curdir,folds,globals,help,localoptions,tabpages,winsize";
     };
 
     plugins.lualine = {
@@ -237,6 +245,15 @@
       # VSCode's Shift+Alt+F, which needs no keyboard protocol to arrive — a
       # terminal sends it as plain ESC-prefixed `F`. Visual mode as well as
       # normal: conform formats just the selection when called from there.
+      # auto-session's own picker (session-lens, a telescope extension it loads
+      # itself). Under <leader>f with the other telescope pickers rather than
+      # in telescope's own keymaps block, which only takes built-in actions.
+      {
+        mode = "n";
+        key = "<leader>fs";
+        action = "<cmd>SessionSearch<cr>";
+        options.desc = "Find sessions";
+      }
       {
         mode = [
           "n"
@@ -430,6 +447,69 @@
     };
 
     # --- Fuzzy finding ---
+    # --- Sessions ---
+    # VSCode reopens a folder with the editors that were open in it; this is the
+    # same thing keyed on cwd. Saving and restoring are both automatic, and
+    # auto-session only auto-restores when nvim is started with no arguments —
+    # so `nvim file.rs`, `nvim -d` and $EDITOR opening a commit message all still
+    # get a plain editor, which is why `defaultEditor = true` above is safe.
+    #
+    # auto-session rather than the persistence/persisted pair barbar documents:
+    # those restore on a keypress, this one just does it, which is the half of
+    # VSCode's behaviour actually being asked for. The barbar hook their docs
+    # describe is one autocmd either way, and it is in pre_save_cmds below.
+    plugins.auto-session = {
+      enable = true;
+
+      settings = {
+        # Session-per-branch. Checking out a branch to review it and coming back
+        # otherwise drops the previous branch's layout on top of the new one.
+        use_git_branch = true;
+
+        # A session for $HOME or / is never wanted and is the usual way to end
+        # up restoring a stale layout over an unrelated `nvim` invocation.
+        # Projects live under ~/Projects, which is not suppressed.
+        suppressed_dirs = [
+          "~/"
+          "~/Downloads"
+          "/"
+          "/tmp"
+        ];
+
+        # Nothing worth restoring when this is all that is open, and without it
+        # closing nvim on a commit message overwrites that project's session
+        # with a one-buffer layout.
+        bypass_save_filetypes = [
+          "neo-tree"
+          "gitcommit"
+          "gitrebase"
+        ];
+
+        pre_save_cmds = [
+          {
+            __raw = ''
+              function()
+                -- barbar keeps tab order and pins in a global and only writes
+                -- them out on this event, so it has to fire before :mksession.
+                vim.api.nvim_exec_autocmds("User", { pattern = "SessionSavePre" })
+
+                -- The sidebar and the terminal panel are chrome, not state.
+                -- Left open they are saved as windows whose buffers cannot be
+                -- rebuilt, and the session restores with blank splits where
+                -- they were.
+                pcall(vim.cmd, "Neotree close")
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                  if vim.bo[vim.api.nvim_win_get_buf(win)].buftype == "terminal" then
+                    pcall(vim.api.nvim_win_close, win, true)
+                  end
+                end
+              end
+            '';
+          }
+        ];
+      };
+    };
+
     plugins.telescope = {
       enable = true;
 
