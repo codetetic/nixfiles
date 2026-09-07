@@ -44,6 +44,16 @@
       fd
     ];
 
+    # The toolchain rust_analyzer needs (see lsp.servers.rust_analyzer below).
+    # extraPackagesAfter, not extraPackages: nixvim wraps nvim with --suffix
+    # PATH for this list and --prefix for the other, so a project that pins its
+    # own rustc through direnv still wins and this is only the fallback for a
+    # crate opened outside one.
+    extraPackagesAfter = with pkgs; [
+      cargo
+      rustc
+    ];
+
     # --- UI ---
     colorschemes.catppuccin = {
       enable = true;
@@ -304,6 +314,7 @@
         css
         json
         nix
+        rust
       ];
     };
 
@@ -335,6 +346,14 @@
     # diagnostics.
     lsp.servers.ts_ls.enable = true;
 
+    # Rust. `lsp.servers` brings rust-analyzer itself, but not the toolchain it
+    # drives: rust-analyzer shells out to `cargo metadata` to discover a crate's
+    # layout and to `cargo check` for diagnostics, so without cargo and rustc on
+    # PATH it attaches and then reports nothing. The old plugins.lsp module had
+    # installCargo/installRustc options for this; the newer `lsp.servers` one
+    # does not, so they are named in extraPackagesAfter below.
+    lsp.servers.rust_analyzer.enable = true;
+
     # --- Formatting ---
     # On a key, never on save. This repo is committed by hand, so a formatter
     # that rewrites the buffer on every `:w` turns a stray save into a diff;
@@ -360,6 +379,11 @@
           nix = [ "nixfmt" ];
 
           php = [ "php_cs_fixer" ];
+
+          # rustfmt, not the LSP: rust-analyzer's own formatting request just
+          # proxies to rustfmt anyway, and going direct means it still works in
+          # a buffer the server has not attached to.
+          rust = [ "rustfmt" ];
 
           javascript = [ "prettier" ];
           javascriptreact = [ "prettier" ];
@@ -476,7 +500,7 @@
           __raw = ''
             function()
               return vim.tbl_contains(
-                { "nix", "php", "javascript", "javascriptreact" },
+                { "nix", "php", "javascript", "javascriptreact", "rust" },
                 vim.bo.filetype
               )
             end
