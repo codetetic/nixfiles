@@ -92,6 +92,29 @@
         "Mod4+w" = null;
         "Mod4+e" = null;
 
+        # Volume. --locked so they still work while swaylock is up. wpctl
+        # rather than the pactl waybar clicks through: -l 1.0 is a hard ceiling
+        # at 100%, and pactl has no equivalent — `set-sink-volume +5%` keeps
+        # climbing past it into software gain, which just clips. wpctl comes
+        # from wireplumber, already on PATH as pipewire's session manager.
+        "--locked XF86AudioRaiseVolume" = "exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+";
+        "--locked XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+        # One toggle each rather than separate on/off keys: that is what the
+        # keyboard sends.
+        "--locked XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        "--locked XF86AudioMicMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+
+        # Transport, via playerctl — it talks MPRIS, so it drives whatever is
+        # playing (helium, discord, mpv) without knowing which. Play and Pause
+        # both map to play-pause: a keyboard with one combined key sends
+        # XF86AudioPlay, one with two sends both, and toggling is right either
+        # way. playerctl is in programs.sway.extraPackages.
+        "--locked XF86AudioPlay" = "exec playerctl play-pause";
+        "--locked XF86AudioPause" = "exec playerctl play-pause";
+        "--locked XF86AudioPrev" = "exec playerctl previous";
+        "--locked XF86AudioNext" = "exec playerctl next";
+        "--locked XF86AudioStop" = "exec playerctl stop";
+
         # Cycle workspaces; not a sway default.
         "Mod4+Tab" = "workspace next";
         "Mod4+Shift+Tab" = "workspace prev";

@@ -120,8 +120,8 @@ in
             tooltip-format = "{ifname}: {ipaddr}";
           };
 
-          # Nothing binds the volume keys any more (see sway.nix), so this is
-          # the only volume control.
+          # The volume keys are bound too (see sway.nix); this is the readout,
+          # and a click mutes without reaching for the keyboard.
           pulseaudio = {
             format = "{icon} {volume}%";
             format-muted = "󰝟 muted";

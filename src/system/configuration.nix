@@ -167,9 +167,11 @@ in
     package = pkgs.swayfx;
     wrapperFeatures.gtk = true; # needed for GTK apps launched from sway
     xwayland.enable = true;
-    # Trimmed default list; pactl backs waybar's volume module. The terminal,
-    # launcher and other config dependencies live in src/home/sway.nix.
+    # Trimmed default list; pactl backs waybar's volume module and playerctl
+    # backs the transport keys (see keybindings in src/home/sway.nix). The
+    # terminal, launcher and other config dependencies live there too.
     extraPackages = with pkgs; [
+      playerctl
       pulseaudio
       swayidle
       swaylock
