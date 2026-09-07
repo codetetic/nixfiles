@@ -119,32 +119,10 @@
       };
     };
 
-    # Open the sidebar at startup, as VSCode does. `show` rather than the bare
-    # `Neotree` command so the cursor stays in the editor rather than landing
-    # in the tree.
-    #
-    # The guard matters because nvim is defaultEditor here: git hands it commit
-    # messages and rebase todos, and `nvim -d` is the merge tool. A sidebar has
-    # no business in any of those, and VimEnter is late enough that filetype
-    # detection has already run, so the buffer can be identified.
-    autoCmd = [
-      {
-        event = [ "VimEnter" ];
-        desc = "Open the file explorer, as VSCode does";
-        callback.__raw = ''
-          function()
-            local skip = { gitcommit = true, gitrebase = true }
-            if vim.o.diff or skip[vim.bo.filetype] then
-              return
-            end
-            vim.cmd("Neotree show")
-          end
-        '';
-      }
-    ];
-
-    # VSCode's explorer toggle and "focus explorer", plus a leader fallback for
-    # the terminal panel set up further down.
+    # The sidebar starts closed — nvim is defaultEditor here, so it is just as
+    # often opened on a commit message or as `nvim -d` for a merge, where a
+    # file tree is only noise. <C-b> is VSCode's own explorer toggle, so the
+    # reflex to summon it transfers.
     keymaps = [
       {
         mode = "n";

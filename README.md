@@ -171,7 +171,8 @@ Defaults worth knowing: line numbers on, 4-space expandtab, no swapfile, persist
 
 ### File explorer (neo-tree)
 
-Opens on the left at startup — except in `git commit` / `git rebase` buffers and `nvim -d`.
+Closed at startup. `nvim` is `$EDITOR`, so it opens just as often on a commit message or
+as `nvim -d` for a merge, where a file tree is only noise — summon it when it is wanted.
 
 | Key | Action |
 | --- | --- |
@@ -185,6 +186,24 @@ vertical split.
 Dotfiles are shown (this repo is mostly dotfiles), gitignored files and `.git` are not.
 The tree follows the active file and refreshes from OS file watchers, so a `git checkout`
 in another window shows up without pressing `R`.
+
+### Terminal (toggleterm)
+
+VSCode's panel: a fish shell in a 15-line split at the bottom, on the same key.
+
+| Key | Action |
+| --- | --- |
+| ``Ctrl+` `` | Toggle the terminal panel |
+| `<leader>t` | Toggle it (fallback, see below) |
+| `Ctrl+\` `Ctrl+n` | Leave terminal mode (back to normal mode) |
+| `:2ToggleTerm` | A second terminal — any number works |
+
+``Ctrl+` `` only reaches Neovim over the kitty keyboard protocol; ghostty speaks it, a plain
+Linux VT does not, so `<leader>t` is there for the times nvim is not running under ghostty.
+
+It runs `fish` explicitly — the account's shell is still bash and ghostty is what launches
+fish, so `:terminal` would otherwise drop you into a different shell than every other
+window. Toggling back always returns in insert mode.
 
 ### Fuzzy finding (telescope)
 
