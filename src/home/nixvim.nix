@@ -143,7 +143,8 @@
       }
     ];
 
-    # VSCode's explorer toggle and "focus explorer".
+    # VSCode's explorer toggle and "focus explorer", plus a leader fallback for
+    # the terminal panel set up further down.
     keymaps = [
       {
         mode = "n";
@@ -157,7 +158,49 @@
         action = "<cmd>Neotree focus<cr>";
         options.desc = "Focus file explorer";
       }
+      # toggleterm's own <C-`> below only arrives over the kitty keyboard
+      # protocol. ghostty speaks it, the linux VT does not, so keep a plain
+      # ASCII way in for the times nvim is not running under ghostty.
+      {
+        mode = "n";
+        key = "<leader>t";
+        action = "<cmd>ToggleTerm<cr>";
+        options.desc = "Toggle terminal";
+      }
     ];
+
+    # --- Terminal ---
+    # VSCode's panel: a shell at the bottom of the window, on the same toggle
+    # key, rather than dropping the editor for a full-screen :terminal.
+    plugins.toggleterm = {
+      enable = true;
+
+      settings = {
+        # Ctrl+` is VSCode's binding. It is only representable at all because
+        # both ends speak the kitty keyboard protocol (ghostty since 1.0, nvim
+        # since 0.10) — a legacy terminal cannot distinguish it from a bare
+        # backtick, which is what <leader>t above is there for.
+        #
+        # Deliberately *not* toggleterm's own suggested <C-\>: that key is the
+        # prefix of the built-in <C-\><C-n>, the only way out of terminal mode,
+        # and mapping it alone in terminal mode shadows the escape hatch.
+        open_mapping = "[[<C-`>]]";
+
+        direction = "horizontal";
+        size = 15;
+
+        # nvim's :terminal runs $SHELL, and the account's shell is still bash —
+        # fish is reached by ghostty launching it directly (see ghostty.nix),
+        # not by a passwd entry. Name fish here too, so the panel is the same
+        # shell as every other window, aliases and prompt included.
+        shell = "${pkgs.fish}/bin/fish";
+
+        # Come back in insert mode rather than wherever the cursor was left.
+        # Toggling away mid-command and returning to a dead normal-mode cursor
+        # is the one place toggleterm does not behave like VSCode's panel.
+        persist_mode = false;
+      };
+    };
 
     # --- Syntax ---
     # A real parse tree per buffer instead of vim's regex syntax files, which is
