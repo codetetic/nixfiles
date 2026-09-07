@@ -13,7 +13,17 @@
   home.packages = [ pkgs.wl-clipboard ];
 
   programs.nixvim = {
-    nixpkgs.source = inputs.nixpkgs;
+    nixpkgs = {
+      source = inputs.nixpkgs;
+      # Setting `source` makes nixvim import its own nixpkgs rather than reusing
+      # the one home-manager already built, and `nixpkgs.config` from the module
+      # system does not reach that instance — the same trap `pkgsWeekly` has in
+      # flake.nix. Without this, barbar refuses to evaluate: its licence is the
+      # JSON one ("shall be used for Good, not Evil"), which nixpkgs classes as
+      # unfree. Mirrors `nixpkgs.config.allowUnfree` in configuration.nix rather
+      # than introducing a new policy.
+      config.allowUnfree = true;
+    };
 
     defaultEditor = true;
     viAlias = true;
@@ -63,6 +73,13 @@
       expandtab = true;
       autoindent = true;
       termguicolors = true;
+
+      # Routes the built-in `gq` motion through conform, which is the one thing
+      # a format keybinding cannot do: format a *range*. Neovim only installs
+      # its own LSP formatexpr when the buffer's is still at the default, so
+      # setting it here means conform wins even in buffers with a server
+      # attached — which is what the lsp_format fallback below is for.
+      formatexpr = "v:lua.require'conform'.formatexpr()";
     };
 
     plugins.lualine = {
@@ -70,6 +87,68 @@
     };
     plugins.web-devicons = {
       enable = true;
+    };
+
+    # --- Editor tabs ---
+    # `hidden = true` above lets buffers accumulate with no visual trace, so the
+    # only way to know what is open is <leader>fb. VSCode answers that with a
+    # tab bar, and barbar is the closest match: reorderable, clickable, with
+    # diagnostics and git status on the tab itself.
+    #
+    # barbar rather than bufferline because catppuccin ships an integration for
+    # barbar and not for bufferline (CLAUDE.md, "Prefer apps that theme
+    # consistently") — catppuccin 2.0 auto-detects it, so nothing needs adding
+    # to theme.nix.
+    plugins.barbar = {
+      enable = true;
+
+      settings = {
+        # A lone buffer needs no tab bar, and a lone buffer is exactly what nvim
+        # is opened with as $EDITOR — commit messages, rebase todos. Same reason
+        # neo-tree no longer opens at startup.
+        auto_hide = 1;
+
+        # The toggleterm split is a panel, not a file. Without this it takes a
+        # tab of its own and the count stops meaning "files I have open".
+        exclude_ft = [ "toggleterm" ];
+
+        # Shifts the tab bar right by the width of the tree instead of drawing
+        # it underneath — the offset VSCode has between explorer and tabs. The
+        # event is what barbar watches to drop the offset again when the tree
+        # closes.
+        sidebar_filetypes."neo-tree".event = "BufWipeout";
+
+        # VSCode puts an error count on the tab. Warnings too would be noisy on
+        # a narrow tab, and gitsigns' +/~/- markers are on by default already.
+        icons.diagnostics."vim.diagnostic.severity.ERROR".enabled = true;
+      };
+
+      # VSCode's own tab bindings, which all survive the trip: Alt+<n> jumps to
+      # the nth tab, Alt+0 to the last, Ctrl+PageUp/Down cycles, adding Shift
+      # drags the tab instead. Closing is the one that cannot come across —
+      # Ctrl+w is vim's window prefix — so it goes under the leader with the
+      # other buffer commands.
+      keymaps = {
+        previous.key = "<C-PageUp>";
+        next.key = "<C-PageDown>";
+        movePrevious.key = "<C-S-PageUp>";
+        moveNext.key = "<C-S-PageDown>";
+        goTo1.key = "<A-1>";
+        goTo2.key = "<A-2>";
+        goTo3.key = "<A-3>";
+        goTo4.key = "<A-4>";
+        goTo5.key = "<A-5>";
+        goTo6.key = "<A-6>";
+        goTo7.key = "<A-7>";
+        goTo8.key = "<A-8>";
+        goTo9.key = "<A-9>";
+        last.key = "<A-0>";
+        close.key = "<leader>bd";
+        # barbar's own idea, with no VSCode counterpart: label every tab with a
+        # letter and jump by typing it. Worth a binding once there are more
+        # tabs open than Alt+<n> reaches.
+        pick.key = "<leader>bb";
+      };
     };
 
     # --- File explorer ---
@@ -144,6 +223,18 @@
         key = "<leader>t";
         action = "<cmd>ToggleTerm<cr>";
         options.desc = "Toggle terminal";
+      }
+      # VSCode's Shift+Alt+F, which needs no keyboard protocol to arrive — a
+      # terminal sends it as plain ESC-prefixed `F`. Visual mode as well as
+      # normal: conform formats just the selection when called from there.
+      {
+        mode = [
+          "n"
+          "v"
+        ];
+        key = "<A-F>";
+        action = "<cmd>lua require('conform').format({ async = true })<cr>";
+        options.desc = "Format buffer or selection";
       }
     ];
 
@@ -243,6 +334,49 @@
     # without typescript in its node_modules still gets completion and
     # diagnostics.
     lsp.servers.ts_ls.enable = true;
+
+    # --- Formatting ---
+    # On a key, never on save. This repo is committed by hand, so a formatter
+    # that rewrites the buffer on every `:w` turns a stray save into a diff;
+    # `format_on_save` and `format_after_save` are both deliberately unset.
+    #
+    # conform rather than the LSP's own formatting: nixfmt and prettier are not
+    # reachable through nixd or ts_ls, and php_cs_fixer is not phpactor's job
+    # either. lsp_format = "fallback" still hands anything with no formatter
+    # listed below to whichever server is attached.
+    plugins.conform-nvim = {
+      enable = true;
+
+      # Resolves each formatter name below to its nixpkgs package and adds it to
+      # extraPackages, so the list here is the only place they are named.
+      autoInstall.enable = true;
+
+      settings = {
+        default_format_opts.lsp_format = "fallback";
+
+        formatters_by_ft = {
+          # The same formatter `nix fmt` runs through nixfmt-tree, so formatting
+          # from inside the editor and from the shell cannot disagree.
+          nix = [ "nixfmt" ];
+
+          php = [ "php_cs_fixer" ];
+
+          javascript = [ "prettier" ];
+          javascriptreact = [ "prettier" ];
+          typescript = [ "prettier" ];
+          typescriptreact = [ "prettier" ];
+          html = [ "prettier" ];
+          css = [ "prettier" ];
+          json = [ "prettier" ];
+          markdown = [ "prettier" ];
+
+          # Filetypes with nothing else configured: strip trailing whitespace
+          # and no more. Safe everywhere, including the commit messages and
+          # scratch buffers where a real formatter has no business running.
+          "_" = [ "trim_whitespace" ];
+        };
+      };
+    };
 
     # --- Git ---
     # Display only: gutter signs for added/changed/deleted lines and inline

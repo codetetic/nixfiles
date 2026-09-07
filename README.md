@@ -169,6 +169,26 @@ is `$EDITOR`. **Leader is `<Space>`.** Clipboard is the Wayland system clipboard
 Defaults worth knowing: line numbers on, 4-space expandtab, no swapfile, persistent undo
 (undo survives closing the file), mouse enabled in all modes.
 
+### Editor tabs (barbar)
+
+Open buffers get a tab bar, as in VSCode. It hides itself when only one buffer is open —
+which is what `nvim` as `$EDITOR` opens with — and the toggleterm panel is excluded, so the
+count always means "files I have open". Error counts and gitsigns' `+`/`~`/`-` markers show
+on the tab itself, and the bar is offset to the right of the tree rather than drawn under it.
+
+| Key | Action |
+| --- | --- |
+| `Alt+1`…`Alt+9` | Go to tab 1–9 |
+| `Alt+0` | Go to the last tab |
+| `Ctrl+PageUp` / `Ctrl+PageDown` | Previous / next tab |
+| `Ctrl+Shift+PageUp` / `Ctrl+Shift+PageDown` | Move the tab left / right |
+| `<leader>bd` | Close the buffer |
+| `<leader>bb` | Pick a tab by letter |
+
+All of those except the last two are VSCode's own bindings. Closing is the one that cannot
+come across — `Ctrl+w` is vim's window prefix. Tabs are also clickable (left-click to switch,
+middle-click to close), since the mouse is enabled.
+
 ### File explorer (neo-tree)
 
 Closed at startup. `nvim` is `$EDITOR`, so it opens just as often on a commit message or
@@ -237,6 +257,24 @@ History is through telescope:
 | `<leader>gc` | Repository history |
 | `<leader>gf` | History of the current file |
 | `<leader>gs` | Changed files |
+
+### Formatting (conform)
+
+**On a key, never on save.** This repo is committed by hand, so a formatter that rewrites the
+buffer on every `:w` would turn a stray save into a diff.
+
+| Key | Action |
+| --- | --- |
+| `Shift+Alt+F` | Format the buffer (or the selection, from visual mode) |
+| `gq{motion}` | Format a range through the same formatters |
+
+`nix` goes through **nixfmt** — the same formatter `nix fmt` runs via nixfmt-tree, so the
+editor and the shell cannot disagree. `php` through **php-cs-fixer**; JS, TS, JSX, TSX, HTML,
+CSS, JSON and Markdown through **prettier**. Everything else gets trailing whitespace
+stripped and nothing more, then falls back to whatever LSP server is attached.
+
+`:ConformInfo` shows which formatters are available for the current buffer and where the log
+lives.
 
 ### LSP
 
