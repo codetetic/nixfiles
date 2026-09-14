@@ -60,9 +60,15 @@
       # Follows theme.nix rather than repeating the flavour; there is no
       # catppuccin module for nixvim, so it sets its own colorscheme.
       settings.flavour = config.catppuccin.flavor;
-      # No integrations block: catppuccin 2.0 turns neotree and blink_cmp on by
-      # default, so both plugins below are themed without asking. (native_lsp
-      # is gone in 2.0 — LSP highlights come from semantic tokens now.)
+      # catppuccin 2.0 turns neotree and blink_cmp on by default, so neither
+      # needs naming here. (native_lsp is gone in 2.0 — LSP highlights come
+      # from semantic tokens now.) noice and notify are *not* in that default
+      # set, and an unthemed noice is a grey float in the middle of a mocha
+      # buffer, so they are opted in by hand; the defaults stay on around them.
+      settings.integrations = {
+        noice = true;
+        notify = true;
+      };
     };
 
     colorscheme = "catppuccin";
@@ -104,6 +110,48 @@
       enable = true;
     };
     plugins.web-devicons = {
+      enable = true;
+    };
+
+    # Everything neovim still says on the last line of the screen — the
+    # cmdline, messages, the search count, LSP progress — moved into floating
+    # windows. Worth it for the messages alone: one shared line is what turns
+    # any output longer than the window into "press ENTER to continue", and it
+    # is where a warning from an autocmd goes to be missed. The cmdline half
+    # is the same command-palette shape the rest of this config leans on.
+    #
+    # nui.nvim rides along with the package, but nvim-notify does not and the
+    # default views for messages and notifications are its toasts, so it is
+    # enabled below rather than left for :checkhealth to complain about.
+    plugins.noice = {
+      enable = true;
+
+      settings = {
+        presets = {
+          # Cmdline and its completion menu at the top of the screen as one
+          # panel, instead of a popup over the middle of the buffer.
+          command_palette = true;
+
+          # Output too tall for a toast opens in a split that can be scrolled
+          # and closed, rather than being truncated.
+          long_message_to_split = true;
+
+          # Borders on the LSP hover and documentation popups, so they read as
+          # windows rather than bleeding into the buffer under them.
+          lsp_doc_border = true;
+        };
+
+        # blink-cmp already draws signature help while typing (see its
+        # `signature.enabled` below) and noice's is on by default, so leaving
+        # both means two popups on the same trigger character.
+        lsp.signature.enabled = false;
+      };
+    };
+
+    # Backs noice's `notify` views — the toasts messages and vim.notify are
+    # routed to. Configured nowhere else: noice owns the routing, this is only
+    # the renderer, and catppuccin themes it through the integration above.
+    plugins.notify = {
       enable = true;
     };
 
@@ -332,6 +380,17 @@
         json
         nix
         rust
+
+        # Not for editing, for noice: it highlights the cmdline and messages by
+        # parsing them, one grammar per kind of input — vim for `:` commands,
+        # regex for searches, bash for `:!`, lua for `:lua` — and renders LSP
+        # hover and documentation through the two markdown ones.
+        vim
+        regex
+        lua
+        bash
+        markdown
+        markdown_inline
       ];
     };
 

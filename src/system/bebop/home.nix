@@ -24,6 +24,7 @@ in
 
   home.packages = [
     inputs.helium.packages.${system}.default
+    pkgs.krita
 
     pkgs.zoom-us
 
