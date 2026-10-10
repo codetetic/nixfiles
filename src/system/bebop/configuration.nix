@@ -9,6 +9,28 @@ let
   # Not pkgs.system: that alias is deprecated in nixpkgs and warns on every
   # evaluation. Same binding as in home.nix next door.
   inherit (pkgs.stdenv.hostPlatform) system;
+
+  # Proton Experimental plus the RTSP patchset, for VRChat. World video
+  # players go through Media Foundation, and neither stock Proton nor
+  # GE-Proton can open an rtsp:// / rtspt:// source — which is what VRCDN and
+  # most DJ worlds hand out as their low-latency stream, so the screen sits on
+  # "Loading" while everyone else hears the set. Not in nixpkgs; it ships the
+  # same tarball layout as GE-Proton, so this reuses that derivation and swaps
+  # the source. steamDisplayName also replaces the tool's internal name in
+  # compatibilitytool.vdf, which is the key Steam stores the per-game choice
+  # under: pinning it means a version bump here does not unset the tool on
+  # VRChat. Bump version and hash together, from
+  # https://github.com/SpookySkeletons/proton-rtsp/releases
+  proton-rtsp = (pkgs.proton-ge-bin.override { steamDisplayName = "Proton-RTSP"; }).overrideAttrs (
+    finalAttrs: _: {
+      pname = "proton-rtsp-bin";
+      version = "proton-rtsp-11.0-20260609-4";
+      src = pkgs.fetchzip {
+        url = "https://github.com/SpookySkeletons/proton-rtsp/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
+        hash = "sha256-ENLAPkz6PhqBpGibwjnWJE8NEnUnmoM81IuPQB9Ufoc=";
+      };
+    }
+  );
 in
 {
   # Programmes
@@ -37,6 +59,7 @@ in
     extraCompatPackages = with pkgs; [
       proton-ge-bin
       inputs.dw-proton.packages.${system}.default
+      proton-rtsp
     ];
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
