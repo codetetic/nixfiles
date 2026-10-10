@@ -72,7 +72,6 @@ in
 
     pkgsWeekly.zoom-us
 
-    inputs.claude-code.packages.${system}.default
     pkgs.skills
 
     spotifast-update
@@ -84,6 +83,8 @@ in
   programs.ssh.enable = true;
   programs.git.enable = true;
   programs.direnv.enable = true;
+  programs.claude-code.enable = true;
+  programs.claude-code.package = inputs.claude-code.packages.${system}.default;
   programs.nixvim.enable = true;
   # Off for now, while nvim is the editor. src/home/vscodium.nix keeps its
   # settings, and the sway assign for app_id "codium" still points at

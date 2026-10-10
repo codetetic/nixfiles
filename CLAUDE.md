@@ -105,6 +105,56 @@ module. A new module also needs a line in `default.nix`; nothing is auto-discove
 `src/system/bebop/home.nix` also holds anything host- or account-specific: package list, keychain
 keys, mime associations, lutris/proton.
 
+### Claude Code: MCP servers and skills
+
+Claude Code is installed through home-manager's `programs.claude-code` module: the toggle and the
+package (still `inputs.claude-code`) are in `src/system/bebop/home.nix`, the settings in
+`src/home/claude-code.nix`. Packages that are in neither nixpkgs nor a flake input live in
+`src/pkgs/` and are pulled in with `pkgs.callPackage`; `ripwire.nix` is the one there today, and
+updating it means bumping `version` and `hash` by hand.
+
+**MCP servers** are declared under `programs.claude-code.mcpServers` in `src/home/claude-code.nix`:
+
+```nix
+programs.claude-code.mcpServers.ripwire = {
+  command = lib.getExe ripwire;   # store path, so the server does not depend on PATH
+  args = [ "--mcp" ];
+};
+```
+
+home-manager does not write these to `~/.claude.json`. It generates a plugin holding a `.mcp.json`
+and wraps `claude` to pass `--plugin-dir`, so a declared server belongs to that plugin rather than to
+the user config and `claude mcp remove` is not how it goes away — deleting the option is. After
+`nr-switch`, restart Claude Code and check `/mcp`. `claude mcp add` still works for a one-off, but it writes `~/.claude.json`, which nix does
+not own and a rebuild will not reproduce.
+
+An MCP server is **not** covered by the sandbox in `src/system/claude-code.nix`. That policy
+confines Bash commands only; a server is a child of Claude Code itself and runs with the user's
+full access, `secretPaths` included. Its tool calls go through the ordinary permission prompts and
+nothing else, so adding a server is a trust decision in a way that adding a CLI tool is not.
+
+**Skills** come from two places:
+
+- Per-project, in `<repo>/.claude/skills/`, installed by the `skills` CLI (`pkgs.skills`) and
+  pinned in `skills-lock.json`. `nix-best-practices` in this repo is one of these.
+- Per-user, in `~/.claude/skills/`, declared under `programs.claude-code.skills`. Use the attrset
+  form, one entry per skill, pointing at a directory that holds a `SKILL.md`:
+
+  ```nix
+  programs.claude-code.skills.ripwire-mcp = "${ripwire.src}/skills/ripwire-mcp";
+  ```
+
+  Point at `.src` rather than the built package: home-manager inspects the path at evaluation
+  time, and a build output there would force a compile during eval. Do not use the option's
+  single-path form, which replaces the whole of `~/.claude/skills` with one symlink — that
+  directory also holds entries nix does not manage (`synced/`).
+
+ripwire ships 17 skills under `skills/` in its source; none are enabled. Each enabled skill adds
+its description to every session, so add the ones that are wanted rather than the whole set, and
+read a third-party `SKILL.md` before enabling it — it is instructions to the agent. Upstream's
+`skills/install.sh` is not the route here: it symlinks into `~/.claude/skills` imperatively, and
+that directory is read-only from inside the sandbox.
+
 ### Theming
 
 Catppuccin Mocha/mauve is applied in two disconnected places, and both must be edited for a palette

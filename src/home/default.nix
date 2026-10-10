@@ -4,6 +4,7 @@
   imports = [
     ./bash.nix
     ./bluetooth.nix
+    ./claude-code.nix
     ./development.nix
     ./direnv.nix
     ./fastfetch.nix
