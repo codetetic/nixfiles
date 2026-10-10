@@ -37,6 +37,10 @@ waybar modules and the mako bindings (`src/home/waybar.nix`, `src/home/sway.nix`
 
 ## 2 Make yubikey work with lock screen
 
+`security.pam.services.swaylock.u2f.enable = true`, in `src/system/bebop/hardware.nix` next to
+the `login` and `sudo` entries. Those two still use the old name, `u2fAuth`, which was renamed to
+`u2f.enable` and is marked obsolete — rename them in the same edit.
+
 ## Decided against
 
 - **Clipboard history** (`cliphist` + rofi) — not wanted. wl-clipboard stays, as neovim's
@@ -54,6 +58,56 @@ waybar modules and the mako bindings (`src/home/waybar.nix`, `src/home/sway.nix`
 - **`kanshi`** for output profiles — only matters if a second display ever
   appears; `output."DP-2"` is hardcoded in `sway.nix` today.
 - **`wlsunset` / `gammastep`** for night-time colour temperature.
+
+---
+
+# System — things still to add
+
+From a pass over the evaluated config; each value quoted is what the flake evaluates to today.
+Numbered by what is lost if it is left alone.
+
+## 1 ZFS has no snapshots
+
+`services.zfs.autoSnapshot.enable` and `services.sanoid.enable` are both false, so `tank/home`
+has no rollback at all. `services.sanoid` with one dataset entry for `tank/home` is the smallest
+fix; `autoSnapshot` also needs the `com.sun:auto-snapshot` property set on the dataset by hand.
+
+## 2 GC can leave no rollback target
+
+`nix.gc` runs daily with `--delete-older-than 7d`, which removes every older generation after a
+week without a rebuild. `programs.nh` is available on this channel: `programs.nh.clean` with
+`--keep 5 --keep-since 7d` keeps a floor, and replaces `nix.gc` rather than running beside it.
+
+## 3 `nix-direnv` is off
+
+`programs.direnv.nix-direnv.enable` is false, so a `use flake` shell is neither cached nor
+GC-rooted and the daily GC above collects it. `src/home/direnv.nix`.
+
+## 4 The store is never deduplicated
+
+`nix.optimise.automatic` and `nix.settings.auto-optimise-store` are both off. The first is the
+scheduled form and does not slow builds down the way the second does.
+
+## 5 nixvim carries a second nixpkgs
+
+The `nixvim` input has no `inputs.nixpkgs.follows`, so `flake.lock` holds a `nixpkgs_2` node even
+though `nixvim.nix` already sets `nixpkgs.source = inputs.nixpkgs`. Add the follows line and
+re-lock.
+
+---
+
+## Smaller / lower priority
+
+- **Firefox is the one enabled program left unthemed** — `catppuccin.firefox` exists and is off.
+  One `firefox.enable = true` line in `src/home/theme.nix`.
+- **`nix fmt`** — `src/home/fish.nix` and `src/home/fonts.nix` fail `nixfmt --check`.
+- **`EDITOR` is set in four places** — `environment.sessionVariables`, `bash.nix`, `fish.nix` and
+  nixvim's `defaultEditor`. The two shell ones are redundant.
+- **`services.xserver.videoDrivers = [ "amdgpu" ]`** probably does nothing with no X server.
+  `hardware.amdgpu.initrd.enable` (false today) is the option that loads the driver early. Untested
+  — check the boot before dropping the old line.
+- **`home-manager.backupFileExtension`** is unset, so a dotfile that already exists aborts
+  activation instead of being moved aside.
 
 ---
 
