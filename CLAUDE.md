@@ -31,6 +31,29 @@ Formatting is `nix fmt` — `flake.nix` exposes a `formatter` output (`nixfmt-tr
 with the RFC 166 `nixfmt`), so it walks the tree itself and needs no paths. `nixd` is the LSP.
 There are no tests beyond `nix flake check`.
 
+A flake only sees files git knows about: a new file must be `git add`ed before any of the above will
+find it.
+
+### From inside Claude Code
+
+`src/system/claude-code.nix` sandboxes Claude's shell, which changes what works:
+
+- Flake commands fail when run against the repo in place (`.gitmodules ... is locked`, or
+  `'.bash_profile' has an unsupported type`). The sandbox binds `/dev/null` over a set of protected
+  paths in the tree and `~/.cache/nix` is read-only. Evaluate a clean copy instead:
+
+  ```
+  cd "$TMPDIR" && mkdir -p cache nf && git -C ~/Projects/nixfiles archive HEAD | tar -x -C nf
+  cp ~/Projects/nixfiles/<edited file> nf/<same path>      # overlay each uncommitted edit
+  XDG_CACHE_HOME="$TMPDIR/cache" nix eval --impure --raw --expr \
+    "(builtins.getFlake \"$TMPDIR/nf\").nixosConfigurations.bebop.config.system.build.toplevel.drvPath"
+  ```
+
+  `nix flake lock` works there too; copy the resulting `flake.lock` back.
+- `nixfmt --check <file>` and `nix-instantiate --parse <file>` work in place and need no copy.
+- Activation needs sudo, so it is the user's step: finish by naming the alias to run (`nr-switch`).
+- `git commit` is denied. Leave changes in the working tree; the user commits.
+
 ## Architecture
 
 ### Assembly
@@ -58,9 +81,11 @@ Three extra arguments are threaded into every system *and* home module via `spec
   This is the single source of truth for the username, git identity and SSH key; modules read
   `user.email` etc. rather than hardcoding. Adding a host means declaring its own `user` there.
 - `inputs` — for pulling packages straight out of flake inputs, e.g.
-  `inputs.helium.packages.${pkgs.system}.default`.
+  `inputs.helium.packages.${system}.default`, with `system` taken from `pkgs.stdenv.hostPlatform`
+  (`pkgs.system` is deprecated and warns). `claude-code` comes this way too, from
+  `sadjow/claude-code-nix`, which tracks upstream releases far closer than any nixpkgs channel.
 - `pkgsWeekly` — a second nixpkgs instance from the `nixpkgs-weekly` input, for packages that need
-  to be fresher than the chilled 26.05 channel (currently only `claude-code`). It is imported by
+  to be fresher than the chilled 26.05 channel (currently `zoom-us` and `discord`). It is imported by
   hand in `flake.nix`, so `nixpkgs.config` from the module system does *not* apply to it — its
   `allowUnfree` is set at the import site.
 
@@ -73,8 +98,9 @@ together.
 `src/home/default.nix` imports every `src/home/*.nix`; those files contain **settings only**. The
 `enable` toggles for the main programs (git, fish, sway, nixvim, vscodium, waybar, rofi, …) live in
 `src/system/bebop/home.nix`, so that file is the readable inventory of what the user actually runs.
-Smaller helpers that have no counterpart there (mako, yazi, fzf, autotiling) do enable themselves
-inside their own module.
+Background helpers and plumbing with no counterpart there (mako, yazi, fzf, btop, autotiling,
+swaylock/swayidle, swappy, udiskie, blueman-applet, `gtk`, `qt`) enable themselves inside their own
+module. A new module also needs a line in `default.nix`; nothing is auto-discovered.
 
 `src/system/bebop/home.nix` also holds anything host- or account-specific: package list, keychain
 keys, mime associations, lutris/proton.
@@ -90,8 +116,9 @@ change:
   tuigreet login prompt. The palette is repeated there because those are NixOS options, not
   home-manager ones.
 
-nixvim sets its own colorscheme (no catppuccin module exists for it) but reads
-`config.catppuccin.flavor` so it still follows `theme.nix`.
+Programs without a catppuccin module still follow `theme.nix` rather than hardcoding colours:
+nixvim picks its colorscheme from `config.catppuccin.flavor`, and `fastfetch.nix` and
+`screenshot.nix` read hex values out of `config.catppuccin.sources.palette`'s `palette.json`.
 
 `src/home/gtk.nix` is what makes any of the home-manager side reach a GTK app. Outside a desktop
 environment there is no XSETTINGS daemon, so `~/.config/gtk-3.0/settings.ini` is the only channel,
@@ -99,6 +126,9 @@ and home-manager writes it only under `gtk.enable`. Without that module the icon
 opted into in `theme.nix` are inert and thunar renders in stock light Adwaita. It also carries the
 widget theme (`magnetic-catppuccin-gtk`, a maintained third-party port), derived from
 `config.catppuccin.flavor`/`accent` the way `nixvim.nix` derives its colorscheme.
+
+`src/home/qt.nix` is the Qt counterpart of `gtk.nix` (Kvantum, themed by `catppuccin.kvantum`), and
+`src/home/flatpak.nix` carries the theme into flatpak sandboxes.
 
 **Prefer apps that theme consistently.** A visually coherent desktop is a goal of this config, not an
 afterthought — when suggesting or adding a new program, weigh how it themes alongside what it does:
@@ -133,9 +163,10 @@ that are easy to trip over:
 
 ## Conventions
 
-- Comments explain **why**, and are kept when the reason is non-obvious (why a package was swapped,
-  why an option is set here rather than there, what breaks without it). Match that density — this
-  codebase is unusually heavily commented for a Nix config, and that is intentional.
+- Add a comment only when the code is really unclear without it — a trap someone would fall into, or
+  a line that looks wrong but is deliberate. Default to none: a package swap, a new input or an
+  ordinary option needs no explanation. When one is warranted it explains **why**, in a line or two.
+  Existing comments stay; do not strip them, and do not match their density in new code.
 - Host-specific values (disk UUIDs, `hostId`, monitor names like `DP-2`) belong under
   `src/system/<host>/`; anything reusable belongs in the shared module.
 - Commit messages are short, lowercase, imperative-ish (`setup mako`, `remove gnome`, `improve sway config`).

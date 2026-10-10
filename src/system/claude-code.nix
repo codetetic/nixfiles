@@ -23,6 +23,8 @@ let
     "${home}/.pki"
     "${home}/.sigstore"
     "${home}/.mozilla"
+    "${home}/.config/net.imput.helium"
+    "${home}/.cache/net.imput.helium"
     "${home}/.local/share/keyrings"
     "${home}/.claude/.credentials.json"
     "${home}/.npmrc"

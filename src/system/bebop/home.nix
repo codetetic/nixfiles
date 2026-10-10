@@ -26,9 +26,9 @@ in
     inputs.helium.packages.${system}.default
     pkgs.krita
 
-    pkgs.zoom-us
+    pkgsWeekly.zoom-us
 
-    pkgsWeekly.claude-code
+    inputs.claude-code.packages.${system}.default
     pkgs.skills
   ];
 
@@ -47,6 +47,7 @@ in
   programs.imv.enable = true;
   wayland.windowManager.sway.enable = true;
   programs.discord.enable = true;
+  programs.discord.package = pkgsWeekly.discord;
   programs.firefox.enable = true;
   programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
   programs.rofi.enable = true;
