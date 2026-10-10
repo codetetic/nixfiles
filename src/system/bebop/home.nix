@@ -12,6 +12,50 @@ let
   # evaluation; this is what it resolves to. Needed because flake inputs index
   # their packages by system.
   inherit (pkgs.stdenv.hostPlatform) system;
+
+  # Spotifast is not on Flathub and its release bundle is unsigned, so flatpak
+  # verifies nothing when installing it. What upstream signs is checksums.txt
+  # (raw Ed25519); the key below is assets/update-public-key.hex from its repo.
+  spotifast-update = pkgs.writeShellApplication {
+    name = "spotifast-update";
+    runtimeInputs = with pkgs; [
+      curl
+      jq
+      openssl
+      xxd
+      flatpak
+    ];
+    text = ''
+      app=rocks.spotifast.Spotifast
+      key=e44c87b1550484c687947bd927ae333ff431cc7adc6cc33533c628f82016b554
+      releases=https://github.com/crmne/spotifast/releases
+
+      tag=''${1:-$(curl -fsSL https://api.github.com/repos/crmne/spotifast/releases/latest | jq -r .tag_name)}
+      bundle=spotifast-$tag-x86_64.flatpak
+
+      installed=$(flatpak info --user "$app" 2>/dev/null | sed -n 's/^ *Version: //p' || true)
+      if [ "v$installed" = "$tag" ]; then
+        echo "spotifast $tag is already installed"
+        exit 0
+      fi
+
+      dir=$(mktemp -d)
+      trap 'rm -rf "$dir"' EXIT
+      cd "$dir"
+      for file in checksums.txt checksums.txt.sig "$bundle"; do
+        curl -fL --progress-bar -O "$releases/download/$tag/$file"
+      done
+
+      # The prefix is the fixed DER header of an Ed25519 SubjectPublicKeyInfo.
+      echo "302a300506032b6570032100$key" | xxd -r -p \
+        | openssl pkey -pubin -inform DER -out key.pem
+      openssl pkeyutl -verify -pubin -inkey key.pem -rawin \
+        -in checksums.txt -sigfile checksums.txt.sig
+      grep -F "  $bundle" checksums.txt | sha256sum -c -
+
+      flatpak install --user --noninteractive --or-update --bundle "$bundle"
+    '';
+  };
 in
 {
   imports = [
@@ -30,6 +74,8 @@ in
 
     inputs.claude-code.packages.${system}.default
     pkgs.skills
+
+    spotifast-update
   ];
 
   programs.bash.enable = true;
