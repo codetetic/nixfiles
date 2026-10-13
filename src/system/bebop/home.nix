@@ -53,6 +53,10 @@ let
         -in checksums.txt -sigfile checksums.txt.sig
       grep -F "  $bundle" checksums.txt | sha256sum -c -
 
+      # flatpak's icon-cache trigger cp's index.theme out of the store on every
+      # install, so the copy is 0444 and the next run cannot overwrite it.
+      rm -f "''${XDG_DATA_HOME:-$HOME/.local/share}/flatpak/exports/share/icons/hicolor/index.theme"
+
       flatpak install --user --noninteractive --or-update --bundle "$bundle"
     '';
   };
@@ -131,10 +135,6 @@ in
       "image/jxl" = "imv-dir.desktop";
       "image/svg+xml" = "imv-dir.desktop";
     };
-  };
-
-  services.spotifyd = {
-    enable = true;
   };
 
   # k10temp's Tctl, on the CPU's SMBus function — the sensor waybar's
