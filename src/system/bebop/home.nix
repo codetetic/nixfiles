@@ -73,6 +73,9 @@ in
   home.packages = [
     inputs.helium.packages.${system}.default
     pkgs.krita
+    pkgs.vlc
+    pkgs.ffmpeg
+    pkgs.rclone
 
     pkgsWeekly.zoom-us
 
@@ -96,6 +99,7 @@ in
   programs.vscodium.enable = false;
   programs.ghostty.enable = true;
   programs.imv.enable = true;
+  programs.k9s.enable = true;
   wayland.windowManager.sway.enable = true;
   programs.discord.enable = true;
   programs.discord.package = pkgsWeekly.discord;

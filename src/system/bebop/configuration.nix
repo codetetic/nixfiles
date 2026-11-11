@@ -96,5 +96,26 @@ in
     # than in the shared module because the adapter is declared next door in
     # hardware.nix.
     blueman.enable = true;
+
+    # Single-node Kubernetes for learning: this one machine is both the
+    # control plane and the only worker.
+    k3s = {
+      enable = true;
+      role = "server";
+      extraFlags = [
+        # The kubeconfig is root-only by default; this lets kubectl and k9s
+        # run as the user. It is cluster-admin, so only fine on a one-user box.
+        "--write-kubeconfig-mode=0644"
+      ];
+    };
   };
+
+  environment.sessionVariables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+
+  # Pod and service traffic crosses these bridges; without trusting them the
+  # host firewall drops pod-to-pod and DNS traffic.
+  networking.firewall.trustedInterfaces = [
+    "cni0"
+    "flannel.1"
+  ];
 }
