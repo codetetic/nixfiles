@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   user,
   pkgs,
   inputs,
@@ -110,11 +112,13 @@ in
     };
   };
 
-  environment.sessionVariables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+  environment.sessionVariables = lib.mkIf config.services.k3s.enable {
+    KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+  };
 
   # Pod and service traffic crosses these bridges; without trusting them the
   # host firewall drops pod-to-pod and DNS traffic.
-  networking.firewall.trustedInterfaces = [
+  networking.firewall.trustedInterfaces = lib.mkIf config.services.k3s.enable [
     "cni0"
     "flannel.1"
   ];

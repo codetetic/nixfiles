@@ -8,6 +8,10 @@
 {
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
 
+  # ARC defaults to nearly all RAM and the kernel counts it as used, not cache;
+  # it shrinks too slowly under sudden pressure and the OOM killer fires first.
+  boot.kernelParams = [ "zfs.zfs_arc_max=${toString (8 * 1024 * 1024 * 1024)}" ];
+
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
